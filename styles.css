@@ -52,15 +52,16 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 1rem;
-    padding-bottom: 180px;
+    padding: 1rem;
+    padding-bottom: 120px;
+    max-height: calc(100vh - 120px);
 }
 
 .slider-wrapper {
     position: relative;
     width: 100%;
-    max-width: 900px;
-    height: 600px;
+    max-width: 800px;
+    height: 500px;
     perspective: 2000px;
 }
 
@@ -70,6 +71,43 @@ body::after {
     height: 100%;
     perspective: 2000px;
     transform-style: preserve-3d;
+}
+
+/* Book spine/edge visible on the right */
+.slider-container::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(90deg, #fefaf5 0%, #e5dfd0 20%, #d5cfc0 50%, #c5bfb0 80%, #8b6f47 100%);
+    border-radius: 0 8px 8px 0;
+    box-shadow: 
+        inset -2px 0 5px rgba(0, 0, 0, 0.2),
+        3px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Book pages edge lines */
+.slider-container::before {
+    content: '';
+    position: absolute;
+    right: -12px;
+    top: 5px;
+    bottom: 5px;
+    width: 24px;
+    background: repeating-linear-gradient(
+        180deg,
+        transparent,
+        transparent 2px,
+        rgba(139, 111, 71, 0.3) 2px,
+        rgba(139, 111, 71, 0.3) 3px
+    );
+    z-index: 6;
+    pointer-events: none;
+    border-radius: 0 6px 6px 0;
 }
 
 .slides {
@@ -84,7 +122,7 @@ body::after {
     height: 100%;
     background: linear-gradient(135deg, #fefaf5 0%, #f5f1e8 100%);
     border-radius: 20px;
-    padding: 3rem;
+    padding: 2.5rem 2rem;
     box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.4),
         inset -5px 0 15px rgba(0, 0, 0, 0.1),
@@ -209,9 +247,9 @@ body::after {
 }
 
 .slide h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #3d2817;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     text-align: center;
     font-family: Georgia, 'Times New Roman', serif;
     position: relative;
@@ -220,7 +258,7 @@ body::after {
 .slide h2::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
     width: 60px;
@@ -229,27 +267,27 @@ body::after {
 }
 
 .slide p {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: #5d4e37;
     text-align: center;
-    margin-bottom: 2rem;
-    max-width: 600px;
-    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 550px;
+    line-height: 1.6;
     font-family: Georgia, 'Times New Roman', serif;
 }
 
 .links-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.2rem;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
 }
 
 .link-card {
     background: linear-gradient(135deg, #8b6f47 0%, #6b5840 100%);
-    border-radius: 15px;
-    padding: 1.5rem;
+    border-radius: 12px;
+    padding: 1.2rem 1rem;
     text-align: center;
     color: #fefaf5;
     text-decoration: none;
@@ -269,12 +307,12 @@ body::after {
 }
 
 .link-card .icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
 }
 
 .link-card .label {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
 }
 
@@ -339,28 +377,28 @@ body::after {
 
 .page-quote {
     position: absolute;
-    bottom: 2rem;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    max-width: 500px;
+    width: 85%;
+    max-width: 450px;
     text-align: center;
-    padding: 1rem;
+    padding: 0.8rem 1rem;
     border-top: 1px solid rgba(139, 111, 71, 0.3);
     margin-top: auto;
 }
 
 .page-quote-text {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #5d4e37;
     font-style: italic;
-    line-height: 1.5;
-    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
     font-family: Georgia, 'Times New Roman', serif;
 }
 
 .page-quote-author {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: #8b6f47;
     font-weight: 600;
 }
@@ -404,21 +442,18 @@ body::after {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    justify-content: space-between;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-    position: relative;
     overflow: hidden;
-    min-height: 140px;
-    background-image: url('footer-background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    min-height: 100px;
+    background: linear-gradient(135deg, #b8895c 0%, #a07648 50%, #8b6f47 100%);
+    position: relative;
 }
 
+/* Wood texture overlay */
 .footer::before {
     content: '';
     position: absolute;
@@ -426,30 +461,55 @@ body::after {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 3px,
+            rgba(101, 67, 33, 0.1) 3px,
+            rgba(101, 67, 33, 0.1) 6px
+        );
     pointer-events: none;
 }
 
-.quote {
-    color: #ffffff;
-    font-style: italic;
-    font-size: 1rem;
-    max-width: 500px;
-    text-align: center;
-    line-height: 1.6;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+/* Viking image container */
+.viking-container {
+    width: 200px;
+    height: 85px;
     position: relative;
     z-index: 10;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 1rem 1.5rem;
+    flex-shrink: 0;
+}
+
+.viking-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.quote {
+    color: #fefaf5;
+    font-style: italic;
+    font-size: 0.9rem;
+    max-width: 500px;
+    text-align: right;
+    line-height: 1.5;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 10;
+    padding: 0.8rem 1.2rem;
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .quote-author {
     font-weight: 600;
-    color: #e0f0e0;
+    color: #f5ead8;
     margin-top: 0.5rem;
+    font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {
@@ -486,11 +546,19 @@ body::after {
     .footer {
         flex-direction: column;
         gap: 1rem;
-        padding: 1rem;
+        padding: 1.5rem 1rem;
+        align-items: center;
+    }
+
+    .viking-container {
+        width: 200px;
+        height: 90px;
     }
 
     .quote {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        text-align: center;
+        max-width: 90%;
     }
 
     .container {
