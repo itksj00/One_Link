@@ -3,141 +3,957 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Link Hub</title>
-    
-    <!-- External CSS -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <!-- Configuration Files -->
+    <title>개인 링크 허브</title>
     <script src="config.js"></script>
     <script src="quotes.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #2c1810 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cozy background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 50% 20%, rgba(255, 200, 150, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(101, 67, 33, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        /* Warm ambient light */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255, 220, 180, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: linear-gradient(135deg, #f5f1e8 0%, #e5dfd0 100%);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            border: 1px solid #8b6f47;
+        }
+
+        .language-selector .lang-icon {
+            font-size: 1.2rem;
+        }
+
+        .language-selector select {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3d2817;
+            cursor: pointer;
+            padding: 0.25rem;
+            outline: none;
+        }
+
+        .language-selector select:hover {
+            color: #5d4e37;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            padding-bottom: 120px;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            perspective: 1000px;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            perspective: 2000px;
+        }
+
+        .slides {
+            display: flex;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fefaf5 0%, #f5f1e8 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset -5px 0 15px rgba(0, 0, 0, 0.1),
+                inset 5px 0 15px rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        /* Animated page flip effect */
+        .slide.flipping-out {
+            animation: flipOut 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        .slide.flipping-in {
+            animation: flipIn 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        @keyframes flipOut {
+            0% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(-90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(-180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flipIn {
+            0% {
+                transform: perspective(2000px) rotateY(180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Reverse flip for going back */
+        .slide.flipping-out-reverse {
+            animation: flipOutReverse 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        .slide.flipping-in-reverse {
+            animation: flipInReverse 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        @keyframes flipOutReverse {
+            0% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flipInReverse {
+            0% {
+                transform: perspective(2000px) rotateY(-180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(-90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Paper texture */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 119, 101, 0.03) 2px,
+                    rgba(139, 119, 101, 0.03) 4px
+                );
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        /* Book binding shadow */
+        .slide::after {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .slide h2 {
+            font-size: 2.5rem;
+            color: #3d2817;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', serif;
+            position: relative;
+        }
+
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b6f47, transparent);
+        }
+
+        .slide p {
+            font-size: 1.1rem;
+            color: #5d4e37;
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.8;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .page-quote {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid rgba(139, 111, 71, 0.3);
+            margin-top: auto;
+        }
+
+        .page-quote-text {
+            font-size: 0.9rem;
+            color: #5d4e37;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .page-quote-author {
+            font-size: 0.85rem;
+            color: #8b6f47;
+            font-weight: 600;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .link-card {
+            background: linear-gradient(135deg, #8b6f47 0%, #6b5840 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            color: #fefaf5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #9b7f57 0%, #7b6850 100%);
+        }
+
+        .link-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .link-card .label {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #f5f1e8 0%, #e5dfd0 100%);
+            border: 2px solid #8b6f47;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            color: #3d2817;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-arrow:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f1e8 100%);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-arrow.left {
+            left: -25px;
+        }
+
+        .nav-arrow.right {
+            right: -25px;
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(245, 241, 232, 0.5);
+            border: 2px solid #8b6f47;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #8b6f47;
+            transform: scale(1.2);
+            border-color: #fefaf5;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+            background-image: url('footer-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .viking-animation {
+            display: none;
+        }
+
+        .quote {
+            color: #ffffff;
+            font-style: italic;
+            font-size: 1rem;
+            max-width: 500px;
+            text-align: center;
+            line-height: 1.6;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .quote-author {
+            font-weight: 600;
+            color: #e0f0e0;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .slider-wrapper {
+                height: 500px;
+            }
+
+            .slide {
+                padding: 2rem 1.5rem;
+            }
+
+            .slide h2 {
+                font-size: 2rem;
+            }
+
+            .slide p {
+                font-size: 1rem;
+            }
+
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .nav-arrow.left {
+                left: 10px;
+            }
+
+            .nav-arrow.right {
+                right: 10px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .viking-animation {
+                width: 60px;
+                height: 60px;
+            }
+
+            .quote {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding-bottom: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Main Content -->
+    <div class="language-selector">
+        <span class="lang-icon">🌐</span>
+        <select id="languageSelect" onchange="translatePage()">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </div>
+
     <div class="container">
         <div class="slider-wrapper">
             <div class="slider-container">
                 <div class="slides" id="slides">
-                    
-                    <!-- Slide 1: Social Links / Introduction -->
+                    <!-- Slide 1: Connect / Social -->
                     <div class="slide">
-                        <h2>Connect</h2>
-                        <p>Check out my social profiles and get in touch.</p>
+                        <h2 class="translatable" data-i18n="connect-title">소셜 링크 / 소개</h2>
+                        <p class="translatable" data-i18n="connect-desc">다음 링크에서 제 활동을 확인하실 수 있습니다.</p>
                         <div class="links-grid">
                             <a href="#" class="link-card" target="_blank" data-link="section1.linkedin">
                                 <div class="icon">💼</div>
-                                <div class="label">LinkedIn</div>
+                                <div class="label translatable" data-i18n="linkedin">링크드인</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section1.github">
                                 <div class="icon">💻</div>
-                                <div class="label">GitHub</div>
+                                <div class="label translatable" data-i18n="github">깃허브</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section1.twitter">
                                 <div class="icon">🐦</div>
-                                <div class="label">Twitter</div>
+                                <div class="label translatable" data-i18n="twitter">트위터</div>
                             </a>
                             <a href="#" class="link-card" data-link="section1.email">
                                 <div class="icon">✉️</div>
-                                <div class="label">Email</div>
+                                <div class="label translatable" data-i18n="email">이메일</div>
                             </a>
+                        </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page1-text"></div>
+                            <div class="page-quote-author" data-quote="page1-author"></div>
                         </div>
                     </div>
 
-                    <!-- Slide 2: Resume / Career -->
+                    <!-- Slide 2: Resume / CV -->
                     <div class="slide">
-                        <h2>Resume</h2>
-                        <p>My professional background and experience.</p>
+                        <h2 class="translatable" data-i18n="resume-title">이력서 / 경력 소개</h2>
+                        <p class="translatable" data-i18n="resume-desc">제 경력과 걸어온 길에 대해 소개드립니다.</p>
                         <div class="links-grid">
                             <a href="#" class="link-card" target="_blank" data-link="section2.resume">
                                 <div class="icon">📄</div>
-                                <div class="label">View Resume</div>
+                                <div class="label translatable" data-i18n="view-resume">이력서 보기</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section2.experience">
                                 <div class="icon">💼</div>
-                                <div class="label">Experience</div>
+                                <div class="label translatable" data-i18n="experience">경력</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section2.skills">
                                 <div class="icon">🎯</div>
-                                <div class="label">Skills</div>
+                                <div class="label translatable" data-i18n="skills">스킬</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section2.cv">
                                 <div class="icon">⬇️</div>
-                                <div class="label">Download CV</div>
+                                <div class="label translatable" data-i18n="download-cv">CV 다운로드</div>
                             </a>
+                        </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page2-text"></div>
+                            <div class="page-quote-author" data-quote="page2-author"></div>
                         </div>
                     </div>
 
                     <!-- Slide 3: Portfolio / Projects -->
                     <div class="slide">
-                        <h2>Portfolio</h2>
-                        <p>Projects and work I've done.</p>
+                        <h2 class="translatable" data-i18n="portfolio-title">포트폴리오 / 프로젝트</h2>
+                        <p class="translatable" data-i18n="portfolio-desc">제가 진행한 프로젝트와 작업물을 모아두었습니다.<br>추가로 아이디어를 실현한 다양한 프로젝트들도 존재합니다.</p>
                         <div class="links-grid">
                             <a href="#" class="link-card" target="_blank" data-link="section3.portfolio">
                                 <div class="icon">🎨</div>
-                                <div class="label">Portfolio</div>
+                                <div class="label translatable" data-i18n="portfolio">포트폴리오</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section3.project1">
                                 <div class="icon">🚀</div>
-                                <div class="label">Project 1</div>
+                                <div class="label translatable" data-i18n="project1">프로젝트 1</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section3.project2">
                                 <div class="icon">⚡</div>
-                                <div class="label">Project 2</div>
+                                <div class="label translatable" data-i18n="project2">프로젝트 2</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section3.website">
                                 <div class="icon">🌐</div>
-                                <div class="label">Website</div>
+                                <div class="label translatable" data-i18n="website">웹사이트</div>
                             </a>
+                        </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page3-text"></div>
+                            <div class="page-quote-author" data-quote="page3-author"></div>
                         </div>
                     </div>
 
                     <!-- Slide 4: Hobbies / Personal Story -->
                     <div class="slide">
-                        <h2>Personal</h2>
-                        <p>Beyond work, here's what makes me tick.</p>
+                        <h2 class="translatable" data-i18n="personal-title">취미 / 개인 이야기</h2>
+                        <p class="translatable" data-i18n="personal-desc">일상 속 작은 즐거움과 저의 이야기를 담았습니다.<br>취미와 경험을 통해 저를 더 소개합니다.</p>
                         <div class="links-grid">
                             <a href="#" class="link-card" target="_blank" data-link="section4.hobbies">
                                 <div class="icon">🎭</div>
-                                <div class="label">Hobbies</div>
+                                <div class="label translatable" data-i18n="hobbies">취미</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section4.story">
                                 <div class="icon">📖</div>
-                                <div class="label">My Story</div>
+                                <div class="label translatable" data-i18n="my-story">나의 이야기</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section4.travel">
                                 <div class="icon">✈️</div>
-                                <div class="label">Adventures</div>
+                                <div class="label translatable" data-i18n="adventures">모험</div>
                             </a>
                             <a href="#" class="link-card" target="_blank" data-link="section4.photography">
                                 <div class="icon">📷</div>
-                                <div class="label">Photography</div>
+                                <div class="label translatable" data-i18n="photography">사진</div>
                             </a>
+                        </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page4-text"></div>
+                            <div class="page-quote-author" data-quote="page4-author"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Navigation Arrows -->
             <button class="nav-arrow left" onclick="previousSlide()">‹</button>
             <button class="nav-arrow right" onclick="nextSlide()">›</button>
 
-            <!-- Page Indicators -->
             <div class="dots-container" id="dotsContainer"></div>
         </div>
     </div>
 
-    <!-- Footer with Viking Background -->
     <footer class="footer">
-        <div class="viking-container">
-            <img src="footer-background.png" alt="Viking sharpening axe in forest">
-        </div>
         <div class="quote">
-            The highest of all studies is to know yourself.
-            <div class="quote-author">— Plato</div>
+            <span data-i18n="quote">모든 학문 중 가장 높은 것은 자기 자신을 아는 것이다.</span>
+            <div class="quote-author" data-i18n="quote-author">— 플라톤</div>
         </div>
     </footer>
 
-    <!-- External JavaScript -->
-    <script src="script.js"></script>
+    <script>
+        let currentSlide = 0;
+        const slides = document.getElementById('slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+        const dotsContainer = document.getElementById('dotsContainer');
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let currentLang = 'ko'; // 기본 언어를 한국어로 설정
+        let isAnimating = false;
+
+        // Translation data - 여기에 한국어와 독일어 번역을 추가하세요
+        const translations = {
+            en: {
+                // Slide 1
+                'connect-title': 'Connect',
+                'connect-desc': 'Let\'s connect! Find me on various platforms and stay in touch.',
+                'linkedin': 'LinkedIn',
+                'github': 'GitHub',
+                'twitter': 'Twitter',
+                'email': 'Email',
+                
+                // Slide 2
+                'resume-title': 'Resume',
+                'resume-desc': 'Explore my professional background, experience, and skills.',
+                'view-resume': 'View Resume',
+                'experience': 'Experience',
+                'skills': 'Skills',
+                'download-cv': 'Download CV',
+                
+                // Slide 3
+                'portfolio-title': 'Portfolio',
+                'portfolio-desc': 'Check out my projects and creative work.',
+                'portfolio': 'Portfolio',
+                'project1': 'Project 1',
+                'project2': 'Project 2',
+                'website': 'Website',
+                
+                // Slide 4
+                'personal-title': 'Personal',
+                'personal-desc': 'Beyond work, here\'s what makes me tick. Interests, hobbies, and stories.',
+                'hobbies': 'Hobbies',
+                'my-story': 'My Story',
+                'adventures': 'Adventures',
+                'photography': 'Photography',
+                
+                // Footer
+                'quote': 'The highest of all studies is to know yourself.',
+                'quote-author': '— Plato'
+            },
+            ko: {
+                // Slide 1 - 한국어 번역을 여기에 추가하세요
+                'connect-title': '소셜 링크 / 소개',
+                'connect-desc': '다음 링크에서 제 활동을 확인하실 수 있습니다.',
+                'linkedin': '링크드인',
+                'github': '깃허브',
+                'twitter': '트위터',
+                'email': '이메일',
+                
+                // Slide 2
+                'resume-title': '이력서 / 경력 소개',
+                'resume-desc': '제 경력과 걸어온 길에 대해 소개드립니다.',
+                'view-resume': '이력서 보기',
+                'experience': '경력',
+                'skills': '스킬',
+                'download-cv': 'CV 다운로드',
+                
+                // Slide 3
+                'portfolio-title': '포트폴리오 / 프로젝트',
+                'portfolio-desc': '제가 진행한 프로젝트와 작업물을 모아두었습니다.\n추가로 아이디어를 실현한 다양한 프로젝트들도 존재합니다.',
+                'portfolio': '포트폴리오',
+                'project1': '프로젝트 1',
+                'project2': '프로젝트 2',
+                'website': '웹사이트',
+                
+                // Slide 4
+                'personal-title': '취미 / 개인 이야기',
+                'personal-desc': '일상 속 작은 즐거움과 저의 이야기를 담았습니다.\n취미와 경험을 통해 저를 더 소개합니다.',
+                'hobbies': '취미',
+                'my-story': '나의 이야기',
+                'adventures': '모험',
+                'photography': '사진',
+                
+                // Footer
+                'quote': '모든 학문 중 가장 높은 것은 자기 자신을 아는 것이다.',
+                'quote-author': '— 플라톤'
+            },
+            de: {
+                // Slide 1 - 독일어 번역을 여기에 추가하세요
+                'connect-title': 'Verbinden',
+                'connect-desc': 'Lassen Sie uns verbinden! Finden Sie mich auf verschiedenen Plattformen.',
+                'linkedin': 'LinkedIn',
+                'github': 'GitHub',
+                'twitter': 'Twitter',
+                'email': 'E-Mail',
+                
+                // Slide 2
+                'resume-title': 'Lebenslauf',
+                'resume-desc': 'Erkunden Sie meinen beruflichen Hintergrund, Erfahrung und Fähigkeiten.',
+                'view-resume': 'Lebenslauf ansehen',
+                'experience': 'Erfahrung',
+                'skills': 'Fähigkeiten',
+                'download-cv': 'CV herunterladen',
+                
+                // Slide 3
+                'portfolio-title': 'Portfolio',
+                'portfolio-desc': 'Schauen Sie sich meine Projekte und kreativen Arbeiten an.',
+                'portfolio': 'Portfolio',
+                'project1': 'Projekt 1',
+                'project2': 'Projekt 2',
+                'website': 'Webseite',
+                
+                // Slide 4
+                'personal-title': 'Persönlich',
+                'personal-desc': 'Jenseits der Arbeit, hier ist was mich antreibt. Interessen, Hobbys und Geschichten.',
+                'hobbies': 'Hobbys',
+                'my-story': 'Meine Geschichte',
+                'adventures': 'Abenteuer',
+                'photography': 'Fotografie',
+                
+                // Footer
+                'quote': 'Das höchste aller Studien ist, sich selbst zu kennen.',
+                'quote-author': '— Platon'
+            }
+        };
+
+        function translatePage() {
+            const lang = document.getElementById('languageSelect').value;
+            currentLang = lang;
+            
+            // Translate all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update quotes
+            loadQuotes(lang);
+        }
+
+        function loadQuotes(lang) {
+            document.querySelectorAll('[data-quote]').forEach(element => {
+                const key = element.getAttribute('data-quote');
+                const [page, type] = key.split('-');
+                
+                if (quotesConfig[page] && quotesConfig[page][lang]) {
+                    if (type === 'text') {
+                        element.textContent = quotesConfig[page][lang].text;
+                    } else if (type === 'author') {
+                        element.textContent = quotesConfig[page][lang].author;
+                    }
+                }
+            });
+        }
+
+        // Create navigation dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        // Load URLs from config file
+        function loadLinksFromConfig() {
+            document.querySelectorAll('[data-link]').forEach(link => {
+                const path = link.getAttribute('data-link').split('.');
+                const section = path[0];
+                const key = path[1];
+                
+                if (linkConfig[section] && linkConfig[section][key]) {
+                    link.href = linkConfig[section][key];
+                }
+            });
+        }
+
+        // Load links when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLinksFromConfig();
+            loadQuotes(currentLang);
+            updateSlides('forward');
+        });
+
+        function updateSlides(direction = 'forward') {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const allSlides = document.querySelectorAll('.slide');
+            
+            // Remove all animation classes first
+            allSlides.forEach(slide => {
+                slide.classList.remove('flipping-out', 'flipping-in', 'flipping-out-reverse', 'flipping-in-reverse');
+            });
+
+            // Hide all slides
+            allSlides.forEach((slide, index) => {
+                slide.style.display = index === currentSlide ? 'flex' : 'none';
+            });
+
+            // Add flip animation class based on direction
+            if (direction === 'forward') {
+                allSlides[currentSlide].classList.add('flipping-in');
+            } else {
+                allSlides[currentSlide].classList.add('flipping-in-reverse');
+            }
+            
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            // Reset animation flag after animation completes
+            setTimeout(() => {
+                isAnimating = false;
+                allSlides.forEach(slide => {
+                    slide.classList.remove('flipping-out', 'flipping-in', 'flipping-out-reverse', 'flipping-in-reverse');
+                });
+            }, 800);
+        }
+
+        function nextSlide() {
+            if (isAnimating) return;
+            const previousSlide = currentSlide;
+            currentSlide = (currentSlide + 1) % totalSlides;
+            
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides[previousSlide].classList.add('flipping-out');
+            
+            setTimeout(() => {
+                updateSlides('forward');
+            }, 50);
+        }
+
+        function previousSlide() {
+            if (isAnimating) return;
+            const previousSlide = currentSlide;
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides[previousSlide].classList.add('flipping-out-reverse');
+            
+            setTimeout(() => {
+                updateSlides('backward');
+            }, 50);
+        }
+
+        function goToSlide(index) {
+            if (isAnimating || index === currentSlide) return;
+            const direction = index > currentSlide ? 'forward' : 'backward';
+            const previousSlide = currentSlide;
+            currentSlide = index;
+            
+            const allSlides = document.querySelectorAll('.slide');
+            if (direction === 'forward') {
+                allSlides[previousSlide].classList.add('flipping-out');
+            } else {
+                allSlides[previousSlide].classList.add('flipping-out-reverse');
+            }
+            
+            setTimeout(() => {
+                updateSlides(direction);
+            }, 50);
+        }
+
+        // Touch/swipe support for mobile
+        slides.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        slides.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchStartX - touchEndX > 50) {
+                nextSlide();
+            }
+            if (touchEndX - touchStartX > 50) {
+                previousSlide();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                previousSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+    </script>
 </body>
 </html>
