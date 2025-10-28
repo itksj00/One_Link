@@ -15,15 +15,15 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #2c1810 100%);
-            height: 100vh;
+            background: linear-gradient(135deg, #1a1f35 0%, #2c3e50 50%, #1a1f35 100%);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
-        /* Cozy background texture */
+        /* Modern background texture */
         body::before {
             content: '';
             position: fixed;
@@ -32,13 +32,13 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(ellipse at 50% 20%, rgba(255, 200, 150, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 40%),
-                radial-gradient(ellipse at 80% 70%, rgba(101, 67, 33, 0.1) 0%, transparent 40%);
+                radial-gradient(ellipse at 50% 20%, rgba(100, 150, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(66, 133, 244, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(52, 168, 83, 0.05) 0%, transparent 40%);
             pointer-events: none;
         }
 
-        /* Warm ambient light */
+        /* Subtle ambient light */
         body::after {
             content: '';
             position: fixed;
@@ -47,7 +47,7 @@
             transform: translateX(-50%);
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, rgba(255, 220, 180, 0.15) 0%, transparent 60%);
+            background: radial-gradient(ellipse at center, rgba(66, 133, 244, 0.1) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -56,33 +56,34 @@
             top: 20px;
             right: 20px;
             z-index: 100;
-            background: linear-gradient(135deg, #f5f1e8 0%, #e5dfd0 100%);
-            border-radius: 25px;
-            padding: 0.5rem 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             align-items: center;
-            border: 1px solid #8b6f47;
+            border: 1px solid rgba(66, 133, 244, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .language-selector .lang-icon {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .language-selector select {
             border: none;
             background: transparent;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #3d2817;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1a1f35;
             cursor: pointer;
             padding: 0.25rem;
             outline: none;
         }
 
         .language-selector select:hover {
-            color: #5d4e37;
+            color: #4285f4;
         }
 
         .container {
@@ -90,25 +91,164 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
-            width: 100%;
-            height: 100vh;
+            padding: 2rem 1rem;
+            padding-bottom: 120px;
+            position: relative;
+        }
+
+        /* Desk surface effect */
+        .container::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(44, 62, 80, 0.3) 50%,
+                rgba(44, 62, 80, 0.5) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            z-index: 1;
         }
 
         .slider-wrapper {
             position: relative;
             width: 100%;
-            max-width: 100%;
-            height: 100vh;
-            perspective: 1000px;
+            max-width: 900px;
+            height: 600px;
+            perspective: 2000px;
+        }
+
+        /* Book cover - initially closed */
+        .book-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 16px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+            transform-origin: left center;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1.5rem;
+            border: 2px solid rgba(66, 133, 244, 0.3);
+            border-left: 12px solid #4285f4;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.02) 2px,
+                    rgba(255, 255, 255, 0.02) 4px
+                );
+            pointer-events: none;
+        }
+
+        .book-cover:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 25px 70px rgba(0, 0, 0, 0.5),
+                0 8px 20px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .book-cover.opening {
+            animation: openBook 1.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+            pointer-events: none;
+        }
+
+        @keyframes openBook {
+            0% {
+                transform: perspective(2500px) rotateY(0deg);
+                opacity: 1;
+            }
+            30% {
+                transform: perspective(2500px) rotateY(-15deg);
+            }
+            60% {
+                transform: perspective(2500px) rotateY(-90deg);
+            }
+            100% {
+                transform: perspective(2500px) rotateY(-165deg);
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        .book-title {
+            font-size: 2.8rem;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-subtitle {
+            font-size: 1.3rem;
+            color: #8ab4f8;
+            font-weight: 400;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-5px); }
         }
 
         .slider-container {
             position: relative;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: visible;
             perspective: 2000px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slider-container.visible {
+            opacity: 1;
         }
 
         .slides {
@@ -121,103 +261,116 @@
         .slide {
             min-width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #fefaf5 0%, #f5f1e8 100%);
-            border-radius: 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
             padding: 3rem;
-            padding-bottom: 180px;
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.4),
-                inset -5px 0 15px rgba(0, 0, 0, 0.1),
-                inset 5px 0 15px rgba(255, 255, 255, 0.5);
+                0 10px 40px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.06);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
             transform-style: preserve-3d;
             transform-origin: left center;
-            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transition: none;
+            backface-visibility: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Animated page flip effect */
-        .slide.flipping-out {
-            animation: flipOut 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        /* Smooth and elegant page flip effect */
+        .slide.page-flip-forward {
+            animation: smoothFlipForward 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+            z-index: 10;
         }
 
-        .slide.flipping-in {
-            animation: flipIn 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        .slide.page-flip-backward {
+            animation: smoothFlipBackward 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+            z-index: 10;
         }
 
-        @keyframes flipOut {
+        @keyframes smoothFlipForward {
             0% {
-                transform: perspective(2000px) rotateY(0deg);
-                opacity: 1;
+                transform: perspective(2500px) rotateY(0deg);
+                box-shadow: 
+                    0 10px 40px rgba(0, 0, 0, 0.1),
+                    0 2px 8px rgba(0, 0, 0, 0.06);
             }
-            50% {
-                transform: perspective(2000px) rotateY(-90deg);
-                opacity: 0.5;
+            20% {
+                transform: perspective(2500px) rotateY(-15deg);
+                box-shadow: 
+                    -5px 15px 50px rgba(0, 0, 0, 0.15),
+                    -2px 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            40% {
+                transform: perspective(2500px) rotateY(-45deg);
+                box-shadow: 
+                    -10px 20px 60px rgba(0, 0, 0, 0.2),
+                    -5px 10px 25px rgba(0, 0, 0, 0.12);
+            }
+            60% {
+                transform: perspective(2500px) rotateY(-90deg);
+                box-shadow: 
+                    -15px 25px 70px rgba(0, 0, 0, 0.25),
+                    -8px 15px 35px rgba(0, 0, 0, 0.15);
+            }
+            80% {
+                transform: perspective(2500px) rotateY(-135deg);
+                box-shadow: 
+                    -20px 20px 60px rgba(0, 0, 0, 0.2),
+                    -10px 10px 25px rgba(0, 0, 0, 0.12);
             }
             100% {
-                transform: perspective(2000px) rotateY(-180deg);
-                opacity: 0;
+                transform: perspective(2500px) rotateY(-180deg);
+                box-shadow: 
+                    -25px 15px 50px rgba(0, 0, 0, 0.15),
+                    -12px 5px 15px rgba(0, 0, 0, 0.1);
             }
         }
 
-        @keyframes flipIn {
+        @keyframes smoothFlipBackward {
             0% {
-                transform: perspective(2000px) rotateY(180deg);
-                opacity: 0;
+                transform: perspective(2500px) rotateY(0deg);
+                box-shadow: 
+                    0 10px 40px rgba(0, 0, 0, 0.1),
+                    0 2px 8px rgba(0, 0, 0, 0.06);
             }
-            50% {
-                transform: perspective(2000px) rotateY(90deg);
-                opacity: 0.5;
+            20% {
+                transform: perspective(2500px) rotateY(15deg);
+                box-shadow: 
+                    5px 15px 50px rgba(0, 0, 0, 0.15),
+                    2px 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            40% {
+                transform: perspective(2500px) rotateY(45deg);
+                box-shadow: 
+                    10px 20px 60px rgba(0, 0, 0, 0.2),
+                    5px 10px 25px rgba(0, 0, 0, 0.12);
+            }
+            60% {
+                transform: perspective(2500px) rotateY(90deg);
+                box-shadow: 
+                    15px 25px 70px rgba(0, 0, 0, 0.25),
+                    8px 15px 35px rgba(0, 0, 0, 0.15);
+            }
+            80% {
+                transform: perspective(2500px) rotateY(135deg);
+                box-shadow: 
+                    20px 20px 60px rgba(0, 0, 0, 0.2),
+                    10px 10px 25px rgba(0, 0, 0, 0.12);
             }
             100% {
-                transform: perspective(2000px) rotateY(0deg);
-                opacity: 1;
+                transform: perspective(2500px) rotateY(180deg);
+                box-shadow: 
+                    25px 15px 50px rgba(0, 0, 0, 0.15),
+                    12px 5px 15px rgba(0, 0, 0, 0.1);
             }
         }
 
-        /* Reverse flip for going back */
-        .slide.flipping-out-reverse {
-            animation: flipOutReverse 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-        }
-
-        .slide.flipping-in-reverse {
-            animation: flipInReverse 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-        }
-
-        @keyframes flipOutReverse {
-            0% {
-                transform: perspective(2000px) rotateY(0deg);
-                opacity: 1;
-            }
-            50% {
-                transform: perspective(2000px) rotateY(90deg);
-                opacity: 0.5;
-            }
-            100% {
-                transform: perspective(2000px) rotateY(180deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes flipInReverse {
-            0% {
-                transform: perspective(2000px) rotateY(-180deg);
-                opacity: 0;
-            }
-            50% {
-                transform: perspective(2000px) rotateY(-90deg);
-                opacity: 0.5;
-            }
-            100% {
-                transform: perspective(2000px) rotateY(0deg);
-                opacity: 1;
-            }
-        }
-
-        /* Paper texture */
+        /* Subtle grid pattern for business feel */
         .slide::before {
             content: '';
             position: absolute;
@@ -226,36 +379,35 @@
             right: 0;
             bottom: 0;
             background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(139, 119, 101, 0.03) 2px,
-                    rgba(139, 119, 101, 0.03) 4px
-                );
+                linear-gradient(0deg, transparent 95%, rgba(66, 133, 244, 0.03) 95%),
+                linear-gradient(90deg, transparent 95%, rgba(66, 133, 244, 0.03) 95%);
+            background-size: 20px 20px;
             pointer-events: none;
-            border-radius: 20px;
+            border-radius: 16px;
+            opacity: 0.5;
         }
 
-        /* Book binding shadow */
+        /* Modern edge shadow */
         .slide::after {
             content: '';
             position: absolute;
-            left: -3px;
+            left: -2px;
             top: 0;
             bottom: 0;
-            width: 6px;
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
-            border-radius: 20px 0 0 20px;
+            width: 4px;
+            background: linear-gradient(90deg, rgba(66, 133, 244, 0.1) 0%, transparent 100%);
+            border-radius: 16px 0 0 16px;
         }
 
         .slide h2 {
             font-size: 2.5rem;
-            color: #3d2817;
+            color: #1a1f35;
             margin-bottom: 1rem;
             text-align: center;
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             position: relative;
+            font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
         .slide h2::after {
@@ -265,18 +417,20 @@
             left: 50%;
             transform: translateX(-50%);
             width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #8b6f47, transparent);
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4285f4, transparent);
+            border-radius: 2px;
         }
 
         .slide p {
             font-size: 1.1rem;
-            color: #5d4e37;
+            color: #5f6368;
             text-align: center;
             margin-bottom: 2rem;
             max-width: 600px;
-            line-height: 1.8;
-            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
         }
 
         .page-quote {
@@ -288,23 +442,24 @@
             max-width: 500px;
             text-align: center;
             padding: 1rem;
-            border-top: 1px solid rgba(139, 111, 71, 0.3);
+            border-top: 2px solid rgba(66, 133, 244, 0.2);
             margin-top: auto;
         }
 
         .page-quote-text {
             font-size: 0.9rem;
-            color: #5d4e37;
+            color: #5f6368;
             font-style: italic;
             line-height: 1.5;
             margin-bottom: 0.5rem;
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
         }
 
         .page-quote-author {
             font-size: 0.85rem;
-            color: #8b6f47;
-            font-weight: 600;
+            color: #4285f4;
+            font-weight: 500;
         }
 
         .links-grid {
@@ -316,14 +471,14 @@
         }
 
         .link-card {
-            background: linear-gradient(135deg, #8b6f47 0%, #6b5840 100%);
-            border-radius: 15px;
+            background: linear-gradient(135deg, #4285f4 0%, #3367d6 100%);
+            border-radius: 12px;
             padding: 1.5rem;
             text-align: center;
-            color: #fefaf5;
+            color: #ffffff;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -332,9 +487,9 @@
         }
 
         .link-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(135deg, #9b7f57 0%, #7b6850 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.4);
+            background: linear-gradient(135deg, #5a95f5 0%, #4477e8 100%);
         }
 
         .link-card .icon {
@@ -351,26 +506,28 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: linear-gradient(135deg, #f5f1e8 0%, #e5dfd0 100%);
-            border: 2px solid #8b6f47;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(66, 133, 244, 0.2);
             border-radius: 50%;
             width: 50px;
             height: 50px;
             font-size: 1.5rem;
-            color: #3d2817;
+            color: #4285f4;
             cursor: pointer;
             z-index: 10;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .nav-arrow:hover {
-            background: linear-gradient(135deg, #ffffff 0%, #f5f1e8 100%);
+            background: #4285f4;
+            color: #ffffff;
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
         }
 
         .nav-arrow.left {
@@ -388,23 +545,23 @@
             transform: translateX(-50%);
             display: flex;
             gap: 10px;
-            z-index: 60;
         }
 
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: rgba(245, 241, 232, 0.5);
-            border: 2px solid #8b6f47;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(66, 133, 244, 0.3);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .dot.active {
-            background: #8b6f47;
-            transform: scale(1.2);
-            border-color: #fefaf5;
+            background: #4285f4;
+            transform: scale(1.3);
+            border-color: #4285f4;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.5);
         }
 
         .footer {
@@ -417,15 +574,12 @@
             align-items: center;
             justify-content: center;
             gap: 2rem;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
             overflow: hidden;
-            min-height: 140px;
-            background-image: url('footer-background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: 50;
-            pointer-events: none;
+            min-height: 100px;
+            background: linear-gradient(135deg, rgba(26, 31, 53, 0.95) 0%, rgba(44, 62, 80, 0.95) 100%);
+            backdrop-filter: blur(10px);
         }
 
         .footer::before {
@@ -435,7 +589,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(66, 133, 244, 0.1) 50%, 
+                transparent 100%);
             pointer-events: none;
         }
 
@@ -444,36 +601,35 @@
         }
 
         .quote {
-            color: #ffffff;
+            color: #e8eaed;
             font-style: italic;
             font-size: 1rem;
             max-width: 500px;
             text-align: center;
             line-height: 1.6;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             position: relative;
-            z-index: 60;
-            background: rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            background: rgba(66, 133, 244, 0.1);
             padding: 1rem 1.5rem;
-            border-radius: 10px;
+            border-radius: 8px;
             backdrop-filter: blur(5px);
-            pointer-events: auto;
+            border: 1px solid rgba(66, 133, 244, 0.2);
         }
 
         .quote-author {
-            font-weight: 600;
-            color: #e0f0e0;
+            font-weight: 500;
+            color: #8ab4f8;
             margin-top: 0.5rem;
         }
 
         @media (max-width: 768px) {
             .slider-wrapper {
-                height: 100vh;
+                height: 500px;
             }
 
             .slide {
                 padding: 2rem 1.5rem;
-                padding-bottom: 180px;
             }
 
             .slide h2 {
@@ -502,7 +658,6 @@
                 flex-direction: column;
                 gap: 1rem;
                 padding: 1rem;
-                min-height: 120px;
             }
 
             .viking-animation {
@@ -512,6 +667,10 @@
 
             .quote {
                 font-size: 0.85rem;
+            }
+
+            .container {
+                padding-bottom: 180px;
             }
         }
 
@@ -534,7 +693,14 @@
 
     <div class="container">
         <div class="slider-wrapper">
-            <div class="slider-container">
+            <!-- Book Cover -->
+            <div class="book-cover" id="bookCover">
+                <div class="book-title">My Portfolio</div>
+                <div class="book-subtitle">Professional Journey</div>
+                <div class="click-hint">Click to open ↓</div>
+            </div>
+            
+            <div class="slider-container" id="sliderContainer">
                 <div class="slides" id="slides">
                     <!-- Slide 1: Connect / Social -->
                     <div class="slide">
@@ -846,88 +1012,152 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadLinksFromConfig();
             loadQuotes(currentLang);
-            updateSlides('forward');
+            
+            // Book opening animation
+            const bookCover = document.getElementById('bookCover');
+            const sliderContainer = document.getElementById('sliderContainer');
+            
+            // Click to open book
+            bookCover.addEventListener('click', openBook);
+            
+            // Auto-open after 2 seconds
+            setTimeout(() => {
+                if (bookCover && !bookCover.classList.contains('opening')) {
+                    openBook();
+                }
+            }, 2000);
+            
+            function openBook() {
+                bookCover.classList.add('opening');
+                setTimeout(() => {
+                    sliderContainer.classList.add('visible');
+                    showSlide(0);
+                }, 800);
+                
+                setTimeout(() => {
+                    bookCover.style.display = 'none';
+                }, 1500);
+            }
         });
 
-        function updateSlides(direction = 'forward') {
+        function showSlide(index) {
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides.forEach((slide, i) => {
+                slide.classList.remove('page-flip-forward', 'page-flip-backward');
+                if (i === index) {
+                    slide.style.display = 'flex';
+                    slide.style.transform = 'perspective(2500px) rotateY(0deg)';
+                    slide.style.zIndex = '1';
+                } else if (i < index) {
+                    slide.style.display = 'none';
+                    slide.style.transform = 'perspective(2500px) rotateY(-180deg)';
+                } else {
+                    slide.style.display = 'none';
+                    slide.style.transform = 'perspective(2500px) rotateY(0deg)';
+                }
+            });
+            
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
             if (isAnimating) return;
             isAnimating = true;
 
             const allSlides = document.querySelectorAll('.slide');
+            const oldSlide = currentSlide;
+            currentSlide = (currentSlide + 1) % totalSlides;
             
-            // Remove all animation classes first
-            allSlides.forEach(slide => {
-                slide.classList.remove('flipping-out', 'flipping-in', 'flipping-out-reverse', 'flipping-in-reverse');
-            });
-
-            // Hide all slides
-            allSlides.forEach((slide, index) => {
-                slide.style.display = index === currentSlide ? 'flex' : 'none';
-            });
-
-            // Add flip animation class based on direction
-            if (direction === 'forward') {
-                allSlides[currentSlide].classList.add('flipping-in');
-            } else {
-                allSlides[currentSlide].classList.add('flipping-in-reverse');
-            }
+            // Show the current page that will flip
+            allSlides[oldSlide].style.display = 'flex';
+            allSlides[oldSlide].style.zIndex = '10';
+            allSlides[oldSlide].classList.add('page-flip-forward');
+            
+            // Prepare the next page
+            allSlides[currentSlide].style.display = 'flex';
+            allSlides[currentSlide].style.transform = 'perspective(2500px) rotateY(0deg)';
+            allSlides[currentSlide].style.zIndex = '1';
             
             // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
-
-            // Reset animation flag after animation completes
+            
             setTimeout(() => {
+                allSlides[oldSlide].style.display = 'none';
+                allSlides[oldSlide].classList.remove('page-flip-forward');
+                allSlides[oldSlide].style.transform = 'perspective(2500px) rotateY(-180deg)';
                 isAnimating = false;
-                allSlides.forEach(slide => {
-                    slide.classList.remove('flipping-out', 'flipping-in', 'flipping-out-reverse', 'flipping-in-reverse');
-                });
-            }, 800);
-        }
-
-        function nextSlide() {
-            if (isAnimating) return;
-            const previousSlide = currentSlide;
-            currentSlide = (currentSlide + 1) % totalSlides;
-            
-            const allSlides = document.querySelectorAll('.slide');
-            allSlides[previousSlide].classList.add('flipping-out');
-            
-            setTimeout(() => {
-                updateSlides('forward');
-            }, 50);
+            }, 1200);
         }
 
         function previousSlide() {
             if (isAnimating) return;
-            const previousSlide = currentSlide;
+            isAnimating = true;
+
+            const allSlides = document.querySelectorAll('.slide');
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             
-            const allSlides = document.querySelectorAll('.slide');
-            allSlides[previousSlide].classList.add('flipping-out-reverse');
+            // Prepare the page to flip back
+            allSlides[currentSlide].style.display = 'flex';
+            allSlides[currentSlide].style.transform = 'perspective(2500px) rotateY(-180deg)';
+            allSlides[currentSlide].style.zIndex = '10';
             
             setTimeout(() => {
-                updateSlides('backward');
+                allSlides[currentSlide].classList.add('page-flip-backward');
+                allSlides[currentSlide].style.transform = 'perspective(2500px) rotateY(0deg)';
             }, 50);
+            
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+            
+            setTimeout(() => {
+                allSlides[currentSlide].classList.remove('page-flip-backward');
+                // Hide other slides
+                allSlides.forEach((slide, i) => {
+                    if (i !== currentSlide) {
+                        slide.style.display = 'none';
+                    }
+                });
+                isAnimating = false;
+            }, 1250);
         }
 
         function goToSlide(index) {
             if (isAnimating || index === currentSlide) return;
-            const direction = index > currentSlide ? 'forward' : 'backward';
-            const previousSlide = currentSlide;
-            currentSlide = index;
             
-            const allSlides = document.querySelectorAll('.slide');
-            if (direction === 'forward') {
-                allSlides[previousSlide].classList.add('flipping-out');
+            if (index > currentSlide) {
+                // Forward direction
+                const steps = index - currentSlide;
+                let step = 0;
+                
+                const flipNext = () => {
+                    if (step < steps) {
+                        nextSlide();
+                        step++;
+                        setTimeout(flipNext, 1300);
+                    }
+                };
+                flipNext();
             } else {
-                allSlides[previousSlide].classList.add('flipping-out-reverse');
+                // Backward direction
+                const steps = currentSlide - index;
+                let step = 0;
+                
+                const flipPrev = () => {
+                    if (step < steps) {
+                        previousSlide();
+                        step++;
+                        setTimeout(flipPrev, 1300);
+                    }
+                };
+                flipPrev();
             }
-            
-            setTimeout(() => {
-                updateSlides(direction);
-            }, 50);
         }
 
         // Touch/swipe support for mobile
