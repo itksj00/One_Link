@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인 링크 허브</title>
     <script src="config.js"></script>
+    <script src="quotes.js"></script>
     <style>
         * {
             margin: 0;
@@ -14,11 +15,40 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #2c1810 0%, #3d2817 50%, #2c1810 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cozy background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 50% 20%, rgba(255, 200, 150, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(101, 67, 33, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        /* Warm ambient light */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255, 220, 180, 0.15) 0%, transparent 60%);
+            pointer-events: none;
         }
 
         .language-selector {
@@ -26,13 +56,14 @@
             top: 20px;
             right: 20px;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, #f5f1e8 0%, #e5dfd0 100%);
             border-radius: 25px;
             padding: 0.5rem 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             display: flex;
             gap: 0.5rem;
             align-items: center;
+            border: 1px solid #8b6f47;
         }
 
         .language-selector .lang-icon {
@@ -44,14 +75,14 @@
             background: transparent;
             font-size: 1rem;
             font-weight: 600;
-            color: #1e3c72;
+            color: #3d2817;
             cursor: pointer;
             padding: 0.25rem;
             outline: none;
         }
 
         .language-selector select:hover {
-            color: #2a5298;
+            color: #5d4e37;
         }
 
         .container {
@@ -76,42 +107,202 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            perspective: 2000px;
         }
 
         .slides {
             display: flex;
             height: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform-style: preserve-3d;
         }
 
         .slide {
             min-width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, #fefaf5 0%, #f5f1e8 100%);
             border-radius: 20px;
             padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset -5px 0 15px rgba(0, 0, 0, 0.1),
+                inset 5px 0 15px rgba(255, 255, 255, 0.5);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
+            position: relative;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        /* Animated page flip effect */
+        .slide.flipping-out {
+            animation: flipOut 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        .slide.flipping-in {
+            animation: flipIn 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        @keyframes flipOut {
+            0% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(-90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(-180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flipIn {
+            0% {
+                transform: perspective(2000px) rotateY(180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Reverse flip for going back */
+        .slide.flipping-out-reverse {
+            animation: flipOutReverse 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        .slide.flipping-in-reverse {
+            animation: flipInReverse 0.8s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+        }
+
+        @keyframes flipOutReverse {
+            0% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flipInReverse {
+            0% {
+                transform: perspective(2000px) rotateY(-180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: perspective(2000px) rotateY(-90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Paper texture */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 119, 101, 0.03) 2px,
+                    rgba(139, 119, 101, 0.03) 4px
+                );
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        /* Book binding shadow */
+        .slide::after {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+            border-radius: 20px 0 0 20px;
         }
 
         .slide h2 {
             font-size: 2.5rem;
-            color: #333;
+            color: #3d2817;
             margin-bottom: 1rem;
             text-align: center;
+            font-family: Georgia, 'Times New Roman', serif;
+            position: relative;
+        }
+
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b6f47, transparent);
         }
 
         .slide p {
             font-size: 1.1rem;
-            color: #666;
+            color: #5d4e37;
             text-align: center;
             margin-bottom: 2rem;
             max-width: 600px;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .page-quote {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid rgba(139, 111, 71, 0.3);
+            margin-top: auto;
+        }
+
+        .page-quote-text {
+            font-size: 0.9rem;
+            color: #5d4e37;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .page-quote-author {
+            font-size: 0.85rem;
+            color: #8b6f47;
+            font-weight: 600;
         }
 
         .links-grid {
@@ -123,23 +314,25 @@
         }
 
         .link-card {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #8b6f47 0%, #6b5840 100%);
             border-radius: 15px;
             padding: 1.5rem;
             text-align: center;
-            color: white;
+            color: #fefaf5;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .link-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #9b7f57 0%, #7b6850 100%);
         }
 
         .link-card .icon {
@@ -156,24 +349,26 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
+            background: linear-gradient(135deg, #f5f1e8 0%, #e5dfd0 100%);
+            border: 2px solid #8b6f47;
             border-radius: 50%;
             width: 50px;
             height: 50px;
             font-size: 1.5rem;
+            color: #3d2817;
             cursor: pointer;
             z-index: 10;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .nav-arrow:hover {
-            background: white;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f1e8 100%);
             transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         .nav-arrow.left {
@@ -197,14 +392,16 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(245, 241, 232, 0.5);
+            border: 2px solid #8b6f47;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .dot.active {
-            background: white;
+            background: #8b6f47;
             transform: scale(1.2);
+            border-color: #fefaf5;
         }
 
         .footer {
@@ -358,6 +555,10 @@
                                 <div class="label translatable" data-i18n="email">이메일</div>
                             </a>
                         </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page1-text"></div>
+                            <div class="page-quote-author" data-quote="page1-author"></div>
+                        </div>
                     </div>
 
                     <!-- Slide 2: Resume / CV -->
@@ -381,6 +582,10 @@
                                 <div class="icon">⬇️</div>
                                 <div class="label translatable" data-i18n="download-cv">CV 다운로드</div>
                             </a>
+                        </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page2-text"></div>
+                            <div class="page-quote-author" data-quote="page2-author"></div>
                         </div>
                     </div>
 
@@ -406,6 +611,10 @@
                                 <div class="label translatable" data-i18n="website">웹사이트</div>
                             </a>
                         </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page3-text"></div>
+                            <div class="page-quote-author" data-quote="page3-author"></div>
+                        </div>
                     </div>
 
                     <!-- Slide 4: Hobbies / Personal Story -->
@@ -429,6 +638,10 @@
                                 <div class="icon">📷</div>
                                 <div class="label translatable" data-i18n="photography">사진</div>
                             </a>
+                        </div>
+                        <div class="page-quote">
+                            <div class="page-quote-text" data-quote="page4-text"></div>
+                            <div class="page-quote-author" data-quote="page4-author"></div>
                         </div>
                     </div>
                 </div>
@@ -456,6 +669,7 @@
         let touchStartX = 0;
         let touchEndX = 0;
         let currentLang = 'ko'; // 기본 언어를 한국어로 설정
+        let isAnimating = false;
 
         // Translation data - 여기에 한국어와 독일어 번역을 추가하세요
         const translations = {
@@ -583,6 +797,24 @@
                     element.textContent = translations[lang][key];
                 }
             });
+
+            // Update quotes
+            loadQuotes(lang);
+        }
+
+        function loadQuotes(lang) {
+            document.querySelectorAll('[data-quote]').forEach(element => {
+                const key = element.getAttribute('data-quote');
+                const [page, type] = key.split('-');
+                
+                if (quotesConfig[page] && quotesConfig[page][lang]) {
+                    if (type === 'text') {
+                        element.textContent = quotesConfig[page][lang].text;
+                    } else if (type === 'author') {
+                        element.textContent = quotesConfig[page][lang].author;
+                    }
+                }
+            });
         }
 
         // Create navigation dots
@@ -608,30 +840,91 @@
         }
 
         // Load links when page loads
-        window.addEventListener('DOMContentLoaded', loadLinksFromConfig);
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLinksFromConfig();
+            loadQuotes(currentLang);
+            updateSlides('forward');
+        });
 
-        function updateSlides() {
-            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        function updateSlides(direction = 'forward') {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const allSlides = document.querySelectorAll('.slide');
+            
+            // Remove all animation classes first
+            allSlides.forEach(slide => {
+                slide.classList.remove('flipping-out', 'flipping-in', 'flipping-out-reverse', 'flipping-in-reverse');
+            });
+
+            // Hide all slides
+            allSlides.forEach((slide, index) => {
+                slide.style.display = index === currentSlide ? 'flex' : 'none';
+            });
+
+            // Add flip animation class based on direction
+            if (direction === 'forward') {
+                allSlides[currentSlide].classList.add('flipping-in');
+            } else {
+                allSlides[currentSlide].classList.add('flipping-in-reverse');
+            }
             
             // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
+
+            // Reset animation flag after animation completes
+            setTimeout(() => {
+                isAnimating = false;
+                allSlides.forEach(slide => {
+                    slide.classList.remove('flipping-out', 'flipping-in', 'flipping-out-reverse', 'flipping-in-reverse');
+                });
+            }, 800);
         }
 
         function nextSlide() {
+            if (isAnimating) return;
+            const previousSlide = currentSlide;
             currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlides();
+            
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides[previousSlide].classList.add('flipping-out');
+            
+            setTimeout(() => {
+                updateSlides('forward');
+            }, 50);
         }
 
         function previousSlide() {
+            if (isAnimating) return;
+            const previousSlide = currentSlide;
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlides();
+            
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides[previousSlide].classList.add('flipping-out-reverse');
+            
+            setTimeout(() => {
+                updateSlides('backward');
+            }, 50);
         }
 
         function goToSlide(index) {
+            if (isAnimating || index === currentSlide) return;
+            const direction = index > currentSlide ? 'forward' : 'backward';
+            const previousSlide = currentSlide;
             currentSlide = index;
-            updateSlides();
+            
+            const allSlides = document.querySelectorAll('.slide');
+            if (direction === 'forward') {
+                allSlides[previousSlide].classList.add('flipping-out');
+            } else {
+                allSlides[previousSlide].classList.add('flipping-out-reverse');
+            }
+            
+            setTimeout(() => {
+                updateSlides(direction);
+            }, 50);
         }
 
         // Touch/swipe support for mobile
