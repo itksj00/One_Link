@@ -231,13 +231,12 @@
             perspective: 2000px;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0s 0.5s;
+            transition: opacity 0.3s ease 0.6s;
         }
 
         .slider-container.visible {
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.5s ease, visibility 0s 0s;
         }
 
         .slides {
@@ -472,6 +471,53 @@
             box-shadow: 0 2px 8px rgba(166, 137, 103, 0.5);
         }
 
+        /* Intro Section Styles */
+        .slide.intro-slide {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .intro-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .intro-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #5a4d42;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .intro-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #8b7355;
+            font-family: 'Georgia', serif;
+            margin: 0;
+        }
+
+        .intro-tagline {
+            font-size: 1.1rem;
+            color: #6b5d52;
+            font-family: 'Segoe UI', sans-serif;
+            font-style: italic;
+            max-width: 500px;
+            line-height: 1.6;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .intro-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #a68967, transparent);
+            margin: 0.5rem 0;
+        }
+
         .footer {
             position: fixed;
             bottom: 0;
@@ -512,6 +558,18 @@
             .slider-wrapper {
                 max-width: 500px;
                 height: 480px;
+            }
+
+            .intro-name {
+                font-size: 2.2rem;
+            }
+
+            .intro-title {
+                font-size: 1.2rem;
+            }
+
+            .intro-tagline {
+                font-size: 0.95rem;
             }
 
             .slide {
@@ -586,6 +644,16 @@
             
             <div class="slider-container" id="sliderContainer">
                 <div class="slides" id="slides">
+                    <!-- Slide 0: Intro / Welcome -->
+                    <div class="slide intro-slide">
+                        <div class="intro-content">
+                            <h1 class="intro-name translatable" data-i18n="intro-name">Kurt</h1>
+                            <div class="intro-divider"></div>
+                            <h2 class="intro-title translatable" data-i18n="intro-title">IT System Engineer</h2>
+                            <p class="intro-tagline translatable" data-i18n="intro-tagline">Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가</p>
+                        </div>
+                    </div>
+
                     <!-- Slide 1: Connect / Social -->
                     <div class="slide">
                         <h2 class="translatable" data-i18n="connect-title">소셜 링크 / 소개</h2>
@@ -721,6 +789,9 @@
 
         const translations = {
             ko: {
+                'intro-name': 'Kurt',
+                'intro-title': 'IT 시스템 엔지니어',
+                'intro-tagline': 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가',
                 'connect-title': '소셜 링크 / 소개',
                 'connect-desc': '다음 링크에서 제 활동을 확인하실 수 있습니다.',
                 'linkedin': '링크드인',
@@ -747,6 +818,9 @@
                 'photography': '사진'
             },
             en: {
+                'intro-name': 'Kurt',
+                'intro-title': 'IT System Engineer',
+                'intro-tagline': 'Linux lover | System Architecture Design | Cloud Infrastructure Expert',
                 'connect-title': 'Connect / Social',
                 'connect-desc': 'Find me on these platforms and get in touch.',
                 'linkedin': 'LinkedIn',
@@ -773,6 +847,9 @@
                 'photography': 'Photography'
             },
             de: {
+                'intro-name': 'Kurt',
+                'intro-title': 'IT-Systemingenieur',
+                'intro-tagline': 'Linux-Liebhaber | Systemarchitektur-Design | Cloud-Infrastruktur-Experte',
                 'connect-title': 'Verbinden / Sozial',
                 'connect-desc': 'Finden Sie mich auf diesen Plattformen und kontaktieren Sie mich.',
                 'linkedin': 'LinkedIn',
@@ -854,13 +931,13 @@
             if (!bookCover) return;
             bookCover.classList.add('opening');
             
-            // 커버가 열리기 시작하면 슬라이더 보이기
+            // 커버가 열리는 중간에 슬라이더 보이기 (fade in)
             setTimeout(() => {
                 if (sliderContainer) {
                     sliderContainer.classList.add('visible');
                 }
                 showSlide(0);
-            }, 800);
+            }, 600);
             
             setTimeout(() => {
                 if (bookCover) {
