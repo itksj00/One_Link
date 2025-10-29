@@ -254,7 +254,8 @@
             height: 100%;
             background: linear-gradient(135deg, #fffef9 0%, #faf8f0 50%, #f5f3e8 100%);
             border-radius: 12px;
-            padding: 2.5rem 2rem;
+            padding: 2rem 2rem;
+            padding-top: 2.5rem;
             padding-right: 3rem;
             box-shadow: 
                 0 8px 30px rgba(74, 63, 53, 0.15),
@@ -541,9 +542,10 @@
         }
 
         .slide h2 {
-            font-size: 2rem;
+            font-size: 1.6rem;
             color: #5a4d42;
             margin-bottom: 0.8rem;
+            margin-top: 0;
             text-align: center;
             font-family: 'Georgia', serif;
             position: relative;
@@ -554,10 +556,10 @@
         .slide h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 50px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #a68967, transparent);
             border-radius: 2px;
@@ -682,19 +684,21 @@
 
         /* Intro Section Styles */
         .slide.intro-slide {
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
+            padding-top: 3rem;
         }
 
         .intro-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .intro-name {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: #5a4d42;
             font-family: 'Georgia', serif;
@@ -703,7 +707,7 @@
         }
 
         .intro-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 500;
             color: #8b7355;
             font-family: 'Georgia', serif;
@@ -711,7 +715,7 @@
         }
 
         .intro-tagline {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #6b5d52;
             font-family: 'Segoe UI', sans-serif;
             font-style: italic;
@@ -721,10 +725,10 @@
         }
 
         .intro-divider {
-            width: 80px;
+            width: 60px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #a68967, transparent);
-            margin: 0.5rem 0;
+            margin: 0.3rem 0;
         }
 
         .footer {
@@ -872,7 +876,7 @@
             <!-- Book Cover -->
             <div class="book-cover" id="bookCover">
                 <div class="book-title">Kurt</div>
-                <div class="book-subtitle">Professional Portfolio</div>
+                <div class="book-subtitle">IT System Engineer</div>
             </div>
             
             <div class="slider-container" id="sliderContainer">
