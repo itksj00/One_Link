@@ -230,7 +230,7 @@
             height: 100%;
             overflow: visible;
             perspective: 2000px;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.8s ease;
         }
 
@@ -475,17 +475,17 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1rem;
+            padding: 0;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
+            justify-content: center;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
             overflow: hidden;
-            min-height: 70px;
-            background: linear-gradient(135deg, rgba(62, 39, 35, 0.98) 0%, rgba(78, 52, 46, 0.98) 100%);
-            backdrop-filter: blur(10px);
+            height: 100px;
+            background-image: url('footer-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .footer::before {
@@ -496,65 +496,14 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(141, 110, 99, 0.15) 50%, 
-                transparent 100%);
+                rgba(0, 0, 0, 0.1) 0%, 
+                transparent 50%, 
+                rgba(0, 0, 0, 0.1) 100%);
             pointer-events: none;
-        }
-
-        .viking-container {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            overflow: hidden;
-            background: rgba(93, 64, 55, 0.3);
-            border: 1px solid rgba(141, 110, 99, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .viking-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
         }
 
         .viking-animation {
             display: flex;
-        }
-
-        .quote {
-            color: #efebe9;
-            font-style: italic;
-            font-size: 0.9rem;
-            max-width: 500px;
-            text-align: center;
-            line-height: 1.5;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            position: relative;
-            z-index: 10;
-            background: rgba(141, 110, 99, 0.15);
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(141, 110, 99, 0.25);
-            flex-grow: 1;
-            margin: 0 1rem;
-        }
-
-        .footer-spacer {
-            width: 60px;
-            flex-shrink: 0;
-        }
-
-        .quote-author {
-            font-weight: 500;
-            color: #d7ccc8;
-            margin-top: 0.5rem;
         }
 
         @media (max-width: 768px) {
@@ -589,32 +538,12 @@
                 right: 10px;
             }
 
-            .viking-container {
-                width: 50px;
-                height: 50px;
-            }
-
-            .footer-spacer {
-                width: 50px;
-            }
-
             .footer {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            .viking-animation {
-                width: 60px;
-                height: 60px;
-            }
-
-            .quote {
-                font-size: 0.85rem;
+                height: 80px;
             }
 
             .container {
-                padding-bottom: 140px;
+                padding-bottom: 100px;
             }
         }
 
@@ -777,14 +706,6 @@
     </div>
 
     <footer class="footer">
-        <div class="viking-container">
-            <img src="viking-icon.png" alt="Viking" class="viking-animation">
-        </div>
-        <div class="quote">
-            <div>"The journey of a thousand miles begins with a single step."</div>
-            <div class="quote-author">— Lao Tzu</div>
-        </div>
-        <div class="footer-spacer"></div>
     </footer>
 
     <script>
@@ -930,12 +851,12 @@
         function openBook() {
             if (!bookCover) return;
             bookCover.classList.add('opening');
-            setTimeout(() => {
-                if (sliderContainer) {
-                    sliderContainer.classList.add('visible');
-                }
-                showSlide(0);
-            }, 1000);
+            
+            // 슬라이더를 즉시 보이게 설정
+            if (sliderContainer) {
+                sliderContainer.style.opacity = '1';
+            }
+            showSlide(0);
             
             setTimeout(() => {
                 if (bookCover) {
