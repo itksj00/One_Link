@@ -229,12 +229,15 @@
             height: 100%;
             overflow: visible;
             perspective: 2000px;
-            opacity: 1;
-            transition: opacity 0.8s ease;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0s 0.5s;
         }
 
         .slider-container.visible {
             opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0s 0s;
         }
 
         .slides {
@@ -851,11 +854,13 @@
             if (!bookCover) return;
             bookCover.classList.add('opening');
             
-            // 슬라이더를 즉시 보이게 설정
-            if (sliderContainer) {
-                sliderContainer.style.opacity = '1';
-            }
-            showSlide(0);
+            // 커버가 열리기 시작하면 슬라이더 보이기
+            setTimeout(() => {
+                if (sliderContainer) {
+                    sliderContainer.classList.add('visible');
+                }
+                showSlide(0);
+            }, 800);
             
             setTimeout(() => {
                 if (bookCover) {
