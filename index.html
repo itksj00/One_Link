@@ -14,8 +14,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1f35 0%, #2c3e50 50%, #1a1f35 100%);
+            font-family: 'Segoe UI', 'Georgia', serif;
+            background: linear-gradient(135deg, #3e2723 0%, #5d4037 50%, #4e342e 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* Modern background texture */
+        /* Warm texture overlay */
         body::before {
             content: '';
             position: fixed;
@@ -32,13 +32,13 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(ellipse at 50% 20%, rgba(100, 150, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 20% 80%, rgba(66, 133, 244, 0.05) 0%, transparent 40%),
-                radial-gradient(ellipse at 80% 70%, rgba(52, 168, 83, 0.05) 0%, transparent 40%);
+                radial-gradient(ellipse at 50% 20%, rgba(141, 110, 99, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(121, 85, 72, 0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(93, 64, 55, 0.08) 0%, transparent 40%);
             pointer-events: none;
         }
 
-        /* Subtle ambient light */
+        /* Subtle warm light */
         body::after {
             content: '';
             position: fixed;
@@ -47,7 +47,7 @@
             transform: translateX(-50%);
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, rgba(66, 133, 244, 0.1) 0%, transparent 60%);
+            background: radial-gradient(ellipse at center, rgba(161, 136, 127, 0.08) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -56,14 +56,14 @@
             top: 20px;
             right: 20px;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 248, 240, 0.98);
             border-radius: 30px;
             padding: 0.6rem 1.2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 20px rgba(62, 39, 35, 0.25);
             display: flex;
             gap: 0.6rem;
             align-items: center;
-            border: 1px solid rgba(66, 133, 244, 0.2);
+            border: 1px solid rgba(141, 110, 99, 0.3);
             backdrop-filter: blur(10px);
         }
 
@@ -76,14 +76,14 @@
             background: transparent;
             font-size: 0.95rem;
             font-weight: 500;
-            color: #1a1f35;
+            color: #4e342e;
             cursor: pointer;
             padding: 0.25rem;
             outline: none;
         }
 
         .language-selector select:hover {
-            color: #4285f4;
+            color: #8d6e63;
         }
 
         .container {
@@ -96,7 +96,7 @@
             position: relative;
         }
 
-        /* Desk surface effect */
+        /* Wooden desk surface effect */
         .container::before {
             content: '';
             position: absolute;
@@ -106,8 +106,8 @@
             height: 300px;
             background: linear-gradient(180deg, 
                 transparent 0%, 
-                rgba(44, 62, 80, 0.3) 50%,
-                rgba(44, 62, 80, 0.5) 100%);
+                rgba(62, 39, 35, 0.3) 50%,
+                rgba(62, 39, 35, 0.5) 100%);
             pointer-events: none;
             z-index: 0;
         }
@@ -115,13 +115,9 @@
         .slider-wrapper {
             position: relative;
             z-index: 1;
-        }
-
-        .slider-wrapper {
-            position: relative;
             width: 100%;
-            max-width: 900px;
-            height: 600px;
+            max-width: 700px;
+            height: 550px;
             perspective: 2000px;
         }
 
@@ -132,13 +128,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: linear-gradient(135deg, #6d4c41 0%, #5d4037 50%, #4e342e 100%);
             border-radius: 16px;
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.4),
-                0 5px 15px rgba(0, 0, 0, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 5px 15px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
             transform-origin: left center;
             z-index: 100;
             display: flex;
@@ -146,8 +142,8 @@
             justify-content: center;
             flex-direction: column;
             gap: 1.5rem;
-            border: 2px solid rgba(66, 133, 244, 0.3);
-            border-left: 12px solid #4285f4;
+            border: 2px solid rgba(141, 110, 99, 0.4);
+            border-left: 12px solid #8d6e63;
             position: relative;
             overflow: hidden;
         }
@@ -170,8 +166,22 @@
             pointer-events: none;
         }
 
+        /* Leather texture effect */
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 30% 40%, rgba(121, 85, 72, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(93, 64, 55, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
         .book-cover.opening {
-            animation: openBook 1.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+            animation: openBook 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
             pointer-events: none;
         }
 
@@ -180,14 +190,14 @@
                 transform: perspective(2500px) rotateY(0deg);
                 opacity: 1;
             }
-            30% {
+            35% {
                 transform: perspective(2500px) rotateY(-15deg);
             }
-            60% {
-                transform: perspective(2500px) rotateY(-90deg);
+            65% {
+                transform: perspective(2500px) rotateY(-100deg);
             }
             100% {
-                transform: perspective(2500px) rotateY(-165deg);
+                transform: perspective(2500px) rotateY(-180deg);
                 opacity: 0;
                 pointer-events: none;
             }
@@ -195,21 +205,23 @@
 
         .book-title {
             font-size: 2.8rem;
-            color: #ffffff;
+            color: #fff8f0;
             font-weight: 600;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
             position: relative;
             z-index: 1;
+            font-family: 'Georgia', serif;
         }
 
         .book-subtitle {
             font-size: 1.3rem;
-            color: #8ab4f8;
+            color: #d7ccc8;
             font-weight: 400;
-            opacity: 0.9;
+            opacity: 0.95;
             position: relative;
             z-index: 1;
+            letter-spacing: 0.5px;
         }
 
         .slider-container {
@@ -219,7 +231,7 @@
             overflow: visible;
             perspective: 2000px;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
         }
 
         .slider-container.visible {
@@ -236,12 +248,12 @@
         .slide {
             min-width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            background: linear-gradient(135deg, #fff8f0 0%, #faf4ed 50%, #f5ebe0 100%);
             border-radius: 16px;
-            padding: 3rem;
+            padding: 2.5rem;
             box-shadow: 
-                0 10px 40px rgba(0, 0, 0, 0.1),
-                0 2px 8px rgba(0, 0, 0, 0.06);
+                0 10px 40px rgba(62, 39, 35, 0.2),
+                0 2px 8px rgba(62, 39, 35, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -253,17 +265,17 @@
             transform-origin: left center;
             transition: none;
             backface-visibility: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(141, 110, 99, 0.15);
         }
 
-        /* Smooth and elegant page flip effect */
+        /* Ultra smooth page flip effect */
         .slide.page-flip-forward {
-            animation: smoothFlipForward 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+            animation: smoothFlipForward 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
             z-index: 10;
         }
 
         .slide.page-flip-backward {
-            animation: smoothFlipBackward 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+            animation: smoothFlipBackward 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
             z-index: 10;
         }
 
@@ -271,81 +283,93 @@
             0% {
                 transform: perspective(2500px) rotateY(0deg);
                 box-shadow: 
-                    0 10px 40px rgba(0, 0, 0, 0.1),
-                    0 2px 8px rgba(0, 0, 0, 0.06);
+                    0 10px 40px rgba(62, 39, 35, 0.2),
+                    0 2px 8px rgba(62, 39, 35, 0.15);
             }
-            20% {
-                transform: perspective(2500px) rotateY(-15deg);
+            15% {
+                transform: perspective(2500px) rotateY(-8deg);
                 box-shadow: 
-                    -5px 15px 50px rgba(0, 0, 0, 0.15),
-                    -2px 5px 15px rgba(0, 0, 0, 0.1);
+                    -5px 15px 50px rgba(62, 39, 35, 0.25),
+                    -2px 5px 15px rgba(62, 39, 35, 0.18);
             }
-            40% {
-                transform: perspective(2500px) rotateY(-45deg);
+            30% {
+                transform: perspective(2500px) rotateY(-25deg);
                 box-shadow: 
-                    -10px 20px 60px rgba(0, 0, 0, 0.2),
-                    -5px 10px 25px rgba(0, 0, 0, 0.12);
+                    -8px 18px 55px rgba(62, 39, 35, 0.28),
+                    -4px 8px 20px rgba(62, 39, 35, 0.2);
             }
-            60% {
+            50% {
                 transform: perspective(2500px) rotateY(-90deg);
                 box-shadow: 
-                    -15px 25px 70px rgba(0, 0, 0, 0.25),
-                    -8px 15px 35px rgba(0, 0, 0, 0.15);
+                    -15px 25px 70px rgba(62, 39, 35, 0.35),
+                    -8px 15px 35px rgba(62, 39, 35, 0.25);
             }
-            80% {
-                transform: perspective(2500px) rotateY(-135deg);
+            70% {
+                transform: perspective(2500px) rotateY(-155deg);
                 box-shadow: 
-                    -20px 20px 60px rgba(0, 0, 0, 0.2),
-                    -10px 10px 25px rgba(0, 0, 0, 0.12);
+                    -18px 20px 60px rgba(62, 39, 35, 0.3),
+                    -10px 10px 25px rgba(62, 39, 35, 0.2);
+            }
+            85% {
+                transform: perspective(2500px) rotateY(-172deg);
+                box-shadow: 
+                    -20px 15px 50px rgba(62, 39, 35, 0.25),
+                    -12px 5px 15px rgba(62, 39, 35, 0.18);
             }
             100% {
                 transform: perspective(2500px) rotateY(-180deg);
                 box-shadow: 
-                    -25px 15px 50px rgba(0, 0, 0, 0.15),
-                    -12px 5px 15px rgba(0, 0, 0, 0.1);
+                    -22px 12px 45px rgba(62, 39, 35, 0.2),
+                    -12px 4px 12px rgba(62, 39, 35, 0.15);
             }
         }
 
         @keyframes smoothFlipBackward {
             0% {
-                transform: perspective(2500px) rotateY(0deg);
+                transform: perspective(2500px) rotateY(-180deg);
                 box-shadow: 
-                    0 10px 40px rgba(0, 0, 0, 0.1),
-                    0 2px 8px rgba(0, 0, 0, 0.06);
+                    -22px 12px 45px rgba(62, 39, 35, 0.2),
+                    -12px 4px 12px rgba(62, 39, 35, 0.15);
             }
-            20% {
-                transform: perspective(2500px) rotateY(15deg);
+            15% {
+                transform: perspective(2500px) rotateY(-172deg);
                 box-shadow: 
-                    5px 15px 50px rgba(0, 0, 0, 0.15),
-                    2px 5px 15px rgba(0, 0, 0, 0.1);
+                    -20px 15px 50px rgba(62, 39, 35, 0.25),
+                    -12px 5px 15px rgba(62, 39, 35, 0.18);
             }
-            40% {
-                transform: perspective(2500px) rotateY(45deg);
+            30% {
+                transform: perspective(2500px) rotateY(-155deg);
                 box-shadow: 
-                    10px 20px 60px rgba(0, 0, 0, 0.2),
-                    5px 10px 25px rgba(0, 0, 0, 0.12);
+                    -18px 20px 60px rgba(62, 39, 35, 0.3),
+                    -10px 10px 25px rgba(62, 39, 35, 0.2);
             }
-            60% {
-                transform: perspective(2500px) rotateY(90deg);
+            50% {
+                transform: perspective(2500px) rotateY(-90deg);
                 box-shadow: 
-                    15px 25px 70px rgba(0, 0, 0, 0.25),
-                    8px 15px 35px rgba(0, 0, 0, 0.15);
+                    -15px 25px 70px rgba(62, 39, 35, 0.35),
+                    -8px 15px 35px rgba(62, 39, 35, 0.25);
             }
-            80% {
-                transform: perspective(2500px) rotateY(135deg);
+            70% {
+                transform: perspective(2500px) rotateY(-25deg);
                 box-shadow: 
-                    20px 20px 60px rgba(0, 0, 0, 0.2),
-                    10px 10px 25px rgba(0, 0, 0, 0.12);
+                    -8px 18px 55px rgba(62, 39, 35, 0.28),
+                    -4px 8px 20px rgba(62, 39, 35, 0.2);
+            }
+            85% {
+                transform: perspective(2500px) rotateY(-8deg);
+                box-shadow: 
+                    -5px 15px 50px rgba(62, 39, 35, 0.25),
+                    -2px 5px 15px rgba(62, 39, 35, 0.18);
             }
             100% {
-                transform: perspective(2500px) rotateY(180deg);
+                transform: perspective(2500px) rotateY(0deg);
                 box-shadow: 
-                    25px 15px 50px rgba(0, 0, 0, 0.15),
-                    12px 5px 15px rgba(0, 0, 0, 0.1);
+                    0 10px 40px rgba(62, 39, 35, 0.2),
+                    0 2px 8px rgba(62, 39, 35, 0.15);
             }
         }
 
-        /* Subtle grid pattern for business feel */
+        /* Paper texture */
         .slide::before {
             content: '';
             position: absolute;
@@ -354,15 +378,15 @@
             right: 0;
             bottom: 0;
             background: 
-                linear-gradient(0deg, transparent 95%, rgba(66, 133, 244, 0.03) 95%),
-                linear-gradient(90deg, transparent 95%, rgba(66, 133, 244, 0.03) 95%);
-            background-size: 20px 20px;
+                linear-gradient(0deg, transparent 98%, rgba(141, 110, 99, 0.04) 98%),
+                linear-gradient(90deg, transparent 98%, rgba(141, 110, 99, 0.04) 98%);
+            background-size: 25px 25px;
             pointer-events: none;
             border-radius: 16px;
-            opacity: 0.5;
+            opacity: 0.6;
         }
 
-        /* Modern edge shadow */
+        /* Page edge shadow */
         .slide::after {
             content: '';
             position: absolute;
@@ -370,19 +394,19 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(90deg, rgba(66, 133, 244, 0.1) 0%, transparent 100%);
+            background: linear-gradient(90deg, rgba(141, 110, 99, 0.15) 0%, transparent 100%);
             border-radius: 16px 0 0 16px;
         }
 
         .slide h2 {
-            font-size: 2.5rem;
-            color: #1a1f35;
+            font-size: 2.2rem;
+            color: #4e342e;
             margin-bottom: 1rem;
             text-align: center;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Georgia', serif;
             position: relative;
             font-weight: 600;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
         .slide h2::after {
@@ -393,67 +417,67 @@
             transform: translateX(-50%);
             width: 60px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, #4285f4, transparent);
+            background: linear-gradient(90deg, transparent, #8d6e63, transparent);
             border-radius: 2px;
         }
 
         .slide p {
-            font-size: 1.1rem;
-            color: #5f6368;
+            font-size: 1rem;
+            color: #6d4c41;
             text-align: center;
-            margin-bottom: 2rem;
-            max-width: 600px;
+            margin-bottom: 1.8rem;
+            max-width: 500px;
             line-height: 1.6;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             font-weight: 400;
         }
 
         .page-quote {
             position: absolute;
-            bottom: 2rem;
+            bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
             width: 80%;
-            max-width: 500px;
+            max-width: 450px;
             text-align: center;
-            padding: 1rem;
-            border-top: 2px solid rgba(66, 133, 244, 0.2);
+            padding: 0.8rem;
+            border-top: 2px solid rgba(141, 110, 99, 0.25);
             margin-top: auto;
         }
 
         .page-quote-text {
-            font-size: 0.9rem;
-            color: #5f6368;
+            font-size: 0.85rem;
+            color: #6d4c41;
             font-style: italic;
             line-height: 1.5;
-            margin-bottom: 0.5rem;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin-bottom: 0.4rem;
+            font-family: 'Georgia', serif;
             font-weight: 400;
         }
 
         .page-quote-author {
-            font-size: 0.85rem;
-            color: #4285f4;
+            font-size: 0.8rem;
+            color: #8d6e63;
             font-weight: 500;
         }
 
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
         }
 
         .link-card {
-            background: linear-gradient(135deg, #4285f4 0%, #3367d6 100%);
+            background: linear-gradient(135deg, #8d6e63 0%, #795548 100%);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.3rem;
             text-align: center;
-            color: #ffffff;
+            color: #fff8f0;
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+            transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+            box-shadow: 0 3px 10px rgba(62, 39, 35, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -462,18 +486,18 @@
         }
 
         .link-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.4);
-            background: linear-gradient(135deg, #5a95f5 0%, #4477e8 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(62, 39, 35, 0.4);
+            background: linear-gradient(135deg, #a1887f 0%, #8d6e63 100%);
         }
 
         .link-card .icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.4rem;
         }
 
         .link-card .label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
         }
 
@@ -481,41 +505,41 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(66, 133, 244, 0.2);
+            background: rgba(255, 248, 240, 0.98);
+            border: 1px solid rgba(141, 110, 99, 0.3);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             font-size: 1.5rem;
-            color: #4285f4;
+            color: #8d6e63;
             cursor: pointer;
             z-index: 10;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(62, 39, 35, 0.2);
             backdrop-filter: blur(10px);
         }
 
         .nav-arrow:hover {
-            background: #4285f4;
-            color: #ffffff;
+            background: #8d6e63;
+            color: #fff8f0;
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+            box-shadow: 0 6px 20px rgba(62, 39, 35, 0.35);
         }
 
         .nav-arrow.left {
-            left: -25px;
+            left: -24px;
         }
 
         .nav-arrow.right {
-            right: -25px;
+            right: -24px;
         }
 
         .dots-container {
             position: absolute;
-            bottom: 20px;
+            bottom: 18px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -526,17 +550,17 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            border: 2px solid rgba(66, 133, 244, 0.3);
+            background: rgba(255, 248, 240, 0.6);
+            border: 2px solid rgba(141, 110, 99, 0.4);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
         .dot.active {
-            background: #4285f4;
+            background: #8d6e63;
             transform: scale(1.3);
-            border-color: #4285f4;
-            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.5);
+            border-color: #8d6e63;
+            box-shadow: 0 2px 8px rgba(141, 110, 99, 0.6);
         }
 
         .footer {
@@ -549,11 +573,11 @@
             align-items: center;
             justify-content: center;
             gap: 2rem;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
             min-height: 100px;
-            background: linear-gradient(135deg, rgba(26, 31, 53, 0.95) 0%, rgba(44, 62, 80, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(62, 39, 35, 0.98) 0%, rgba(78, 52, 46, 0.98) 100%);
             backdrop-filter: blur(10px);
         }
 
@@ -566,7 +590,7 @@
             bottom: 0;
             background: linear-gradient(90deg, 
                 transparent 0%, 
-                rgba(66, 133, 244, 0.1) 50%, 
+                rgba(141, 110, 99, 0.15) 50%, 
                 transparent 100%);
             pointer-events: none;
         }
@@ -576,31 +600,32 @@
         }
 
         .quote {
-            color: #e8eaed;
+            color: #efebe9;
             font-style: italic;
             font-size: 1rem;
             max-width: 500px;
             text-align: center;
             line-height: 1.6;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
             position: relative;
             z-index: 10;
-            background: rgba(66, 133, 244, 0.1);
+            background: rgba(141, 110, 99, 0.15);
             padding: 1rem 1.5rem;
             border-radius: 8px;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(66, 133, 244, 0.2);
+            border: 1px solid rgba(141, 110, 99, 0.25);
         }
 
         .quote-author {
             font-weight: 500;
-            color: #8ab4f8;
+            color: #d7ccc8;
             margin-top: 0.5rem;
         }
 
         @media (max-width: 768px) {
             .slider-wrapper {
-                height: 500px;
+                max-width: 500px;
+                height: 480px;
             }
 
             .slide {
@@ -608,11 +633,11 @@
             }
 
             .slide h2 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .slide p {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
 
             .nav-arrow {
@@ -650,8 +675,18 @@
         }
 
         @media (max-width: 480px) {
+            .slider-wrapper {
+                max-width: 400px;
+                height: 450px;
+            }
+
             .links-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .link-card {
+                padding: 1.1rem;
             }
         }
     </style>
@@ -799,152 +834,120 @@
 
     <footer class="footer">
         <div class="quote">
-            <span data-i18n="quote">모든 학문 중 가장 높은 것은 자기 자신을 아는 것이다.</span>
-            <div class="quote-author" data-i18n="quote-author">— 플라톤</div>
+            <div>"The journey of a thousand miles begins with a single step."</div>
+            <div class="quote-author">— Lao Tzu</div>
         </div>
     </footer>
 
     <script>
         let currentSlide = 0;
-        let slides;
-        let totalSlides;
-        let dotsContainer;
+        let totalSlides = 0;
+        let slides, dotsContainer;
+        let isAnimating = false;
         let touchStartX = 0;
         let touchEndX = 0;
-        let currentLang = 'ko'; // 기본 언어를 한국어로 설정
-        let isAnimating = false;
+        let currentLang = 'ko';
 
-        // Translation data - 여기에 한국어와 독일어 번역을 추가하세요
         const translations = {
-            en: {
-                // Slide 1
-                'connect-title': 'Connect',
-                'connect-desc': 'Let\'s connect! Find me on various platforms and stay in touch.',
-                'linkedin': 'LinkedIn',
-                'github': 'GitHub',
-                'twitter': 'Twitter',
-                'email': 'Email',
-                
-                // Slide 2
-                'resume-title': 'Resume',
-                'resume-desc': 'Explore my professional background, experience, and skills.',
-                'view-resume': 'View Resume',
-                'experience': 'Experience',
-                'skills': 'Skills',
-                'download-cv': 'Download CV',
-                
-                // Slide 3
-                'portfolio-title': 'Portfolio',
-                'portfolio-desc': 'Check out my projects and creative work.',
-                'portfolio': 'Portfolio',
-                'project1': 'Project 1',
-                'project2': 'Project 2',
-                'website': 'Website',
-                
-                // Slide 4
-                'personal-title': 'Personal',
-                'personal-desc': 'Beyond work, here\'s what makes me tick. Interests, hobbies, and stories.',
-                'hobbies': 'Hobbies',
-                'my-story': 'My Story',
-                'adventures': 'Adventures',
-                'photography': 'Photography',
-                
-                // Footer
-                'quote': 'The highest of all studies is to know yourself.',
-                'quote-author': '— Plato'
-            },
             ko: {
-                // Slide 1 - 한국어 번역을 여기에 추가하세요
                 'connect-title': '소셜 링크 / 소개',
                 'connect-desc': '다음 링크에서 제 활동을 확인하실 수 있습니다.',
                 'linkedin': '링크드인',
                 'github': '깃허브',
                 'twitter': '트위터',
                 'email': '이메일',
-                
-                // Slide 2
                 'resume-title': '이력서 / 경력 소개',
                 'resume-desc': '제 경력과 걸어온 길에 대해 소개드립니다.',
                 'view-resume': '이력서 보기',
                 'experience': '경력',
                 'skills': '스킬',
                 'download-cv': 'CV 다운로드',
-                
-                // Slide 3
                 'portfolio-title': '포트폴리오 / 프로젝트',
                 'portfolio-desc': '제가 진행한 프로젝트와 작업물을 모아두었습니다.\n추가로 아이디어를 실현한 다양한 프로젝트들도 존재합니다.',
                 'portfolio': '포트폴리오',
                 'project1': '프로젝트 1',
                 'project2': '프로젝트 2',
                 'website': '웹사이트',
-                
-                // Slide 4
                 'personal-title': '취미 / 개인 이야기',
                 'personal-desc': '일상 속 작은 즐거움과 저의 이야기를 담았습니다.\n취미와 경험을 통해 저를 더 소개합니다.',
                 'hobbies': '취미',
                 'my-story': '나의 이야기',
                 'adventures': '모험',
-                'photography': '사진',
-                
-                // Footer
-                'quote': '모든 학문 중 가장 높은 것은 자기 자신을 아는 것이다.',
-                'quote-author': '— 플라톤'
+                'photography': '사진'
+            },
+            en: {
+                'connect-title': 'Connect / Social',
+                'connect-desc': 'Find me on these platforms and get in touch.',
+                'linkedin': 'LinkedIn',
+                'github': 'GitHub',
+                'twitter': 'Twitter',
+                'email': 'Email',
+                'resume-title': 'Resume / Career',
+                'resume-desc': 'Explore my professional journey and experience.',
+                'view-resume': 'View Resume',
+                'experience': 'Experience',
+                'skills': 'Skills',
+                'download-cv': 'Download CV',
+                'portfolio-title': 'Portfolio / Projects',
+                'portfolio-desc': 'A collection of my work and projects.\nVarious projects where I brought ideas to life.',
+                'portfolio': 'Portfolio',
+                'project1': 'Project 1',
+                'project2': 'Project 2',
+                'website': 'Website',
+                'personal-title': 'Hobbies / Personal',
+                'personal-desc': 'Small joys in daily life and my personal story.\nGet to know me better through my hobbies and experiences.',
+                'hobbies': 'Hobbies',
+                'my-story': 'My Story',
+                'adventures': 'Adventures',
+                'photography': 'Photography'
             },
             de: {
-                // Slide 1 - 독일어 번역을 여기에 추가하세요
-                'connect-title': 'Verbinden',
-                'connect-desc': 'Lassen Sie uns verbinden! Finden Sie mich auf verschiedenen Plattformen.',
+                'connect-title': 'Verbinden / Sozial',
+                'connect-desc': 'Finden Sie mich auf diesen Plattformen und kontaktieren Sie mich.',
                 'linkedin': 'LinkedIn',
                 'github': 'GitHub',
                 'twitter': 'Twitter',
                 'email': 'E-Mail',
-                
-                // Slide 2
-                'resume-title': 'Lebenslauf',
-                'resume-desc': 'Erkunden Sie meinen beruflichen Hintergrund, Erfahrung und Fähigkeiten.',
+                'resume-title': 'Lebenslauf / Karriere',
+                'resume-desc': 'Erkunden Sie meine berufliche Laufbahn und Erfahrung.',
                 'view-resume': 'Lebenslauf ansehen',
                 'experience': 'Erfahrung',
                 'skills': 'Fähigkeiten',
                 'download-cv': 'CV herunterladen',
-                
-                // Slide 3
-                'portfolio-title': 'Portfolio',
-                'portfolio-desc': 'Schauen Sie sich meine Projekte und kreativen Arbeiten an.',
+                'portfolio-title': 'Portfolio / Projekte',
+                'portfolio-desc': 'Eine Sammlung meiner Arbeiten und Projekte.\nVerschiedene Projekte, bei denen ich Ideen zum Leben erweckt habe.',
                 'portfolio': 'Portfolio',
                 'project1': 'Projekt 1',
                 'project2': 'Projekt 2',
                 'website': 'Webseite',
-                
-                // Slide 4
-                'personal-title': 'Persönlich',
-                'personal-desc': 'Jenseits der Arbeit, hier ist was mich antreibt. Interessen, Hobbys und Geschichten.',
+                'personal-title': 'Hobbys / Persönlich',
+                'personal-desc': 'Kleine Freuden im täglichen Leben und meine persönliche Geschichte.\nLernen Sie mich besser kennen durch meine Hobbys und Erfahrungen.',
                 'hobbies': 'Hobbys',
                 'my-story': 'Meine Geschichte',
                 'adventures': 'Abenteuer',
-                'photography': 'Fotografie',
-                
-                // Footer
-                'quote': 'Das höchste aller Studien ist, sich selbst zu kennen.',
-                'quote-author': '— Platon'
+                'photography': 'Fotografie'
             }
         };
 
         function translatePage() {
             const lang = document.getElementById('languageSelect').value;
             currentLang = lang;
-            
-            // Translate all elements with data-i18n attribute
-            document.querySelectorAll('[data-i18n]').forEach(element => {
+
+            document.querySelectorAll('.translatable').forEach(element => {
                 const key = element.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
+                    if (element.tagName === 'P') {
+                        element.innerHTML = translations[lang][key].replace(/\n/g, '<br>');
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
                 }
             });
 
-            // Update quotes
             loadQuotes(lang);
         }
 
+        // Load quotes from external file
         function loadQuotes(lang) {
             document.querySelectorAll('[data-quote]').forEach(element => {
                 const key = element.getAttribute('data-quote');
@@ -978,33 +981,26 @@
         
         function openBook() {
             if (!bookCover) return;
-            console.log('Opening book...');
             bookCover.classList.add('opening');
             setTimeout(() => {
                 if (sliderContainer) {
                     sliderContainer.classList.add('visible');
-                    console.log('Slider visible');
                 }
                 showSlide(0);
-            }, 800);
+            }, 1000);
             
             setTimeout(() => {
                 if (bookCover) {
                     bookCover.style.display = 'none';
-                    console.log('Book cover hidden');
                 }
-            }, 1500);
+            }, 1800);
         }
         
         window.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM loaded');
-            
             // Initialize DOM elements
             slides = document.getElementById('slides');
             dotsContainer = document.getElementById('dotsContainer');
             totalSlides = document.querySelectorAll('.slide').length;
-            
-            console.log('Total slides:', totalSlides);
             
             // Create navigation dots
             for (let i = 0; i < totalSlides; i++) {
@@ -1022,12 +1018,10 @@
             bookCover = document.getElementById('bookCover');
             sliderContainer = document.getElementById('sliderContainer');
             
-            console.log('Book cover:', bookCover);
-            console.log('Slider container:', sliderContainer);
-            
-            // Open book immediately
-            console.log('Opening book immediately');
-            openBook();
+            // Open book after 2 seconds automatically
+            setTimeout(() => {
+                openBook();
+            }, 2000);
             
             // Touch/swipe support for mobile
             if (slides) {
@@ -1102,7 +1096,7 @@
                 allSlides[oldSlide].classList.remove('page-flip-forward');
                 allSlides[oldSlide].style.transform = 'perspective(2500px) rotateY(-180deg)';
                 isAnimating = false;
-            }, 1200);
+            }, 1500);
         }
 
         function previousSlide() {
@@ -1136,7 +1130,7 @@
                     }
                 });
                 isAnimating = false;
-            }, 1250);
+            }, 1550);
         }
 
         function goToSlide(index) {
@@ -1151,7 +1145,7 @@
                     if (step < steps) {
                         nextSlide();
                         step++;
-                        setTimeout(flipNext, 1300);
+                        setTimeout(flipNext, 1600);
                     }
                 };
                 flipNext();
@@ -1164,7 +1158,7 @@
                     if (step < steps) {
                         previousSlide();
                         step++;
-                        setTimeout(flipPrev, 1300);
+                        setTimeout(flipPrev, 1600);
                     }
                 };
                 flipPrev();
