@@ -695,8 +695,8 @@
         <div class="slider-wrapper">
             <!-- Book Cover -->
             <div class="book-cover" id="bookCover">
-                <div class="book-title">My Portfolio</div>
-                <div class="book-subtitle">Professional Journey</div>
+                <div class="book-title">Kurt</div>
+                <div class="book-subtitle">Professional Portfolio</div>
                 <div class="click-hint">Click to open ↓</div>
             </div>
             
@@ -1009,34 +1009,43 @@
         }
 
         // Load links when page loads
+        let bookCover, sliderContainer;
+        
+        function openBook() {
+            if (!bookCover) return;
+            bookCover.classList.add('opening');
+            setTimeout(() => {
+                if (sliderContainer) {
+                    sliderContainer.classList.add('visible');
+                }
+                showSlide(0);
+            }, 800);
+            
+            setTimeout(() => {
+                if (bookCover) {
+                    bookCover.style.display = 'none';
+                }
+            }, 1500);
+        }
+        
         window.addEventListener('DOMContentLoaded', () => {
             loadLinksFromConfig();
             loadQuotes(currentLang);
             
             // Book opening animation
-            const bookCover = document.getElementById('bookCover');
-            const sliderContainer = document.getElementById('sliderContainer');
+            bookCover = document.getElementById('bookCover');
+            sliderContainer = document.getElementById('sliderContainer');
             
-            // Click to open book
-            bookCover.addEventListener('click', openBook);
-            
-            // Auto-open after 2 seconds
-            setTimeout(() => {
-                if (bookCover && !bookCover.classList.contains('opening')) {
-                    openBook();
-                }
-            }, 2000);
-            
-            function openBook() {
-                bookCover.classList.add('opening');
-                setTimeout(() => {
-                    sliderContainer.classList.add('visible');
-                    showSlide(0);
-                }, 800);
+            if (bookCover) {
+                // Click to open book
+                bookCover.addEventListener('click', openBook);
                 
+                // Auto-open after 2 seconds
                 setTimeout(() => {
-                    bookCover.style.display = 'none';
-                }, 1500);
+                    if (bookCover && !bookCover.classList.contains('opening')) {
+                        openBook();
+                    }
+                }, 2000);
             }
         });
 
