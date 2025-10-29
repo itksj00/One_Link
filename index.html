@@ -712,6 +712,7 @@
             color: #8b7355;
             font-family: 'Georgia', serif;
             margin: 0;
+            margin-bottom: -0.5rem;
         }
 
         .intro-tagline {
@@ -721,7 +722,7 @@
             font-style: italic;
             max-width: 500px;
             line-height: 1.6;
-            margin: 0.5rem 0 0 0;
+            margin: 0;
         }
 
         .intro-divider {
@@ -875,8 +876,8 @@
         <div class="slider-wrapper">
             <!-- Book Cover -->
             <div class="book-cover" id="bookCover">
-                <div class="book-title">Kurt</div>
-                <div class="book-subtitle">IT System Engineer</div>
+                <div class="book-title" data-config="section0.name">Kurt</div>
+                <div class="book-subtitle" data-config="section0.title">IT System Engineer</div>
             </div>
             
             <div class="slider-container" id="sliderContainer">
@@ -891,10 +892,10 @@
                             <div class="binding-stitch"></div>
                         </div>
                         <div class="intro-content">
-                            <h1 class="intro-name translatable" data-i18n="intro-name">Kurt</h1>
+                            <h1 class="intro-name translatable" data-i18n="intro-name" data-config="section0.name">Kurt</h1>
                             <div class="intro-divider"></div>
-                            <h2 class="intro-title translatable" data-i18n="intro-title">IT System Engineer</h2>
-                            <p class="intro-tagline translatable" data-i18n="intro-tagline">Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가</p>
+                            <h2 class="intro-title translatable" data-i18n="intro-title" data-config="section0.title">IT System Engineer</h2>
+                            <p class="intro-tagline translatable" data-i18n="intro-tagline" data-config="section0.tagline">Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가</p>
                         </div>
                         <div class="slide-pages-stack">
                             <div class="page-edge-3"></div>
@@ -1211,6 +1212,19 @@
             });
         }
 
+        // Load text content from config file
+        function loadTextFromConfig() {
+            document.querySelectorAll('[data-config]').forEach(element => {
+                const path = element.getAttribute('data-config').split('.');
+                const section = path[0];
+                const key = path[1];
+                
+                if (linkConfig[section] && linkConfig[section][key]) {
+                    element.textContent = linkConfig[section][key];
+                }
+            });
+        }
+
         // Load links when page loads
         let bookCover, sliderContainer;
         
@@ -1249,6 +1263,7 @@
             }
             
             loadLinksFromConfig();
+            loadTextFromConfig();
             loadQuotes(currentLang);
             
             // Book opening animation
