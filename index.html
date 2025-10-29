@@ -396,18 +396,18 @@
         .slide::after {
             content: '';
             position: absolute;
-            left: -1px;
+            right: -1px;
             top: 0;
             bottom: 0;
             width: 3px;
-            background: linear-gradient(90deg, rgba(160, 130, 100, 0.1) 0%, transparent 100%);
-            border-radius: 12px 0 0 12px;
+            background: linear-gradient(-90deg, rgba(160, 130, 100, 0.1) 0%, transparent 100%);
+            border-radius: 0 12px 12px 0;
         }
 
-        /* Book binding shadow effect (left side) */
+        /* Book binding shadow effect (right side) */
         .slide-binding {
             position: absolute;
-            left: 0;
+            right: 0;
             top: 0;
             bottom: 0;
             width: 30px;
@@ -418,11 +418,11 @@
         .slide-binding::before {
             content: '';
             position: absolute;
-            left: 0;
+            right: 0;
             top: 0;
             bottom: 0;
             width: 25px;
-            background: linear-gradient(90deg, 
+            background: linear-gradient(-90deg, 
                 rgba(160, 130, 100, 0.15) 0%,
                 rgba(160, 130, 100, 0.08) 40%,
                 transparent 100%);
@@ -431,7 +431,7 @@
         /* Binding stitches */
         .binding-stitch {
             position: absolute;
-            left: 8px;
+            right: 8px;
             width: 2px;
             height: 15px;
             background: rgba(139, 115, 85, 0.3);
