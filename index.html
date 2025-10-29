@@ -806,9 +806,9 @@
 
     <script>
         let currentSlide = 0;
-        const slides = document.getElementById('slides');
-        const totalSlides = document.querySelectorAll('.slide').length;
-        const dotsContainer = document.getElementById('dotsContainer');
+        let slides;
+        let totalSlides;
+        let dotsContainer;
         let touchStartX = 0;
         let touchEndX = 0;
         let currentLang = 'ko'; // 기본 언어를 한국어로 설정
@@ -960,15 +960,6 @@
             });
         }
 
-        // Create navigation dots
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            if (i === 0) dot.classList.add('active');
-            dot.onclick = () => goToSlide(i);
-            dotsContainer.appendChild(dot);
-        }
-
         // Load URLs from config file
         function loadLinksFromConfig() {
             document.querySelectorAll('[data-link]').forEach(link => {
@@ -987,10 +978,12 @@
         
         function openBook() {
             if (!bookCover) return;
+            console.log('Opening book...');
             bookCover.classList.add('opening');
             setTimeout(() => {
                 if (sliderContainer) {
                     sliderContainer.classList.add('visible');
+                    console.log('Slider visible');
                 }
                 showSlide(0);
             }, 800);
@@ -998,11 +991,30 @@
             setTimeout(() => {
                 if (bookCover) {
                     bookCover.style.display = 'none';
+                    console.log('Book cover hidden');
                 }
             }, 1500);
         }
         
         window.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+            
+            // Initialize DOM elements
+            slides = document.getElementById('slides');
+            dotsContainer = document.getElementById('dotsContainer');
+            totalSlides = document.querySelectorAll('.slide').length;
+            
+            console.log('Total slides:', totalSlides);
+            
+            // Create navigation dots
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+            
             loadLinksFromConfig();
             loadQuotes(currentLang);
             
@@ -1010,10 +1022,35 @@
             bookCover = document.getElementById('bookCover');
             sliderContainer = document.getElementById('sliderContainer');
             
+            console.log('Book cover:', bookCover);
+            console.log('Slider container:', sliderContainer);
+            
             // Auto-open after 1 second
             setTimeout(() => {
+                console.log('Auto-opening book');
                 openBook();
             }, 1000);
+            
+            // Touch/swipe support for mobile
+            if (slides) {
+                slides.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                slides.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    previousSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            });
         });
 
         function showSlide(index) {
@@ -1136,16 +1173,6 @@
             }
         }
 
-        // Touch/swipe support for mobile
-        slides.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        slides.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
         function handleSwipe() {
             if (touchStartX - touchEndX > 50) {
                 nextSlide();
@@ -1154,15 +1181,6 @@
                 previousSlide();
             }
         }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                previousSlide();
-            } else if (e.key === 'ArrowRight') {
-                nextSlide();
-            }
-        });
     </script>
 </body>
 </html>
