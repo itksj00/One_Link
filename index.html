@@ -89,11 +89,14 @@
         .container {
             flex: 1;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             padding: 1rem;
-            padding-bottom: 80px;
+            padding-bottom: 110px;
+            padding-top: 2rem;
             position: relative;
+            overflow-y: auto;
+            min-height: 100vh;
         }
 
         /* Wooden desk surface effect */
@@ -116,8 +119,8 @@
             position: relative;
             z-index: 1;
             width: 100%;
-            max-width: 700px;
-            height: 480px;
+            max-width: 550px;
+            height: 650px;
             perspective: 2000px;
         }
 
@@ -250,14 +253,14 @@
             height: 100%;
             background: linear-gradient(135deg, #fffef9 0%, #faf8f0 50%, #f5f3e8 100%);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             box-shadow: 
                 0 8px 30px rgba(74, 63, 53, 0.15),
                 0 2px 8px rgba(74, 63, 53, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             position: absolute;
             top: 0;
             left: 0;
@@ -266,6 +269,26 @@
             transition: none;
             backface-visibility: hidden;
             border: 1px solid rgba(160, 130, 100, 0.15);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(160, 130, 100, 0.05);
+            border-radius: 3px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(166, 137, 103, 0.3);
+            border-radius: 3px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(166, 137, 103, 0.5);
         }
 
         /* Smooth slide effect instead of page flip */
@@ -329,6 +352,46 @@
             background: linear-gradient(90deg, rgba(160, 130, 100, 0.1) 0%, transparent 100%);
             border-radius: 12px 0 0 12px;
         }
+
+        /* Book binding shadow effect (left side) */
+        .slide-binding {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            pointer-events: none;
+        }
+
+        /* Binding shadow gradient */
+        .slide-binding::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 25px;
+            background: linear-gradient(90deg, 
+                rgba(160, 130, 100, 0.15) 0%,
+                rgba(160, 130, 100, 0.08) 40%,
+                transparent 100%);
+        }
+
+        /* Binding stitches */
+        .binding-stitch {
+            position: absolute;
+            left: 8px;
+            width: 2px;
+            height: 15px;
+            background: rgba(139, 115, 85, 0.3);
+            border-radius: 1px;
+        }
+
+        .binding-stitch:nth-child(1) { top: 10%; }
+        .binding-stitch:nth-child(2) { top: 30%; }
+        .binding-stitch:nth-child(3) { top: 50%; }
+        .binding-stitch:nth-child(4) { top: 70%; }
+        .binding-stitch:nth-child(5) { top: 90%; }
 
         /* Multiple pages stacked effect (right side) */
         .slide-pages-stack {
@@ -610,8 +673,8 @@
 
         @media (max-width: 768px) {
             .slider-wrapper {
-                max-width: 500px;
-                height: 480px;
+                max-width: 450px;
+                height: 600px;
             }
 
             .intro-name {
@@ -663,8 +726,8 @@
 
         @media (max-width: 480px) {
             .slider-wrapper {
-                max-width: 400px;
-                height: 450px;
+                max-width: 350px;
+                height: 550px;
             }
 
             .links-grid {
@@ -674,6 +737,10 @@
 
             .link-card {
                 padding: 1.1rem;
+            }
+            
+            .slide {
+                padding: 1.8rem 1.2rem;
             }
         }
     </style>
@@ -700,6 +767,13 @@
                 <div class="slides" id="slides">
                     <!-- Slide 0: Intro / Welcome -->
                     <div class="slide intro-slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
                         <div class="intro-content">
                             <h1 class="intro-name translatable" data-i18n="intro-name">Kurt</h1>
                             <div class="intro-divider"></div>
@@ -713,6 +787,13 @@
 
                     <!-- Slide 1: Connect / Social -->
                     <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
                         <h2 class="translatable" data-i18n="connect-title">소셜 링크 / 소개</h2>
                         <p class="translatable" data-i18n="connect-desc">다음 링크에서 제 활동을 확인하실 수 있습니다.</p>
                         <div class="links-grid">
@@ -744,6 +825,13 @@
 
                     <!-- Slide 2: Resume / CV -->
                     <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
                         <h2 class="translatable" data-i18n="resume-title">이력서 / 경력 소개</h2>
                         <p class="translatable" data-i18n="resume-desc">제 경력과 걸어온 길에 대해 소개드립니다.</p>
                         <div class="links-grid">
@@ -775,6 +863,13 @@
 
                     <!-- Slide 3: Portfolio / Projects -->
                     <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
                         <h2 class="translatable" data-i18n="portfolio-title">포트폴리오 / 프로젝트</h2>
                         <p class="translatable" data-i18n="portfolio-desc">제가 진행한 프로젝트와 작업물을 모아두었습니다.<br>추가로 아이디어를 실현한 다양한 프로젝트들도 존재합니다.</p>
                         <div class="links-grid">
@@ -806,6 +901,13 @@
 
                     <!-- Slide 4: Hobbies / Personal Story -->
                     <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
                         <h2 class="translatable" data-i18n="personal-title">취미 / 개인 이야기</h2>
                         <p class="translatable" data-i18n="personal-desc">일상 속 작은 즐거움과 저의 이야기를 담았습니다.<br>취미와 경험을 통해 저를 더 소개합니다.</p>
                         <div class="links-grid">
