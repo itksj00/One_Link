@@ -1025,11 +1025,9 @@
             console.log('Book cover:', bookCover);
             console.log('Slider container:', sliderContainer);
             
-            // Auto-open after 1 second
-            setTimeout(() => {
-                console.log('Auto-opening book');
-                openBook();
-            }, 1000);
+            // Open book immediately
+            console.log('Opening book immediately');
+            openBook();
             
             // Touch/swipe support for mobile
             if (slides) {
