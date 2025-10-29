@@ -231,7 +231,6 @@
             perspective: 2000px;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease 0.6s;
         }
 
         .slider-container.visible {
@@ -329,6 +328,61 @@
             width: 3px;
             background: linear-gradient(90deg, rgba(160, 130, 100, 0.1) 0%, transparent 100%);
             border-radius: 12px 0 0 12px;
+        }
+
+        /* Multiple pages stacked effect (right side) */
+        .slide-pages-stack {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            pointer-events: none;
+        }
+
+        /* First page edge */
+        .slide-pages-stack::before {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 5px;
+            bottom: 5px;
+            width: 8px;
+            background: linear-gradient(135deg, #f5f3e8 0%, #ebe9dc 100%);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 
+                inset -1px 0 2px rgba(160, 130, 100, 0.15),
+                -1px 0 3px rgba(160, 130, 100, 0.1);
+        }
+
+        /* Second page edge */
+        .slide-pages-stack::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 8px;
+            bottom: 8px;
+            width: 8px;
+            background: linear-gradient(135deg, #ebe9dc 0%, #e0ddd0 100%);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 
+                inset -1px 0 2px rgba(160, 130, 100, 0.2),
+                -1px 0 3px rgba(160, 130, 100, 0.15);
+        }
+
+        /* Third page edge (as separate element in HTML) */
+        .page-edge-3 {
+            position: absolute;
+            right: -9px;
+            top: 11px;
+            bottom: 11px;
+            width: 7px;
+            background: linear-gradient(135deg, #e0ddd0 0%, #d5d2c5 100%);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 
+                inset -1px 0 2px rgba(160, 130, 100, 0.25),
+                -1px 0 3px rgba(160, 130, 100, 0.2);
+            pointer-events: none;
         }
 
         .slide h2 {
@@ -652,6 +706,9 @@
                             <h2 class="intro-title translatable" data-i18n="intro-title">IT System Engineer</h2>
                             <p class="intro-tagline translatable" data-i18n="intro-tagline">Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가</p>
                         </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
                     </div>
 
                     <!-- Slide 1: Connect / Social -->
@@ -679,6 +736,9 @@
                         <div class="page-quote">
                             <div class="page-quote-text" data-quote="page1-text"></div>
                             <div class="page-quote-author" data-quote="page1-author"></div>
+                        </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
                         </div>
                     </div>
 
@@ -708,6 +768,9 @@
                             <div class="page-quote-text" data-quote="page2-text"></div>
                             <div class="page-quote-author" data-quote="page2-author"></div>
                         </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
                     </div>
 
                     <!-- Slide 3: Portfolio / Projects -->
@@ -736,6 +799,9 @@
                             <div class="page-quote-text" data-quote="page3-text"></div>
                             <div class="page-quote-author" data-quote="page3-author"></div>
                         </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
                     </div>
 
                     <!-- Slide 4: Hobbies / Personal Story -->
@@ -763,6 +829,9 @@
                         <div class="page-quote">
                             <div class="page-quote-text" data-quote="page4-text"></div>
                             <div class="page-quote-author" data-quote="page4-author"></div>
+                        </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
                         </div>
                     </div>
                 </div>
