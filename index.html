@@ -255,9 +255,11 @@
             background: linear-gradient(135deg, #fffef9 0%, #faf8f0 50%, #f5f3e8 100%);
             border-radius: 12px;
             padding: 2.5rem 2rem;
+            padding-right: 3rem;
             box-shadow: 
                 0 8px 30px rgba(74, 63, 53, 0.15),
-                0 2px 8px rgba(74, 63, 53, 0.1);
+                0 2px 8px rgba(74, 63, 53, 0.1),
+                inset -6px 0 12px rgba(139, 115, 85, 0.08);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -270,6 +272,7 @@
             transition: none;
             backface-visibility: hidden;
             border: 1px solid rgba(160, 130, 100, 0.15);
+            border-right: 2px solid rgba(139, 115, 85, 0.25);
             overflow-y: auto;
             overflow-x: hidden;
         }
@@ -375,7 +378,7 @@
             }
         }
 
-        /* Subtle paper texture */
+        /* Subtle paper texture with right edge shadow */
         .slide::before {
             content: '';
             position: absolute;
@@ -384,23 +387,34 @@
             right: 0;
             bottom: 0;
             background: 
+                linear-gradient(-90deg, 
+                    rgba(139, 115, 85, 0.12) 0%, 
+                    rgba(160, 130, 100, 0.06) 2%, 
+                    transparent 5%),
                 linear-gradient(0deg, transparent 99%, rgba(160, 130, 100, 0.03) 99%),
                 linear-gradient(90deg, transparent 99%, rgba(160, 130, 100, 0.03) 99%);
-            background-size: 30px 30px;
+            background-size: 100% 100%, 30px 30px, 30px 30px;
             pointer-events: none;
             border-radius: 12px;
-            opacity: 0.5;
+            opacity: 0.6;
         }
 
-        /* Soft page edge */
+        /* Book page edge - right side */
         .slide::after {
             content: '';
             position: absolute;
             right: -1px;
             top: 0;
             bottom: 0;
-            width: 3px;
-            background: linear-gradient(-90deg, rgba(160, 130, 100, 0.1) 0%, transparent 100%);
+            width: 8px;
+            background: linear-gradient(-90deg, 
+                rgba(180, 160, 130, 0.25) 0%,
+                rgba(160, 140, 110, 0.15) 30%,
+                rgba(140, 120, 95, 0.08) 60%,
+                transparent 100%);
+            box-shadow: 
+                inset -2px 0 4px rgba(139, 115, 85, 0.2),
+                inset -1px 0 2px rgba(160, 130, 100, 0.15);
             border-radius: 0 12px 12px 0;
         }
 
@@ -410,8 +424,9 @@
             right: 0;
             top: 0;
             bottom: 0;
-            width: 30px;
+            width: 40px;
             pointer-events: none;
+            z-index: 2;
         }
 
         /* Binding shadow gradient */
@@ -421,21 +436,47 @@
             right: 0;
             top: 0;
             bottom: 0;
-            width: 25px;
+            width: 35px;
             background: linear-gradient(-90deg, 
-                rgba(160, 130, 100, 0.15) 0%,
-                rgba(160, 130, 100, 0.08) 40%,
+                rgba(139, 115, 85, 0.25) 0%,
+                rgba(160, 130, 100, 0.18) 20%,
+                rgba(160, 130, 100, 0.12) 40%,
+                rgba(180, 150, 120, 0.06) 70%,
                 transparent 100%);
+            box-shadow: inset -3px 0 6px rgba(100, 80, 60, 0.15);
+        }
+
+        /* Page texture lines */
+        .slide-binding::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 35px;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 8px,
+                rgba(139, 115, 85, 0.05) 8px,
+                rgba(139, 115, 85, 0.05) 9px
+            );
         }
 
         /* Binding stitches */
         .binding-stitch {
             position: absolute;
-            right: 8px;
-            width: 2px;
-            height: 15px;
-            background: rgba(139, 115, 85, 0.3);
-            border-radius: 1px;
+            right: 12px;
+            width: 3px;
+            height: 18px;
+            background: linear-gradient(180deg, 
+                rgba(120, 95, 70, 0.4) 0%,
+                rgba(139, 115, 85, 0.35) 50%,
+                rgba(120, 95, 70, 0.4) 100%);
+            border-radius: 1.5px;
+            box-shadow: 
+                1px 0 1px rgba(0, 0, 0, 0.1),
+                -1px 0 1px rgba(255, 255, 255, 0.1);
         }
 
         .binding-stitch:nth-child(1) { top: 10%; }
