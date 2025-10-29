@@ -148,8 +148,6 @@
             gap: 1.5rem;
             border: 2px solid rgba(66, 133, 244, 0.3);
             border-left: 12px solid #4285f4;
-            cursor: pointer;
-            transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -170,14 +168,6 @@
                     rgba(255, 255, 255, 0.02) 4px
                 );
             pointer-events: none;
-        }
-
-        .book-cover:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 25px 70px rgba(0, 0, 0, 0.5),
-                0 8px 20px rgba(0, 0, 0, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
         .book-cover.opening {
@@ -220,21 +210,6 @@
             opacity: 0.9;
             position: relative;
             z-index: 1;
-        }
-
-        .click-hint {
-            position: absolute;
-            bottom: 2.5rem;
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            animation: pulse 2s ease-in-out infinite;
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(-5px); }
         }
 
         .slider-container {
@@ -697,7 +672,6 @@
             <div class="book-cover" id="bookCover">
                 <div class="book-title">Kurt</div>
                 <div class="book-subtitle">Professional Portfolio</div>
-                <div class="click-hint">Click to open ↓</div>
             </div>
             
             <div class="slider-container" id="sliderContainer">
@@ -1036,17 +1010,10 @@
             bookCover = document.getElementById('bookCover');
             sliderContainer = document.getElementById('sliderContainer');
             
-            if (bookCover) {
-                // Click to open book
-                bookCover.addEventListener('click', openBook);
-                
-                // Auto-open after 2 seconds
-                setTimeout(() => {
-                    if (bookCover && !bookCover.classList.contains('opening')) {
-                        openBook();
-                    }
-                }, 2000);
-            }
+            // Auto-open after 1 second
+            setTimeout(() => {
+                openBook();
+            }, 1000);
         });
 
         function showSlide(index) {
