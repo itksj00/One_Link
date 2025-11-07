@@ -16,17 +16,16 @@
 const linkConfig = {
     // 섹션 0: 인트로 페이지 텍스트
     section0: {
-        name: 'Kurt',
+        name: 'Seongjun(Kurt) Kim',
         title: 'IT System Engineer',
         tagline: 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가'
     },
 
     // 섹션 1: 소셜 링크 / 소개
     section1: {
-        linkedin: 'https://linkedin.com/in/yourprofile',
-        github: 'https://github.com/yourusername',
-        twitter: 'https://twitter.com/yourhandle',
-        email: 'mailto:your.email@example.com'
+        linkedin: 'https://www.linkedin.com/in/seongjun-kurt-kim-9a5649313?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BIPKkz0w9TBWTlXwJDUo8Ww%3D%3D',
+        github: 'https://github.com/itksj00',
+        email: 'mailto:itksj00@gmail.com'
     },
 
     // 섹션 2: 이력서 / 경력 소개
