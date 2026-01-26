@@ -1149,18 +1149,43 @@
             if (!bookCover) return;
             bookCover.classList.add('opening');
             
-            setTimeout(() => {
-                if (sliderContainer) {
-                    sliderContainer.classList.add('visible');
-                }
-                showSlide(0);
-            }, 400);
-            
-            setTimeout(() => {
-                if (bookCover) {
+            // GSAP으로 부드러운 3D 책 넘김 애니메이션
+            const tl = gsap.timeline({
+                onComplete: () => {
                     bookCover.style.display = 'none';
                 }
-            }, 1200);
+            });
+            
+            tl.to(bookCover, {
+                rotateY: -5,
+                scale: 1.03,
+                duration: 0.3,
+                ease: 'power1.out',
+                transformPerspective: 2500
+            })
+            .to(bookCover, {
+                rotateY: -90,
+                scale: 1.08,
+                duration: 0.5,
+                ease: 'power2.inOut',
+                transformPerspective: 2500,
+                onStart: () => {
+                    setTimeout(() => {
+                        if (sliderContainer) {
+                            sliderContainer.classList.add('visible');
+                        }
+                        showSlide(0);
+                    }, 200);
+                }
+            })
+            .to(bookCover, {
+                rotateY: -180,
+                scale: 1,
+                opacity: 0,
+                duration: 0.4,
+                ease: 'power2.in',
+                transformPerspective: 2500
+            });
         }
         
         window.addEventListener('DOMContentLoaded', () => {
