@@ -1,54 +1,1322 @@
-// ==========================================
-// 링크 및 텍스트 설정 파일
-// ==========================================
-// 
-// 📖 사용 방법:
-// 1. 아래 URL들을 원하는 링크로 변경하세요
-// 2. HTML 파일에서 data-link 속성과 매칭됩니다
-// 3. 섹션 0번의 텍스트를 변경하여 인트로 페이지를 수정할 수 있습니다
-//
-// 예시:
-// HTML: <a data-link="section1.linkedin" ...>
-// 여기: section1: { linkedin: '당신의URL' }
-//
-// ==========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인 링크 허브</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="config.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-const linkConfig = {
-    // 섹션 0: 인트로 페이지 텍스트
-    section0: {
-        name: 'Seongjun(Kurt) Kim',
-        title: 'IT System Engineer',
-        tagline: 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가'
-    },
+        body {
+            font-family: 'Georgia', 'Segoe UI', serif;
+            background: linear-gradient(135deg, #4a3f35 0%, #6b5d52 50%, #5a4d42 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    // 섹션 1: 소셜 링크 / 소개
-    section1: {
-        linkedin: 'https://www.linkedin.com/in/seongjun-kurt-kim-9a5649313?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BIPKkz0w9TBWTlXwJDUo8Ww%3D%3D',
-        github: 'https://github.com/itksj00',
-        email: 'mailto:itksj00@gmail.com'
-    },
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 50% 20%, rgba(190, 150, 120, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(160, 130, 100, 0.1) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(140, 110, 85, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
 
-    // 섹션 2: 이력서 / 경력 소개
-    section2: {
-        resume: 'https://notion.so/your-resume-page',
-        experience: 'https://notion.so/your-experience',
-        skills: 'https://notion.so/your-skills',
-        cv: '/path-to-cv.pdf'
-    },
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(210, 180, 140, 0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
 
-    // 섹션 3: 포트폴리오 / 프로젝트
-    section3: {
-        portfolio: 'https://notion.so/your-portfolio',
-        project1: 'https://github.com/yourusername/project1',
-        project2: 'https://github.com/yourusername/project2',
-        website: 'https://yourwebsite.com'
-    },
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 250, 240, 0.95);
+            border-radius: 25px;
+            padding: 0.6rem 1.2rem;
+            box-shadow: 0 2px 15px rgba(74, 63, 53, 0.2);
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            border: 1px solid rgba(160, 130, 100, 0.2);
+            backdrop-filter: blur(8px);
+        }
 
-    // 섹션 4: 취미 / 개인 이야기
-    section4: {
-        hobbies: 'https://notion.so/your-hobbies',
-        story: 'https://notion.so/your-story',
-        travel: 'https://notion.so/travel',
-        photography: 'https://notion.so/photography'
-    }
-};
+        .language-selector .lang-icon {
+            font-size: 1.1rem;
+        }
+
+        .language-selector select {
+            border: none;
+            background: transparent;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #5a4d42;
+            cursor: pointer;
+            padding: 0.25rem;
+            outline: none;
+        }
+
+        .language-selector select:hover {
+            color: #8b7355;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 1rem;
+            padding-bottom: 200px;
+            padding-top: 1.5rem;
+            position: relative;
+            overflow-y: auto;
+            min-height: calc(100vh - 100px);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(62, 39, 35, 0.3) 50%,
+                rgba(62, 39, 35, 0.5) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 480px;
+            height: 500px;
+            perspective: 2000px;
+            margin-bottom: 2rem;
+        }
+
+        .book-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8b7355 0%, #7a6149 50%, #6b5444 100%);
+            border-radius: 12px;
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.4),
+                0 5px 20px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform-origin: left center;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1.5rem;
+            border: 1px solid rgba(190, 150, 120, 0.3);
+            border-left: 10px solid #a68967;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.02) 2px,
+                    rgba(255, 255, 255, 0.02) 4px
+                );
+            pointer-events: none;
+        }
+
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 30% 40%, rgba(160, 130, 100, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(140, 110, 85, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .book-cover.opening {
+            pointer-events: none;
+        }
+
+        .book-title {
+            font-size: 2.8rem;
+            color: #fffaf0;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            font-family: 'Georgia', serif;
+        }
+
+        .book-subtitle {
+            font-size: 1.3rem;
+            color: #f5deb3;
+            font-weight: 400;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            perspective: 2000px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .slider-container.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .slides {
+            display: flex;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fffef9 0%, #faf8f0 50%, #f5f3e8 100%);
+            border-radius: 12px;
+            padding: 2rem 2rem;
+            padding-top: 2.5rem;
+            padding-right: 3rem;
+            box-shadow: 
+                0 8px 30px rgba(74, 63, 53, 0.15),
+                0 2px 8px rgba(74, 63, 53, 0.1),
+                inset -6px 0 12px rgba(139, 115, 85, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: none;
+            backface-visibility: hidden;
+            border: 1px solid rgba(160, 130, 100, 0.15);
+            border-right: 2px solid rgba(139, 115, 85, 0.25);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(160, 130, 100, 0.05);
+            border-radius: 3px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(166, 137, 103, 0.3);
+            border-radius: 3px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(166, 137, 103, 0.5);
+        }
+.slide::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 6px;
+            bottom: 6px;
+            width: 20px;
+            background: 
+                linear-gradient(to right, 
+                    #f5f3e8 0%, 
+                    #e8e5d5 20%,
+                    #dbd8c8 40%,
+                    #cecbb8 60%,
+                    #c1bea8 80%,
+                    #b4b198 100%
+                );
+            box-shadow: 
+                1px 0 0 0 #eeebde,
+                2px 0 0 0 #e7e4d7,
+                3px 0 0 0 #e0ddd0,
+                4px 0 0 0 #d9d6c9,
+                5px 0 0 0 #d2cfc2,
+                6px 0 0 0 #cbc8bb,
+                7px 0 0 0 #c4c1b4,
+                8px 0 0 0 #bdbaad,
+                9px 0 0 0 #b6b3a6,
+                10px 0 0 0 #afac9f,
+                11px 0 0 0 #a8a598,
+                12px 0 0 0 #a19e91,
+                13px 0 0 0 #9a978a,
+                14px 0 0 0 #939083,
+                1px 0 2px rgba(0, 0, 0, 0.2),
+                2px 0 2px rgba(0, 0, 0, 0.18),
+                3px 0 3px rgba(0, 0, 0, 0.17),
+                4px 0 3px rgba(0, 0, 0, 0.16),
+                5px 0 4px rgba(0, 0, 0, 0.15),
+                6px 0 4px rgba(0, 0, 0, 0.14),
+                7px 0 5px rgba(0, 0, 0, 0.13),
+                8px 0 5px rgba(0, 0, 0, 0.12),
+                9px 0 6px rgba(0, 0, 0, 0.11),
+                10px 0 6px rgba(0, 0, 0, 0.1),
+                11px 0 7px rgba(0, 0, 0, 0.09),
+                12px 0 7px rgba(0, 0, 0, 0.08),
+                13px 0 8px rgba(0, 0, 0, 0.07),
+                14px 0 10px rgba(0, 0, 0, 0.06);
+            border-radius: 0 4px 4px 0;
+            z-index: -1;
+        }
+
+        .slide.page-flip-forward {
+            animation: slideOutLeft 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+            z-index: 10;
+        }
+
+        .slide.page-flip-backward {
+            animation: slideInRight 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+            z-index: 10;
+        }
+
+        @keyframes slideOutLeft {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(-90deg, 
+                    rgba(139, 115, 85, 0.12) 0%, 
+                    rgba(160, 130, 100, 0.06) 2%, 
+                    transparent 5%),
+                linear-gradient(0deg, transparent 99%, rgba(160, 130, 100, 0.03) 99%),
+                linear-gradient(90deg, transparent 99%, rgba(160, 130, 100, 0.03) 99%);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            pointer-events: none;
+            border-radius: 12px;
+            opacity: 0.6;
+        }
+
+        .slide-binding {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .slide-binding::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 35px;
+            background: linear-gradient(-90deg, 
+                rgba(139, 115, 85, 0.25) 0%,
+                rgba(160, 130, 100, 0.18) 20%,
+                rgba(160, 130, 100, 0.12) 40%,
+                rgba(180, 150, 120, 0.06) 70%,
+                transparent 100%);
+            box-shadow: inset -3px 0 6px rgba(100, 80, 60, 0.15);
+        }
+
+        .slide-binding::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 35px;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 8px,
+                rgba(139, 115, 85, 0.05) 8px,
+                rgba(139, 115, 85, 0.05) 9px
+            );
+        }
+
+        .binding-stitch {
+            position: absolute;
+            right: 12px;
+            width: 3px;
+            height: 18px;
+            background: linear-gradient(180deg, 
+                rgba(120, 95, 70, 0.4) 0%,
+                rgba(139, 115, 85, 0.35) 50%,
+                rgba(120, 95, 70, 0.4) 100%);
+            border-radius: 1.5px;
+            box-shadow: 
+                1px 0 1px rgba(0, 0, 0, 0.1),
+                -1px 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .binding-stitch:nth-child(1) { top: 10%; }
+        .binding-stitch:nth-child(2) { top: 30%; }
+        .binding-stitch:nth-child(3) { top: 50%; }
+        .binding-stitch:nth-child(4) { top: 70%; }
+        .binding-stitch:nth-child(5) { top: 90%; }
+
+        .slide-pages-stack {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            pointer-events: none;
+        }
+
+        .slide-pages-stack::before {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 5px;
+            bottom: 5px;
+            width: 8px;
+            background: linear-gradient(135deg, #f5f3e8 0%, #ebe9dc 100%);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 
+                inset -1px 0 2px rgba(160, 130, 100, 0.15),
+                -1px 0 3px rgba(160, 130, 100, 0.1);
+        }
+
+        .slide-pages-stack::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 8px;
+            bottom: 8px;
+            width: 8px;
+            background: linear-gradient(135deg, #ebe9dc 0%, #e0ddd0 100%);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 
+                inset -1px 0 2px rgba(160, 130, 100, 0.2),
+                -1px 0 3px rgba(160, 130, 100, 0.15);
+        }
+
+        .page-edge-3 {
+            position: absolute;
+            right: -9px;
+            top: 11px;
+            bottom: 11px;
+            width: 7px;
+            background: linear-gradient(135deg, #e0ddd0 0%, #d5d2c5 100%);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 
+                inset -1px 0 2px rgba(160, 130, 100, 0.25),
+                -1px 0 3px rgba(160, 130, 100, 0.2);
+            pointer-events: none;
+        }
+
+        .slide h2 {
+            font-size: 1.6rem;
+            color: #5a4d42;
+            margin-bottom: 0.8rem;
+            margin-top: 0;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            position: relative;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #a68967, transparent);
+            border-radius: 2px;
+        }
+
+        .slide p {
+            font-size: 0.95rem;
+            color: #6b5d52;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            line-height: 1.5;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 400;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .link-card {
+            background: linear-gradient(135deg, #a68967 0%, #8b7355 100%);
+            border-radius: 10px;
+            padding: 1.1rem;
+            text-align: center;
+            color: #fffaf0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(74, 63, 53, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74, 63, 53, 0.35);
+            background: linear-gradient(135deg, #b89b7d 0%, #9d8569 100%);
+        }
+
+        .link-card .icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .link-card .label {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 250, 240, 0.95);
+            border: 1px solid rgba(160, 130, 100, 0.25);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.5rem;
+            color: #8b7355;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 12px rgba(74, 63, 53, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-arrow:hover {
+            background: #a68967;
+            color: #fffaf0;
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 5px 18px rgba(74, 63, 53, 0.3);
+        }
+
+        .nav-arrow.left {
+            left: -24px;
+        }
+
+        .nav-arrow.right {
+            right: -24px;
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 250, 240, 0.6);
+            border: 2px solid rgba(160, 130, 100, 0.35);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #a68967;
+            transform: scale(1.25);
+            border-color: #a68967;
+            box-shadow: 0 2px 8px rgba(166, 137, 103, 0.5);
+        }
+
+        .slide.intro-slide {
+            justify-content: flex-start;
+            text-align: center;
+            padding-top: 3rem;
+        }
+
+        .intro-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .intro-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #5a4d42;
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .intro-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #8b7355;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            margin-bottom: -0.5rem;
+        }
+
+        .intro-tagline {
+            font-size: 1rem;
+            color: #6b5d52;
+            font-family: 'Segoe UI', sans-serif;
+            font-style: italic;
+            max-width: 500px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .intro-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #a68967, transparent);
+            margin: 0.3rem 0;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 -3px 15px rgba(74, 63, 53, 0.2);
+            overflow: hidden;
+            height: 100px;
+            background: linear-gradient(135deg, #4a3f35 0%, #6b5d52 50%, #5a4d42 100%);
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(0, 0, 0, 0.08) 0%, 
+                transparent 50%, 
+                rgba(0, 0, 0, 0.08) 100%);
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .slider-wrapper {
+                max-width: 400px;
+                height: 520px;
+            }
+
+            .container {
+                padding-bottom: 110px;
+            }
+
+            .intro-name {
+                font-size: 2rem;
+            }
+
+            .intro-title {
+                font-size: 1.1rem;
+            }
+
+            .intro-tagline {
+                font-size: 0.9rem;
+            }
+
+            .slide {
+                padding: 2rem 1.5rem;
+            }
+
+            .slide h2 {
+                font-size: 1.8rem;
+            }
+
+            .slide p {
+                font-size: 0.95rem;
+            }
+
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .nav-arrow.left {
+                left: 10px;
+            }
+
+            .nav-arrow.right {
+                right: 10px;
+            }
+
+            .footer {
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider-wrapper {
+                max-width: 320px;
+                height: 480px;
+            }
+
+            .container {
+                padding-bottom: 100px;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .link-card {
+                padding: 1rem;
+            }
+            
+            .slide {
+                padding: 1.8rem 1.2rem;
+            }
+
+            .intro-name {
+                font-size: 1.8rem;
+            }
+
+            .intro-title {
+                font-size: 1rem;
+            }
+
+            .intro-tagline {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-selector">
+        <span class="lang-icon">🌐</span>
+        <select id="languageSelect" onchange="translatePage()">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <div class="slider-wrapper">
+            <div class="book-cover" id="bookCover">
+                <div class="book-title" data-config="section0.name">Kurt</div>
+                <div class="book-subtitle" data-config="section0.title">IT System Engineer</div>
+            </div>
+            
+            <div class="slider-container" id="sliderContainer">
+                <div class="slides" id="slides">
+                    <div class="slide intro-slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
+                        <div class="intro-content">
+                            <h1 class="intro-name translatable" data-i18n="intro-name" data-config="section0.name">Kurt</h1>
+                            <div class="intro-divider"></div>
+                            <h2 class="intro-title translatable" data-i18n="intro-title" data-config="section0.title">IT System Engineer</h2>
+                            <p class="intro-tagline translatable" data-i18n="intro-tagline" data-config="section0.tagline">Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가</p>
+                        </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
+                        <h2 class="translatable" data-i18n="connect-title">소셜 링크 / 소개</h2>
+                        <p class="translatable" data-i18n="connect-desc">다음 링크에서 제 활동을 확인하실 수 있습니다.</p>
+                        <div class="links-grid">
+                            <a href="#" class="link-card" target="_blank" data-link="section1.linkedin">
+                                <div class="icon">💼</div>
+                                <div class="label translatable" data-i18n="linkedin">링크드인</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section1.github">
+                                <div class="icon">💻</div>
+                                <div class="label translatable" data-i18n="github">깃허브</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section1.twitter">
+                                <div class="icon">🐦</div>
+                                <div class="label translatable" data-i18n="twitter">트위터</div>
+                            </a>
+                            <a href="#" class="link-card" data-link="section1.email">
+                                <div class="icon">✉️</div>
+                                <div class="label translatable" data-i18n="email">이메일</div>
+                            </a>
+                        </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
+                        <h2 class="translatable" data-i18n="resume-title">이력서 / 경력 소개</h2>
+                        <p class="translatable" data-i18n="resume-desc">제 경력과 걸어온 길에 대해 소개드립니다.</p>
+                        <div class="links-grid">
+                            <a href="#" class="link-card" target="_blank" data-link="section2.resume">
+                                <div class="icon">📄</div>
+                                <div class="label translatable" data-i18n="view-resume">이력서 보기</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section2.experience">
+                                <div class="icon">💼</div>
+                                <div class="label translatable" data-i18n="experience">경력</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section2.skills">
+                                <div class="icon">🎯</div>
+                                <div class="label translatable" data-i18n="skills">스킬</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section2.cv">
+                                <div class="icon">⬇️</div>
+                                <div class="label translatable" data-i18n="download-cv">CV 다운로드</div>
+                            </a>
+                        </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
+                        <h2 class="translatable" data-i18n="portfolio-title">포트폴리오 / 프로젝트</h2>
+                        <p class="translatable" data-i18n="portfolio-desc">제가 진행한 프로젝트와 작업물을 모아두었습니다.<br>추가로 아이디어를 실현한 다양한 프로젝트들도 존재합니다.</p>
+                        <div class="links-grid">
+                            <a href="#" class="link-card" target="_blank" data-link="section3.portfolio">
+                                <div class="icon">🎨</div>
+                                <div class="label translatable" data-i18n="portfolio">포트폴리오</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section3.project1">
+                                <div class="icon">🚀</div>
+                                <div class="label translatable" data-i18n="project1">프로젝트 1</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section3.project2">
+                                <div class="icon">⚡</div>
+                                <div class="label translatable" data-i18n="project2">프로젝트 2</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section3.website">
+                                <div class="icon">🌐</div>
+                                <div class="label translatable" data-i18n="website">웹사이트</div>
+                            </a>
+                        </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="slide-binding">
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                            <div class="binding-stitch"></div>
+                        </div>
+                        <h2 class="translatable" data-i18n="personal-title">취미 / 개인 이야기</h2>
+                        <p class="translatable" data-i18n="personal-desc">일상 속 작은 즐거움과 저의 이야기를 담았습니다.<br>취미와 경험을 통해 저를 더 소개합니다.</p>
+                        <div class="links-grid">
+                            <a href="#" class="link-card" target="_blank" data-link="section4.hobbies">
+                                <div class="icon">🎭</div>
+                                <div class="label translatable" data-i18n="hobbies">취미</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section4.story">
+                                <div class="icon">📖</div>
+                                <div class="label translatable" data-i18n="my-story">나의 이야기</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section4.travel">
+                                <div class="icon">✈️</div>
+                                <div class="label translatable" data-i18n="adventures">모험</div>
+                            </a>
+                            <a href="#" class="link-card" target="_blank" data-link="section4.photography">
+                                <div class="icon">📷</div>
+                                <div class="label translatable" data-i18n="photography">사진</div>
+                            </a>
+                        </div>
+                        <div class="slide-pages-stack">
+                            <div class="page-edge-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="nav-arrow left" onclick="previousSlide()">‹</button>
+            <button class="nav-arrow right" onclick="nextSlide()">›</button>
+
+            <div class="dots-container" id="dotsContainer"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        let totalSlides = 0;
+        let slides, dotsContainer;
+        let isAnimating = false;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let currentLang = 'ko';
+
+        const translations = {
+            ko: {
+                'intro-name': 'Kurt',
+                'intro-title': 'IT 시스템 엔지니어',
+                'intro-tagline': 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가',
+                'connect-title': '소셜 링크 / 소개',
+                'connect-desc': '다음 링크에서 제 활동을 확인하실 수 있습니다.',
+                'linkedin': '링크드인',
+                'github': '깃허브',
+                'twitter': '트위터',
+                'email': '이메일',
+                'resume-title': '이력서 / 경력 소개',
+                'resume-desc': '제 경력과 걸어온 길에 대해 소개드립니다.',
+                'view-resume': '이력서 보기',
+                'experience': '경력',
+                'skills': '스킬',
+                'download-cv': 'CV 다운로드',
+                'portfolio-title': '포트폴리오 / 프로젝트',
+                'portfolio-desc': '제가 진행한 프로젝트와 작업물을 모아두었습니다.\n추가로 아이디어를 실현한 다양한 프로젝트들도 존재합니다.',
+                'portfolio': '포트폴리오',
+                'project1': '프로젝트 1',
+                'project2': '프로젝트 2',
+                'website': '웹사이트',
+                'personal-title': '취미 / 개인 이야기',
+                'personal-desc': '일상 속 작은 즐거움과 저의 이야기를 담았습니다.\n취미와 경험을 통해 저를 더 소개합니다.',
+                'hobbies': '취미',
+                'my-story': '나의 이야기',
+                'adventures': '모험',
+                'photography': '사진'
+            },
+            en: {
+                'intro-name': 'Kurt',
+                'intro-title': 'IT System Engineer',
+                'intro-tagline': 'Linux lover | System Architecture Design | Cloud Infrastructure Expert',
+                'connect-title': 'Connect / Social',
+                'connect-desc': 'Find me on these platforms and get in touch.',
+                'linkedin': 'LinkedIn',
+                'github': 'GitHub',
+                'twitter': 'Twitter',
+                'email': 'Email',
+                'resume-title': 'Resume / Career',
+                'resume-desc': 'Explore my professional journey and experience.',
+                'view-resume': 'View Resume',
+                'experience': 'Experience',
+                'skills': 'Skills',
+                'download-cv': 'Download CV',
+                'portfolio-title': 'Portfolio / Projects',
+                'portfolio-desc': 'A collection of my work and projects.\nVarious projects where I brought ideas to life.',
+                'portfolio': 'Portfolio',
+                'project1': 'Project 1',
+                'project2': 'Project 2',
+                'website': 'Website',
+                'personal-title': 'Hobbies / Personal',
+                'personal-desc': 'Small joys in daily life and my personal story.\nGet to know me better through my hobbies and experiences.',
+                'hobbies': 'Hobbies',
+                'my-story': 'My Story',
+                'adventures': 'Adventures',
+                'photography': 'Photography'
+            },
+            de: {
+                'intro-name': 'Kurt',
+                'intro-title': 'IT-Systemingenieur',
+                'intro-tagline': 'Linux-Liebhaber | Systemarchitektur-Design | Cloud-Infrastruktur-Experte',
+                'connect-title': 'Verbinden / Sozial',
+                'connect-desc': 'Finden Sie mich auf diesen Plattformen und kontaktieren Sie mich.',
+                'linkedin': 'LinkedIn',
+                'github': 'GitHub',
+                'twitter': 'Twitter',
+                'email': 'E-Mail',
+                'resume-title': 'Lebenslauf / Karriere',
+                'resume-desc': 'Erkunden Sie meine berufliche Laufbahn und Erfahrung.',
+                'view-resume': 'Lebenslauf ansehen',
+                'experience': 'Erfahrung',
+                'skills': 'Fähigkeiten',
+                'download-cv': 'CV herunterladen',
+                'portfolio-title': 'Portfolio / Projekte',
+                'portfolio-desc': 'Eine Sammlung meiner Arbeiten und Projekte.\nVerschiedene Projekte, bei denen ich Ideen zum Leben erweckt habe.',
+                'portfolio': 'Portfolio',
+                'project1': 'Projekt 1',
+                'project2': 'Projekt 2',
+                'website': 'Webseite',
+                'personal-title': 'Hobbys / Persönlich',
+                'personal-desc': 'Kleine Freuden im täglichen Leben und meine persönliche Geschichte.\nLernen Sie mich besser kennen durch meine Hobbys und Erfahrungen.',
+                'hobbies': 'Hobbys',
+                'my-story': 'Meine Geschichte',
+                'adventures': 'Abenteuer',
+                'photography': 'Fotografie'
+            }
+        };
+
+        function translatePage() {
+            const lang = document.getElementById('languageSelect').value;
+            currentLang = lang;
+
+            document.querySelectorAll('.translatable').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'P') {
+                        element.innerHTML = translations[lang][key].replace(/\n/g, '<br>');
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        function loadLinksFromConfig() {
+            document.querySelectorAll('[data-link]').forEach(link => {
+                const path = link.getAttribute('data-link').split('.');
+                const section = path[0];
+                const key = path[1];
+                
+                if (linkConfig[section] && linkConfig[section][key]) {
+                    link.href = linkConfig[section][key];
+                }
+            });
+        }
+
+        function loadTextFromConfig() {
+            document.querySelectorAll('[data-config]').forEach(element => {
+                const path = element.getAttribute('data-config').split('.');
+                const section = path[0];
+                const key = path[1];
+                
+                if (linkConfig[section] && linkConfig[section][key]) {
+                    element.textContent = linkConfig[section][key];
+                }
+            });
+        }
+
+        let bookCover, sliderContainer;
+        
+        function openBook() {
+            if (!bookCover) return;
+            bookCover.classList.add('opening');
+            
+            // GSAP으로 부드러운 3D 책 넘김 애니메이션
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    bookCover.style.display = 'none';
+                }
+            });
+            
+            tl.to(bookCover, {
+                rotationY: -5,
+                scale: 1.03,
+                duration: 0.3,
+                ease: 'power1.out'
+            })
+            .to(bookCover, {
+                rotationY: -90,
+                scale: 1.08,
+                duration: 0.5,
+                ease: 'power2.inOut',
+                onStart: () => {
+                    setTimeout(() => {
+                        if (sliderContainer) {
+                            sliderContainer.classList.add('visible');
+                        }
+                        showSlide(0);
+                    }, 200);
+                }
+            })
+            .to(bookCover, {
+                rotationY: -180,
+                scale: 1,
+                opacity: 0,
+                duration: 0.4,
+                ease: 'power2.in'
+            });
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            slides = document.getElementById('slides');
+            dotsContainer = document.getElementById('dotsContainer');
+            totalSlides = document.querySelectorAll('.slide').length;
+            
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+            
+            loadLinksFromConfig();
+            loadTextFromConfig();
+            
+            bookCover = document.getElementById('bookCover');
+            sliderContainer = document.getElementById('sliderContainer');
+            
+            setTimeout(() => {
+                openBook();
+            }, 2000);
+            
+            if (slides) {
+                slides.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                slides.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    previousSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            });
+        });
+
+        function showSlide(index) {
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides.forEach((slide, i) => {
+                slide.classList.remove('page-flip-forward', 'page-flip-backward');
+                if (i === index) {
+                    slide.style.display = 'flex';
+                    slide.style.transform = 'translateX(0)';
+                    slide.style.zIndex = '1';
+                } else if (i < index) {
+                    slide.style.display = 'none';
+                    slide.style.transform = 'translateX(-100%)';
+                } else {
+                    slide.style.display = 'none';
+                    slide.style.transform = 'translateX(100%)';
+                }
+            });
+            
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const allSlides = document.querySelectorAll('.slide');
+            const oldSlide = currentSlide;
+            currentSlide = (currentSlide + 1) % totalSlides;
+            
+            allSlides[oldSlide].style.display = 'flex';
+            allSlides[oldSlide].style.zIndex = '10';
+            allSlides[oldSlide].classList.add('page-flip-forward');
+            
+            allSlides[currentSlide].style.display = 'flex';
+            allSlides[currentSlide].style.transform = 'translateX(0)';
+            allSlides[currentSlide].style.zIndex = '1';
+            
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+            
+            setTimeout(() => {
+                allSlides[oldSlide].style.display = 'none';
+                allSlides[oldSlide].classList.remove('page-flip-forward');
+                allSlides[oldSlide].style.transform = 'translateX(-100%)';
+                isAnimating = false;
+            }, 600);
+        }
+
+        function previousSlide() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const allSlides = document.querySelectorAll('.slide');
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            
+            allSlides[currentSlide].style.display = 'flex';
+            allSlides[currentSlide].style.transform = 'translateX(100%)';
+            allSlides[currentSlide].style.zIndex = '10';
+            
+            setTimeout(() => {
+                allSlides[currentSlide].classList.add('page-flip-backward');
+                allSlides[currentSlide].style.transform = 'translateX(0)';
+            }, 50);
+            
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+            
+            setTimeout(() => {
+                allSlides[currentSlide].classList.remove('page-flip-backward');
+                allSlides.forEach((slide, i) => {
+                    if (i !== currentSlide) {
+                        slide.style.display = 'none';
+                    }
+                });
+                isAnimating = false;
+            }, 650);
+        }
+
+        function goToSlide(index) {
+            if (isAnimating || index === currentSlide) return;
+            
+            if (index > currentSlide) {
+                const steps = index - currentSlide;
+                let step = 0;
+                
+                const flipNext = () => {
+                    if (step < steps) {
+                        nextSlide();
+                        step++;
+                        setTimeout(flipNext, 700);
+                    }
+                };
+                flipNext();
+            } else {
+                const steps = currentSlide - index;
+                let step = 0;
+                
+                const flipPrev = () => {
+                    if (step < steps) {
+                        previousSlide();
+                        step++;
+                        setTimeout(flipPrev, 700);
+                    }
+                };
+                flipPrev();
+            }
+        }
+
+        function handleSwipe() {
+            if (touchStartX - touchEndX > 50) {
+                nextSlide();
+            }
+            if (touchEndX - touchStartX > 50) {
+                previousSlide();
+            }
+        }
+    </script>
+</body>
+</html>
