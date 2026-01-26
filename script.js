@@ -132,14 +132,17 @@ function loadTextFromConfig() {
 }
 
 function updatePageNumber() {
-    const pageNum = document.getElementById('pageNum');
     const currentPage = pageFlip.getCurrentPageIndex();
-    const totalPages = pageFlip.getPageCount();
-    pageNum.textContent = `${currentPage + 1} / ${totalPages}`;
     
-    // 버튼 활성화/비활성화
-    document.getElementById('prevBtn').disabled = currentPage === 0;
-    document.getElementById('nextBtn').disabled = currentPage >= totalPages - 1;
+    // 책이 열렸는지 확인 (첫 페이지가 아니면 열린 것)
+    const bookContainer = document.getElementById('bookContainer');
+    if (currentPage > 0) {
+        bookContainer.classList.remove('book-closed');
+        bookContainer.classList.add('book-opened');
+    } else {
+        bookContainer.classList.remove('book-opened');
+        bookContainer.classList.add('book-closed');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -187,16 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePageNumber();
     });
 
-    // 버튼 이벤트
-    document.getElementById('prevBtn').addEventListener('click', () => {
-        pageFlip.flipPrev();
-    });
-
-    document.getElementById('nextBtn').addEventListener('click', () => {
-        pageFlip.flipNext();
-    });
-
-    // 초기 페이지 번호 업데이트
+    // 초기 상태 업데이트
     setTimeout(() => {
         updatePageNumber();
     }, 100);

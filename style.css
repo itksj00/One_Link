@@ -70,14 +70,27 @@ body::before {
     align-items: center;
     justify-content: center;
     padding: 2rem 1rem;
-    padding-bottom: 150px;
     position: relative;
+    transition: all 0.6s ease;
+}
+
+.container.book-opened {
+    padding-right: calc(50% - 300px);
 }
 
 #book {
     width: 600px;
     height: 500px;
     position: relative;
+    transition: transform 0.6s ease;
+}
+
+.book-closed #book {
+    transform: translateX(0);
+}
+
+.book-opened #book {
+    transform: translateX(150px);
 }
 
 .page {
@@ -248,83 +261,20 @@ body::before {
     font-weight: 600;
 }
 
-/* 책 컨트롤 */
-.book-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-}
+/* 책 컨트롤 - 삭제됨 */
 
-.book-btn {
-    background: rgba(255, 250, 240, 0.95);
-    border: 1px solid rgba(160, 130, 100, 0.25);
-    border-radius: 25px;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #5a4d42;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(74, 63, 53, 0.15);
-    backdrop-filter: blur(8px);
-}
-
-.book-btn:hover {
-    background: #a68967;
-    color: #fffaf0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(74, 63, 53, 0.25);
-}
-
-.book-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.page-number {
-    font-size: 1rem;
-    color: #fffaf0;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    background: rgba(139, 115, 85, 0.3);
-    border-radius: 15px;
-    backdrop-filter: blur(8px);
-}
-
-.footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 -3px 15px rgba(74, 63, 53, 0.2);
-    overflow: hidden;
-    height: 100px;
-    background: linear-gradient(135deg, #4a3f35 0%, #6b5d52 50%, #5a4d42 100%);
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, 
-        rgba(0, 0, 0, 0.08) 0%, 
-        transparent 50%, 
-        rgba(0, 0, 0, 0.08) 100%);
-    pointer-events: none;
-}
+/* 푸터 - 삭제됨 */
 
 /* 반응형 */
 @media (max-width: 768px) {
+    .container.book-opened {
+        padding-right: 1rem;
+    }
+
+    .book-opened #book {
+        transform: translateX(50px);
+    }
+
     #book {
         width: 90vw;
         max-width: 400px;
@@ -350,18 +300,13 @@ body::before {
     .links-grid {
         grid-template-columns: 1fr;
     }
-
-    .book-controls {
-        gap: 1rem;
-    }
-
-    .book-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-    }
 }
 
 @media (max-width: 480px) {
+    .book-opened #book {
+        transform: translateX(0);
+    }
+
     #book {
         height: 400px;
     }
