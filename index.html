@@ -178,24 +178,37 @@
         }
 
         .book-cover.opening {
-            animation: openBook 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+            animation: openBook 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
             pointer-events: none;
         }
 
         @keyframes openBook {
             0% {
-                transform: perspective(2500px) rotateY(0deg);
+                transform: perspective(2500px) rotateY(0deg) scale(1);
                 opacity: 1;
+                filter: brightness(1);
             }
-            35% {
-                transform: perspective(2500px) rotateY(-15deg);
+            5% {
+                transform: perspective(2500px) rotateY(-2deg) scale(1.02);
             }
-            65% {
-                transform: perspective(2500px) rotateY(-100deg);
+            25% {
+                transform: perspective(2500px) rotateY(-8deg) scale(1.05);
+                filter: brightness(1.1);
+            }
+            50% {
+                transform: perspective(2500px) rotateY(-45deg) scale(1.08);
+                opacity: 0.95;
+                filter: brightness(1.15);
+            }
+            75% {
+                transform: perspective(2500px) rotateY(-120deg) scale(1.05);
+                opacity: 0.6;
+                filter: brightness(1.1);
             }
             100% {
-                transform: perspective(2500px) rotateY(-180deg);
+                transform: perspective(2500px) rotateY(-180deg) scale(1);
                 opacity: 0;
+                filter: brightness(1);
                 pointer-events: none;
             }
         }
@@ -1141,13 +1154,13 @@
                     sliderContainer.classList.add('visible');
                 }
                 showSlide(0);
-            }, 600);
+            }, 400);
             
             setTimeout(() => {
                 if (bookCover) {
                     bookCover.style.display = 'none';
                 }
-            }, 1800);
+            }, 1200);
         }
         
         window.addEventListener('DOMContentLoaded', () => {
