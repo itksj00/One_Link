@@ -101,25 +101,36 @@ body::before {
 .page::after {
     content: '';
     position: absolute;
-    right: -2px;
+    right: -3px;
     top: 8px;
     bottom: 8px;
-    width: 15px;
+    width: 18px;
     background: 
         linear-gradient(to right, 
             #f5f3e8 0%, 
-            #e8e5d5 30%,
-            #dbd8c8 60%,
-            #cecbb8 100%
+            #ebe9dc 20%,
+            #e0ddd0 40%,
+            #d5d2c5 60%,
+            #cac7b8 80%,
+            #bfbcab 100%
         );
     box-shadow: 
         1px 0 0 0 #eeebde,
         2px 0 0 0 #e7e4d7,
         3px 0 0 0 #e0ddd0,
         4px 0 0 0 #d9d6c9,
-        1px 0 2px rgba(0, 0, 0, 0.1),
-        2px 0 3px rgba(0, 0, 0, 0.08),
-        3px 0 4px rgba(0, 0, 0, 0.06);
+        5px 0 0 0 #d2cfc2,
+        6px 0 0 0 #cbc8bb,
+        7px 0 0 0 #c4c1b4,
+        8px 0 0 0 #bdbaad,
+        1px 0 2px rgba(0, 0, 0, 0.15),
+        2px 0 3px rgba(0, 0, 0, 0.12),
+        3px 0 4px rgba(0, 0, 0, 0.10),
+        4px 0 5px rgba(0, 0, 0, 0.08),
+        5px 0 6px rgba(0, 0, 0, 0.06),
+        6px 0 7px rgba(0, 0, 0, 0.05),
+        7px 0 8px rgba(0, 0, 0, 0.04),
+        8px 0 10px rgba(0, 0, 0, 0.03);
     border-radius: 0 8px 8px 0;
     pointer-events: none;
 }
@@ -128,7 +139,7 @@ body::before {
 .page-number-left,
 .page-number-right {
     position: absolute;
-    bottom: 25px;
+    bottom: 20px;
     font-size: 0.75rem;
     color: #8b7355;
     font-family: 'Georgia', serif;
@@ -137,11 +148,11 @@ body::before {
 }
 
 .page-number-left {
-    left: 25px;
+    left: 20px;
 }
 
 .page-number-right {
-    right: 25px;
+    right: 30px;
 }
 
 .page-content {
@@ -220,8 +231,42 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 1.5rem;
-    font-size: 3rem;
+    gap: 2rem;
+    align-items: center;
+}
+
+.flag-icon {
+    width: 60px;
+    height: 40px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.flag-kr {
+    background: linear-gradient(to bottom, 
+        #fff 0%, #fff 33%, 
+        #cd2e3a 33%, #cd2e3a 66%, 
+        #0047a0 66%, #0047a0 100%);
+    position: relative;
+}
+
+.flag-kr::before {
+    content: '태극';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+}
+
+.flag-de {
+    background: linear-gradient(to bottom, 
+        #000 0%, #000 33%, 
+        #dd0000 33%, #dd0000 66%, 
+        #ffce00 66%, #ffce00 100%);
 }
 
 /* 인트로 페이지 */
