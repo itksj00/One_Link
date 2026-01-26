@@ -4,7 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인 링크 허브</title>
-    <script src="config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        // 링크 및 텍스트 설정
+        const linkConfig = {
+            section0: {
+                name: 'Seongjun(Kurt) Kim',
+                title: 'IT System Engineer',
+                tagline: 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가'
+            },
+            section1: {
+                linkedin: 'https://www.linkedin.com/in/seongjun-kurt-kim-9a5649313?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BIPKkz0w9TBWTlXwJDUo8Ww%3D%3D',
+                github: 'https://github.com/itksj00',
+                email: 'mailto:itksj00@gmail.com'
+            },
+            section2: {
+                resume: 'https://notion.so/your-resume-page',
+                experience: 'https://notion.so/your-experience',
+                skills: 'https://notion.so/your-skills',
+                cv: '/path-to-cv.pdf'
+            },
+            section3: {
+                portfolio: 'https://notion.so/your-portfolio',
+                project1: 'https://github.com/yourusername/project1',
+                project2: 'https://github.com/yourusername/project2',
+                website: 'https://yourwebsite.com'
+            },
+            section4: {
+                hobbies: 'https://notion.so/your-hobbies',
+                story: 'https://notion.so/your-story',
+                travel: 'https://notion.so/travel',
+                photography: 'https://notion.so/photography'
+            }
+        };
+    </script>
     <style>
         * {
             margin: 0;
@@ -144,6 +177,7 @@
             border-left: 10px solid #a68967;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .book-cover::before {
@@ -178,39 +212,7 @@
         }
 
         .book-cover.opening {
-            animation: openBook 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
             pointer-events: none;
-        }
-
-        @keyframes openBook {
-            0% {
-                transform: perspective(2500px) rotateY(0deg) scale(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-            5% {
-                transform: perspective(2500px) rotateY(-2deg) scale(1.02);
-            }
-            25% {
-                transform: perspective(2500px) rotateY(-8deg) scale(1.05);
-                filter: brightness(1.1);
-            }
-            50% {
-                transform: perspective(2500px) rotateY(-45deg) scale(1.08);
-                opacity: 0.95;
-                filter: brightness(1.15);
-            }
-            75% {
-                transform: perspective(2500px) rotateY(-120deg) scale(1.05);
-                opacity: 0.6;
-                filter: brightness(1.1);
-            }
-            100% {
-                transform: perspective(2500px) rotateY(-180deg) scale(1);
-                opacity: 0;
-                filter: brightness(1);
-                pointer-events: none;
-            }
         }
 
         .book-title {
