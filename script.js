@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookElement = document.getElementById('book');
     
     pageFlip = new St.PageFlip(bookElement, {
-        width: 300,  // 페이지 하나의 너비
-        height: 500, // 페이지 높이
+        width: 300,
+        height: 500,
         size: 'stretch',
         minWidth: 200,
         maxWidth: 400,
@@ -179,7 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 이벤트 리스너
     pageFlip.on('flip', (e) => {
-        updatePageNumber();
+        setTimeout(() => {
+            updatePageNumber();
+        }, 50);
     });
 
     pageFlip.on('changeOrientation', (e) => {
