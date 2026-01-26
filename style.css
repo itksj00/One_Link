@@ -94,6 +94,54 @@ body::before {
         0 0 20px rgba(0, 0, 0, 0.1),
         inset -3px 0 10px rgba(139, 115, 85, 0.1);
     border-radius: 8px;
+    position: relative;
+}
+
+/* 오른쪽 페이지 엣지 효과 (여러 페이지 겹쳐진 느낌) */
+.page::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 8px;
+    bottom: 8px;
+    width: 15px;
+    background: 
+        linear-gradient(to right, 
+            #f5f3e8 0%, 
+            #e8e5d5 30%,
+            #dbd8c8 60%,
+            #cecbb8 100%
+        );
+    box-shadow: 
+        1px 0 0 0 #eeebde,
+        2px 0 0 0 #e7e4d7,
+        3px 0 0 0 #e0ddd0,
+        4px 0 0 0 #d9d6c9,
+        1px 0 2px rgba(0, 0, 0, 0.1),
+        2px 0 3px rgba(0, 0, 0, 0.08),
+        3px 0 4px rgba(0, 0, 0, 0.06);
+    border-radius: 0 8px 8px 0;
+    pointer-events: none;
+}
+
+/* 페이지 번호 */
+.page-number-left,
+.page-number-right {
+    position: absolute;
+    bottom: 25px;
+    font-size: 0.75rem;
+    color: #8b7355;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    z-index: 10;
+}
+
+.page-number-left {
+    left: 25px;
+}
+
+.page-number-right {
+    right: 25px;
 }
 
 .page-content {
@@ -109,83 +157,71 @@ body::before {
 
 /* 앞표지 스타일 */
 .page-cover {
-    background: 
-        linear-gradient(135deg, rgba(0,0,0,0.2) 0%, transparent 50%),
-        linear-gradient(135deg, #8b7355 0%, #7a6149 50%, #6b5444 100%);
+    background: linear-gradient(135deg, #8b7355 0%, #7a6149 50%, #6b5444 100%);
     box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 10px 30px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
-    border: 2px solid rgba(62, 39, 35, 0.5);
+    border: 3px solid rgba(62, 39, 35, 0.6);
     border-radius: 8px;
 }
 
 .page-cover::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 3px,
-            rgba(0, 0, 0, 0.03) 3px,
-            rgba(0, 0, 0, 0.03) 6px
-        );
-    pointer-events: none;
-    border-radius: 8px;
-}
-
-.page-cover::after {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 4px;
     pointer-events: none;
 }
 
+.page-cover::after {
+    display: none;
+}
+
 .page-cover-content {
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
     color: #fffaf0;
     z-index: 1;
+    padding-top: 4rem;
 }
 
 .cover-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-shadow: 
-        0 3px 20px rgba(0, 0, 0, 0.6),
-        0 1px 3px rgba(0, 0, 0, 0.8);
-    letter-spacing: 2px;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    letter-spacing: 3px;
     font-family: 'Georgia', serif;
 }
 
 .cover-subtitle {
-    font-size: 1.6rem;
+    font-size: 0.9rem;
     font-weight: 400;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     color: #f5deb3;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
+    opacity: 0.9;
 }
 
 .cover-tagline {
-    font-size: 1.1rem;
-    font-style: italic;
-    opacity: 0.95;
-    line-height: 1.6;
-    max-width: 500px;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.cover-flags {
+    position: absolute;
+    bottom: 33%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1.5rem;
+    font-size: 3rem;
 }
 
 /* 인트로 페이지 */
