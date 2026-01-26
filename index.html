@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인 링크 허브</title>
     <script src="config.js"></script>
-    <script src="quotes.js"></script>
     <style>
         * {
             margin: 0;
@@ -23,7 +22,6 @@
             position: relative;
         }
 
-        /* Warm cozy texture overlay */
         body::before {
             content: '';
             position: fixed;
@@ -38,7 +36,6 @@
             pointer-events: none;
         }
 
-        /* Soft ambient glow */
         body::after {
             content: '';
             position: fixed;
@@ -99,7 +96,6 @@
             min-height: calc(100vh - 100px);
         }
 
-        /* Wooden desk surface effect */
         .container::before {
             content: '';
             position: absolute;
@@ -125,7 +121,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Book cover - cozy and warm */
         .book-cover {
             position: absolute;
             top: 0;
@@ -169,7 +164,6 @@
             pointer-events: none;
         }
 
-        /* Soft leather texture */
         .book-cover::after {
             content: '';
             position: absolute;
@@ -295,9 +289,7 @@
         .slide::-webkit-scrollbar-thumb:hover {
             background: rgba(166, 137, 103, 0.5);
         }
-
-        /* 우측 여러 페이지 쌓인 효과 (실제 책처럼) */
-        .slide::after {
+.slide::after {
             content: '';
             position: absolute;
             right: -2px;
@@ -321,7 +313,7 @@
                 5px 0 0 0 #d2cfc2,
                 6px 0 0 0 #cbc8bb,
                 7px 0 0 0 #c4c1b4,
-                8px 0 0 0 #bdbaa d,
+                8px 0 0 0 #bdbaad,
                 9px 0 0 0 #b6b3a6,
                 10px 0 0 0 #afac9f,
                 11px 0 0 0 #a8a598,
@@ -346,7 +338,6 @@
             z-index: -1;
         }
 
-        /* Smooth slide effect instead of page flip */
         .slide.page-flip-forward {
             animation: slideOutLeft 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
             z-index: 10;
@@ -379,7 +370,6 @@
             }
         }
 
-        /* Subtle paper texture with right edge shadow */
         .slide::before {
             content: '';
             position: absolute;
@@ -400,26 +390,6 @@
             opacity: 0.6;
         }
 
-        /* Book page edge - right side */
-        .slide::after {
-            content: '';
-            position: absolute;
-            right: -1px;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            background: linear-gradient(-90deg, 
-                rgba(180, 160, 130, 0.25) 0%,
-                rgba(160, 140, 110, 0.15) 30%,
-                rgba(140, 120, 95, 0.08) 60%,
-                transparent 100%);
-            box-shadow: 
-                inset -2px 0 4px rgba(139, 115, 85, 0.2),
-                inset -1px 0 2px rgba(160, 130, 100, 0.15);
-            border-radius: 0 12px 12px 0;
-        }
-
-        /* Book binding shadow effect (right side) */
         .slide-binding {
             position: absolute;
             right: 0;
@@ -430,7 +400,6 @@
             z-index: 2;
         }
 
-        /* Binding shadow gradient */
         .slide-binding::before {
             content: '';
             position: absolute;
@@ -447,7 +416,6 @@
             box-shadow: inset -3px 0 6px rgba(100, 80, 60, 0.15);
         }
 
-        /* Page texture lines */
         .slide-binding::after {
             content: '';
             position: absolute;
@@ -464,7 +432,6 @@
             );
         }
 
-        /* Binding stitches */
         .binding-stitch {
             position: absolute;
             right: 12px;
@@ -486,7 +453,6 @@
         .binding-stitch:nth-child(4) { top: 70%; }
         .binding-stitch:nth-child(5) { top: 90%; }
 
-        /* Multiple pages stacked effect (right side) */
         .slide-pages-stack {
             position: absolute;
             right: 0;
@@ -496,7 +462,6 @@
             pointer-events: none;
         }
 
-        /* First page edge */
         .slide-pages-stack::before {
             content: '';
             position: absolute;
@@ -511,7 +476,6 @@
                 -1px 0 3px rgba(160, 130, 100, 0.1);
         }
 
-        /* Second page edge */
         .slide-pages-stack::after {
             content: '';
             position: absolute;
@@ -526,7 +490,6 @@
                 -1px 0 3px rgba(160, 130, 100, 0.15);
         }
 
-        /* Third page edge (as separate element in HTML) */
         .page-edge-3 {
             position: absolute;
             right: -9px;
@@ -574,10 +537,6 @@
             line-height: 1.5;
             font-family: 'Segoe UI', sans-serif;
             font-weight: 400;
-        }
-
-        .page-quote {
-            display: none;
         }
 
         .links-grid {
@@ -682,7 +641,6 @@
             box-shadow: 0 2px 8px rgba(166, 137, 103, 0.5);
         }
 
-        /* Intro Section Styles */
         .slide.intro-slide {
             justify-content: flex-start;
             text-align: center;
@@ -744,10 +702,7 @@
             box-shadow: 0 -3px 15px rgba(74, 63, 53, 0.2);
             overflow: hidden;
             height: 100px;
-            background-image: url('footer-background.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: linear-gradient(135deg, #4a3f35 0%, #6b5d52 50%, #5a4d42 100%);
         }
 
         .footer::before {
@@ -762,10 +717,6 @@
                 transparent 50%, 
                 rgba(0, 0, 0, 0.08) 100%);
             pointer-events: none;
-        }
-
-        .viking-animation {
-            display: flex;
         }
 
         @media (max-width: 768px) {
@@ -819,10 +770,6 @@
             .footer {
                 height: 80px;
             }
-
-            .container {
-                padding-bottom: 100px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -874,7 +821,6 @@
 
     <div class="container">
         <div class="slider-wrapper">
-            <!-- Book Cover -->
             <div class="book-cover" id="bookCover">
                 <div class="book-title" data-config="section0.name">Kurt</div>
                 <div class="book-subtitle" data-config="section0.title">IT System Engineer</div>
@@ -882,7 +828,6 @@
             
             <div class="slider-container" id="sliderContainer">
                 <div class="slides" id="slides">
-                    <!-- Slide 0: Intro / Welcome -->
                     <div class="slide intro-slide">
                         <div class="slide-binding">
                             <div class="binding-stitch"></div>
@@ -902,7 +847,6 @@
                         </div>
                     </div>
 
-                    <!-- Slide 1: Connect / Social -->
                     <div class="slide">
                         <div class="slide-binding">
                             <div class="binding-stitch"></div>
@@ -931,16 +875,11 @@
                                 <div class="label translatable" data-i18n="email">이메일</div>
                             </a>
                         </div>
-                        <div class="page-quote">
-                            <div class="page-quote-text" data-quote="page1-text"></div>
-                            <div class="page-quote-author" data-quote="page1-author"></div>
-                        </div>
                         <div class="slide-pages-stack">
                             <div class="page-edge-3"></div>
                         </div>
                     </div>
 
-                    <!-- Slide 2: Resume / CV -->
                     <div class="slide">
                         <div class="slide-binding">
                             <div class="binding-stitch"></div>
@@ -969,16 +908,11 @@
                                 <div class="label translatable" data-i18n="download-cv">CV 다운로드</div>
                             </a>
                         </div>
-                        <div class="page-quote">
-                            <div class="page-quote-text" data-quote="page2-text"></div>
-                            <div class="page-quote-author" data-quote="page2-author"></div>
-                        </div>
                         <div class="slide-pages-stack">
                             <div class="page-edge-3"></div>
                         </div>
                     </div>
 
-                    <!-- Slide 3: Portfolio / Projects -->
                     <div class="slide">
                         <div class="slide-binding">
                             <div class="binding-stitch"></div>
@@ -1007,16 +941,11 @@
                                 <div class="label translatable" data-i18n="website">웹사이트</div>
                             </a>
                         </div>
-                        <div class="page-quote">
-                            <div class="page-quote-text" data-quote="page3-text"></div>
-                            <div class="page-quote-author" data-quote="page3-author"></div>
-                        </div>
                         <div class="slide-pages-stack">
                             <div class="page-edge-3"></div>
                         </div>
                     </div>
 
-                    <!-- Slide 4: Hobbies / Personal Story -->
                     <div class="slide">
                         <div class="slide-binding">
                             <div class="binding-stitch"></div>
@@ -1044,10 +973,6 @@
                                 <div class="icon">📷</div>
                                 <div class="label translatable" data-i18n="photography">사진</div>
                             </a>
-                        </div>
-                        <div class="page-quote">
-                            <div class="page-quote-text" data-quote="page4-text"></div>
-                            <div class="page-quote-author" data-quote="page4-author"></div>
                         </div>
                         <div class="slide-pages-stack">
                             <div class="page-edge-3"></div>
@@ -1179,27 +1104,8 @@
                     }
                 }
             });
-
-            loadQuotes(lang);
         }
 
-        // Load quotes from external file
-        function loadQuotes(lang) {
-            document.querySelectorAll('[data-quote]').forEach(element => {
-                const key = element.getAttribute('data-quote');
-                const [page, type] = key.split('-');
-                
-                if (quotesConfig[page] && quotesConfig[page][lang]) {
-                    if (type === 'text') {
-                        element.textContent = quotesConfig[page][lang].text;
-                    } else if (type === 'author') {
-                        element.textContent = quotesConfig[page][lang].author;
-                    }
-                }
-            });
-        }
-
-        // Load URLs from config file
         function loadLinksFromConfig() {
             document.querySelectorAll('[data-link]').forEach(link => {
                 const path = link.getAttribute('data-link').split('.');
@@ -1212,7 +1118,6 @@
             });
         }
 
-        // Load text content from config file
         function loadTextFromConfig() {
             document.querySelectorAll('[data-config]').forEach(element => {
                 const path = element.getAttribute('data-config').split('.');
@@ -1225,14 +1130,12 @@
             });
         }
 
-        // Load links when page loads
         let bookCover, sliderContainer;
         
         function openBook() {
             if (!bookCover) return;
             bookCover.classList.add('opening');
             
-            // 커버가 열리는 중간에 슬라이더 보이기 (fade in)
             setTimeout(() => {
                 if (sliderContainer) {
                     sliderContainer.classList.add('visible');
@@ -1248,12 +1151,10 @@
         }
         
         window.addEventListener('DOMContentLoaded', () => {
-            // Initialize DOM elements
             slides = document.getElementById('slides');
             dotsContainer = document.getElementById('dotsContainer');
             totalSlides = document.querySelectorAll('.slide').length;
             
-            // Create navigation dots
             for (let i = 0; i < totalSlides; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
@@ -1264,18 +1165,14 @@
             
             loadLinksFromConfig();
             loadTextFromConfig();
-            loadQuotes(currentLang);
             
-            // Book opening animation
             bookCover = document.getElementById('bookCover');
             sliderContainer = document.getElementById('sliderContainer');
             
-            // Open book after 2 seconds automatically
             setTimeout(() => {
                 openBook();
             }, 2000);
             
-            // Touch/swipe support for mobile
             if (slides) {
                 slides.addEventListener('touchstart', (e) => {
                     touchStartX = e.changedTouches[0].screenX;
@@ -1287,7 +1184,6 @@
                 });
             }
 
-            // Keyboard navigation
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowLeft') {
                     previousSlide();
@@ -1314,7 +1210,6 @@
                 }
             });
             
-            // Update dots
             document.querySelectorAll('.dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
             });
@@ -1328,17 +1223,14 @@
             const oldSlide = currentSlide;
             currentSlide = (currentSlide + 1) % totalSlides;
             
-            // Show the current page that will slide out
             allSlides[oldSlide].style.display = 'flex';
             allSlides[oldSlide].style.zIndex = '10';
             allSlides[oldSlide].classList.add('page-flip-forward');
             
-            // Prepare the next page
             allSlides[currentSlide].style.display = 'flex';
             allSlides[currentSlide].style.transform = 'translateX(0)';
             allSlides[currentSlide].style.zIndex = '1';
             
-            // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
@@ -1358,7 +1250,6 @@
             const allSlides = document.querySelectorAll('.slide');
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             
-            // Prepare the page to slide in from right
             allSlides[currentSlide].style.display = 'flex';
             allSlides[currentSlide].style.transform = 'translateX(100%)';
             allSlides[currentSlide].style.zIndex = '10';
@@ -1368,14 +1259,12 @@
                 allSlides[currentSlide].style.transform = 'translateX(0)';
             }, 50);
             
-            // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
             
             setTimeout(() => {
                 allSlides[currentSlide].classList.remove('page-flip-backward');
-                // Hide other slides
                 allSlides.forEach((slide, i) => {
                     if (i !== currentSlide) {
                         slide.style.display = 'none';
@@ -1389,7 +1278,6 @@
             if (isAnimating || index === currentSlide) return;
             
             if (index > currentSlide) {
-                // Forward direction
                 const steps = index - currentSlide;
                 let step = 0;
                 
@@ -1402,7 +1290,6 @@
                 };
                 flipNext();
             } else {
-                // Backward direction
                 const steps = currentSlide - index;
                 let step = 0;
                 
