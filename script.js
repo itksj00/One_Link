@@ -153,13 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookElement = document.getElementById('book');
     
     pageFlip = new St.PageFlip(bookElement, {
-        width: 300,
-        height: 500,
+        width: 400,
+        height: 600,
         size: 'stretch',
-        minWidth: 200,
-        maxWidth: 400,
-        minHeight: 300,
-        maxHeight: 600,
+        minWidth: 300,
+        maxWidth: 500,
+        minHeight: 400,
+        maxHeight: 700,
         showCover: true,
         mobileScrollSupport: false,
         swipeDistance: 30,
