@@ -97,40 +97,26 @@ body::before {
     position: relative;
 }
 
-/* 모든 페이지 공통: 오른쪽 엣지 효과 */
+/* 모든 페이지 공통: 오른쪽 엣지 효과 (깔끔하게) */
 .page::before {
     content: '';
     position: absolute;
-    right: -3px;
-    top: 8px;
-    bottom: 8px;
-    width: 18px;
-    background: 
-        linear-gradient(to right, 
-            #f5f3e8 0%, 
-            #ebe9dc 20%,
-            #e0ddd0 40%,
-            #d5d2c5 60%,
-            #cac7b8 80%,
-            #bfbcab 100%
-        );
+    right: -2px;
+    top: 6px;
+    bottom: 6px;
+    width: 12px;
+    background: linear-gradient(to right, 
+        #ebe9dc 0%, 
+        #e0ddd0 50%,
+        #d5d2c5 100%
+    );
     box-shadow: 
-        1px 0 0 0 #eeebde,
-        2px 0 0 0 #e7e4d7,
-        3px 0 0 0 #e0ddd0,
-        4px 0 0 0 #d9d6c9,
-        5px 0 0 0 #d2cfc2,
-        6px 0 0 0 #cbc8bb,
-        7px 0 0 0 #c4c1b4,
-        8px 0 0 0 #bdbaad,
-        1px 0 2px rgba(0, 0, 0, 0.15),
-        2px 0 3px rgba(0, 0, 0, 0.12),
-        3px 0 4px rgba(0, 0, 0, 0.10),
-        4px 0 5px rgba(0, 0, 0, 0.08),
-        5px 0 6px rgba(0, 0, 0, 0.06),
-        6px 0 7px rgba(0, 0, 0, 0.05),
-        7px 0 8px rgba(0, 0, 0, 0.04),
-        8px 0 10px rgba(0, 0, 0, 0.03);
+        1px 0 0 0 #e7e4d7,
+        2px 0 0 0 #e0ddd0,
+        3px 0 0 0 #d9d6c9,
+        1px 0 1px rgba(0, 0, 0, 0.08),
+        2px 0 2px rgba(0, 0, 0, 0.06),
+        3px 0 3px rgba(0, 0, 0, 0.04);
     border-radius: 0 8px 8px 0;
     pointer-events: none;
     z-index: 1;
@@ -198,31 +184,33 @@ body::before {
 }
 
 .page-cover-content {
-    justify-content: flex-start;
+    justify-content: center;
     text-align: center;
     color: #fffaf0;
     z-index: 3;
-    padding-top: 4rem;
+    padding-top: 0;
     position: relative;
 }
 
 .cover-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 600;
-    margin-bottom: 0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
     font-family: 'Georgia', serif;
+    color: #fffaf0;
 }
 
 .cover-subtitle {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 400;
     margin-bottom: 0;
-    color: #f5deb3;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
-    opacity: 0.9;
+    color: #fffaf0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.5px;
+    opacity: 0.95;
+    font-family: 'Georgia', serif;
 }
 
 .cover-tagline {
@@ -230,62 +218,7 @@ body::before {
 }
 
 .cover-flags {
-    position: absolute;
-    bottom: 33%;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-}
-
-.flag-icon {
-    width: 80px;
-    height: 53px;
-    border-radius: 3px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-/* 한국 국기 */
-.flag-kr {
-    background: white;
-}
-
-.flag-kr::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: 
-        linear-gradient(135deg, 
-            #c60c30 0%, #c60c30 50%, 
-            #003478 50%, #003478 100%);
-}
-
-.flag-kr::after {
-    content: '☰';
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: 10px;
-    color: #000;
-    line-height: 1;
-}
-
-/* 독일 국기 */
-.flag-de {
-    background: 
-        linear-gradient(to bottom, 
-            #000 0%, #000 33.33%, 
-            #dd0000 33.33%, #dd0000 66.66%, 
-            #ffce00 66.66%, #ffce00 100%);
+    display: none;
 }
 
 /* 인트로 페이지 */
