@@ -250,6 +250,26 @@ body::before {
     text-align: center;
     line-height: 1.6;
     max-width: 400px;
+    margin-bottom: 1.5rem;
+}
+
+/* 간단한 이력 */
+.intro-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 0.5rem;
+}
+
+.highlight-item {
+    font-size: 0.85rem;
+    color: #7a6149;
+    text-align: left;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(160, 130, 100, 0.15);
+    line-height: 1.4;
 }
 
 /* 페이지 제목 */

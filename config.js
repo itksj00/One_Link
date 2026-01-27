@@ -5,9 +5,16 @@
 const linkConfig = {
     // 섹션 0: 인트로 페이지 텍스트
     section0: {
-        name: 'Seongjun(Kurt) Kim',
+        name: 'Seongjun Kim(Kurt)',
         title: 'IT System Engineer',
-        tagline: 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가'
+        tagline: 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가',
+        // 간단한 이력 (1번 페이지에 표시됨)
+        highlights: [
+            '🏆 2023 IT Excellence Award',
+            '💼 Senior System Engineer @ Tech Corp',
+            '🎓 MSc in Computer Science',
+            '☁️ AWS Certified Solutions Architect'
+        ]
     },
 
     // 섹션 1: 소셜 링크 / 소개
