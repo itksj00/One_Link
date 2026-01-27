@@ -97,8 +97,8 @@ body::before {
     position: relative;
 }
 
-/* 오른쪽 페이지 엣지 효과 (여러 페이지 겹쳐진 느낌) */
-.page::after {
+/* 모든 페이지 공통: 오른쪽 엣지 효과 */
+.page::before {
     content: '';
     position: absolute;
     right: -3px;
@@ -133,6 +133,12 @@ body::before {
         8px 0 10px rgba(0, 0, 0, 0.03);
     border-radius: 0 8px 8px 0;
     pointer-events: none;
+    z-index: 1;
+}
+
+/* 표지는 엣지 효과 제거 */
+.page-cover::before {
+    display: none;
 }
 
 /* 페이지 번호 */
@@ -178,7 +184,7 @@ body::before {
     border-radius: 8px;
 }
 
-.page-cover::before {
+.page-cover::after {
     content: '';
     position: absolute;
     top: 30px;
@@ -188,18 +194,16 @@ body::before {
     border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 4px;
     pointer-events: none;
-}
-
-.page-cover::after {
-    display: none;
+    z-index: 2;
 }
 
 .page-cover-content {
     justify-content: flex-start;
     text-align: center;
     color: #fffaf0;
-    z-index: 1;
+    z-index: 3;
     padding-top: 4rem;
+    position: relative;
 }
 
 .cover-title {
@@ -231,42 +235,57 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     align-items: center;
 }
 
 .flag-icon {
-    width: 60px;
-    height: 40px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    width: 80px;
+    height: 53px;
+    border-radius: 3px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
+/* 한국 국기 */
 .flag-kr {
-    background: linear-gradient(to bottom, 
-        #fff 0%, #fff 33%, 
-        #cd2e3a 33%, #cd2e3a 66%, 
-        #0047a0 66%, #0047a0 100%);
-    position: relative;
+    background: white;
 }
 
 .flag-kr::before {
-    content: '태극';
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 10px;
-    color: rgba(0, 0, 0, 0.3);
-    font-weight: bold;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: 
+        linear-gradient(135deg, 
+            #c60c30 0%, #c60c30 50%, 
+            #003478 50%, #003478 100%);
 }
 
+.flag-kr::after {
+    content: '☰';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 10px;
+    color: #000;
+    line-height: 1;
+}
+
+/* 독일 국기 */
 .flag-de {
-    background: linear-gradient(to bottom, 
-        #000 0%, #000 33%, 
-        #dd0000 33%, #dd0000 66%, 
-        #ffce00 66%, #ffce00 100%);
+    background: 
+        linear-gradient(to bottom, 
+            #000 0%, #000 33.33%, 
+            #dd0000 33.33%, #dd0000 66.66%, 
+            #ffce00 66.66%, #ffce00 100%);
 }
 
 /* 인트로 페이지 */
