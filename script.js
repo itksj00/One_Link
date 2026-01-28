@@ -226,15 +226,15 @@ document.addEventListener('DOMContentLoaded', () => {
         maxHeight: 700,
         showCover: true,
         mobileScrollSupport: false,
-        swipeDistance: 30,
+        swipeDistance: 0,  // 30 → 0 (스와이프 비활성화)
         clickEventForward: true,
         usePortrait: true,
         startPage: 0,
         drawShadow: true,
-        flippingTime: 1000,
-        useMouseEvents: true,
+        flippingTime: 800,
+        useMouseEvents: false,  // true → false (드래그 비활성화)
         autoSize: true,
-        maxShadowOpacity: 0.5,
+        maxShadowOpacity: 0.4,
         showPageCorners: true,
         disableFlipByClick: false
     });
