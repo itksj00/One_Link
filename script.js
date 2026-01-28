@@ -226,13 +226,13 @@ document.addEventListener('DOMContentLoaded', () => {
         maxHeight: 700,
         showCover: true,
         mobileScrollSupport: false,
-        swipeDistance: 0,  // 30 → 0 (스와이프 비활성화)
-        clickEventForward: true,
+        swipeDistance: 0,
+        clickEventForward: false,  // true → false (클릭이 페이지로 전달되도록)
         usePortrait: true,
         startPage: 0,
         drawShadow: true,
         flippingTime: 800,
-        useMouseEvents: false,  // true → false (드래그 비활성화)
+        useMouseEvents: false,
         autoSize: true,
         maxShadowOpacity: 0.4,
         showPageCorners: true,
