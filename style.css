@@ -71,6 +71,7 @@ body::before {
     justify-content: center;
     padding: 2rem 1rem;
     position: relative;
+    will-change: transform;
 }
 
 #book {
@@ -78,14 +79,17 @@ body::before {
     height: 600px;
     position: relative;
     transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .container.book-closed #book {
-    transform: translateX(0) scale(1);
+    transform: translateX(0) scale(1) translateZ(0);
 }
 
 .container.book-opened #book {
-    transform: translateX(200px) scale(1.15);
+    transform: translateX(200px) scale(1.15) translateZ(0);
 }
 
 .page {
@@ -95,6 +99,9 @@ body::before {
         inset -3px 0 10px rgba(139, 115, 85, 0.1);
     border-radius: 8px;
     position: relative;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 /* 모든 페이지 공통: 오른쪽 엣지 효과 (깔끔하게) */
