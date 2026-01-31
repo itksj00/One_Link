@@ -241,6 +241,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
+    // 드래그 감지 변수
+    let isDragging = false;
+    let dragStartPage = 0;
+
     // 이벤트 리스너
     pageFlip.on('flip', (e) => {
         setTimeout(() => {
@@ -254,6 +258,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pageFlip.on('changeState', (e) => {
         updatePageNumber();
+        
+        // 첫 페이지(표지) 이후에는 드래그 방지
+        const currentPage = pageFlip.getCurrentPageIndex();
+        if (currentPage > 0 && e.data === 'user_fold') {
+            // 사용자가 드래그를 시작하려 할 때
+            if (!isDragging && dragStartPage > 0) {
+                // 첫 페이지가 아니면 드래그 차단
+                e.preventDefault?.();
+            }
+        }
+    });
+
+    // 마우스 다운 이벤트로 드래그 시작 감지
+    bookElement.addEventListener('mousedown', (e) => {
+        dragStartPage = pageFlip.getCurrentPageIndex();
+        isDragging = false;
+    });
+
+    bookElement.addEventListener('mousemove', (e) => {
+        if (dragStartPage > 0) {
+            isDragging = true;
+            // 첫 페이지 이후에는 드래그 중단
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    });
+
+    bookElement.addEventListener('mouseup', (e) => {
+        isDragging = false;
     });
 
     // 초기 상태 업데이트
