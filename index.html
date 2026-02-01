@@ -26,6 +26,19 @@
         </select>
     </div>
 
+    <div class="contact-wrapper">
+        <button class="contact-btn" id="contactBtn" onclick="toggleContact()">
+            ✉️ Contact
+        </button>
+        <div class="contact-popup" id="contactPopup">
+            <div class="contact-popup-label">Email</div>
+            <div class="contact-email-row">
+                <span class="contact-email-text" id="contactEmail"></span>
+                <button class="contact-copy-btn" id="copyBtn" onclick="copyEmail()">복사</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container book-closed" id="bookContainer">
         <div id="book">
             <!-- 앞표지 -->

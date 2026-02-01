@@ -124,6 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLinksFromConfig();
     loadTextFromConfig();
     applyThemeConfig();
+
+    // Contact 이메일 텍스트 로드
+    const contactEmail = document.getElementById('contactEmail');
+    if (contactEmail && linkConfig.section1.email) {
+        contactEmail.textContent = linkConfig.section1.email.replace('mailto:', '');
+    }
     
     // PageFlip 초기화
     const bookElement = document.getElementById('book');
