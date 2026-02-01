@@ -17,19 +17,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="language-selector">
-        <span class="lang-icon">🌐</span>
-        <select id="languageSelect" onchange="translatePage()">
-            <option value="ko">한국어</option>
-            <option value="en">English</option>
-            <option value="de">Deutsch</option>
-        </select>
-    </div>
+    <div class="top-right-wrapper">
+        <div class="language-selector">
+            <span class="lang-icon">🌐</span>
+            <select id="languageSelect" onchange="translatePage()">
+                <option value="ko">한국어</option>
+                <option value="en">English</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
 
-    <div class="contact-wrapper">
         <button class="contact-btn" id="contactBtn" onclick="toggleContact()">
             ✉️ Contact
         </button>
+
         <div class="contact-popup" id="contactPopup">
             <div class="contact-popup-label">Email</div>
             <div class="contact-email-row">
