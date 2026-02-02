@@ -18,6 +18,10 @@
 </head>
 <body>
     <div class="top-right-wrapper">
+        <button class="custom-btn" id="customBtn">
+            📌 버튼
+        </button>
+
         <div class="language-selector">
             <span class="lang-icon">🌐</span>
             <select id="languageSelect" onchange="translatePage()">
@@ -25,18 +29,6 @@
                 <option value="en">English</option>
                 <option value="de">Deutsch</option>
             </select>
-        </div>
-
-        <button class="contact-btn" id="contactBtn" onclick="toggleContact()">
-            ✉️ Contact
-        </button>
-
-        <div class="contact-popup" id="contactPopup">
-            <div class="contact-popup-label translatable" data-i18n="contact-email-label">Email</div>
-            <div class="contact-email-row">
-                <span class="contact-email-text" id="contactEmail"></span>
-                <button class="contact-copy-btn" id="copyBtn" onclick="copyEmail()">복사</button>
-            </div>
         </div>
     </div>
 
