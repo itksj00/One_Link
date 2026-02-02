@@ -312,7 +312,7 @@ body::before {
 .links-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.9rem;
+    gap: 1.2rem;
     width: 100%;
     max-width: 500px;
     margin-top: 1rem;
@@ -332,6 +332,7 @@ body::before {
     align-items: center;
     gap: 0.35rem;
     border: 1px solid rgba(255, 255, 255, 0.15);
+    min-height: 85px;
 }
 
 .link-card:hover {
@@ -343,6 +344,11 @@ body::before {
 .link-card .icon {
     font-size: 1.5rem;
     margin-bottom: 0.2rem;
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.link-card:hover .icon {
+    transform: scale(1.18) rotate(8deg);
 }
 
 .link-card .label {
