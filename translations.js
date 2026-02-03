@@ -9,6 +9,9 @@
 
 const translations = {
     ko: {
+        'cover-title': '이야기',
+        'cover-subtitle': '김성준',
+        
         'contact-me': '연락하기',
         'copy': '복사',
         'copied': '복사됨!',
@@ -46,6 +49,9 @@ const translations = {
         'photography': '사진'
     },
     en: {
+        'cover-title': 'The Story of',
+        'cover-subtitle': 'Seongjun Kim',
+        
         'contact-me': 'Contact Me',
         'copy': 'Copy',
         'copied': 'Copied!',
@@ -83,6 +89,9 @@ const translations = {
         'photography': 'Photography'
     },
     de: {
+        'cover-title': 'Die Geschichte von',
+        'cover-subtitle': 'Seongjun Kim',
+        
         'contact-me': 'Kontaktiere mich',
         'copy': 'Kopieren',
         'copied': 'Kopiert!',

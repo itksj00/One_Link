@@ -279,23 +279,24 @@ body::before {
 }
 
 .cover-title {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
     letter-spacing: 2px;
     font-family: 'Georgia', serif;
-    color: #fffaf0;
+    color: #fff8e7;
 }
 
 .cover-subtitle {
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 3rem;
+    font-weight: 700;
     margin-bottom: 0;
-    color: #fffaf0;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    letter-spacing: 0.5px;
-    opacity: 0.95;
+    color: #ffeaa7;
+    text-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 234, 167, 0.3);
+    letter-spacing: 1px;
     font-family: 'Georgia', serif;
 }
 
@@ -474,11 +475,11 @@ body::before {
     }
 
     .cover-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .cover-subtitle {
-        font-size: 1.3rem;
+        font-size: 2.3rem;
     }
 
     .intro-name {
@@ -509,6 +510,10 @@ body::before {
     }
 
     .cover-title {
+        font-size: 1.6rem;
+    }
+    
+    .cover-subtitle {
         font-size: 2rem;
     }
 
