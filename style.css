@@ -81,7 +81,8 @@ body::before {
     backdrop-filter: blur(8px);
     cursor: pointer;
     transition: all 0.3s ease;
-    max-width: 300px;
+    max-width: 90vw;
+    white-space: nowrap;
 }
 
 .email-contact-btn:hover {
@@ -522,5 +523,49 @@ body::before {
 
     .page p {
         font-size: 0.8rem;
+    }
+    
+    /* 모바일에서 버튼 크기 조정 */
+    .language-selector {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.85rem;
+    }
+    
+    .language-selector .lang-icon {
+        font-size: 1rem;
+    }
+    
+    .language-selector select {
+        font-size: 0.85rem;
+    }
+    
+    .email-contact-btn {
+        padding: 0.5rem 0.9rem;
+        bottom: 15px;
+        right: 15px;
+        max-width: calc(100vw - 30px);
+    }
+    
+    .email-contact-btn .contact-icon {
+        font-size: 1rem;
+    }
+    
+    .email-contact-btn .contact-text {
+        font-size: 0.85rem;
+    }
+    
+    .email-contact-btn .email-display {
+        font-size: 0.8rem;
+        gap: 0.4rem;
+    }
+    
+    .email-contact-btn .email-text {
+        font-size: 0.75rem;
+        max-width: 150px;
+    }
+    
+    .email-contact-btn .copy-btn {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
     }
 }

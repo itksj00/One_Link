@@ -9,6 +9,10 @@
 
 const translations = {
     ko: {
+        'contact-me': '연락하기',
+        'copy': '복사',
+        'copied': '복사됨!',
+        
         'intro-name': 'Seongjun Kim(Kurt)',
         'intro-title': 'IT 시스템 엔지니어',
         'intro-tagline': 'Linux lover | 시스템 아키텍처 설계 | 클라우드 인프라 전문가',
@@ -42,6 +46,10 @@ const translations = {
         'photography': '사진'
     },
     en: {
+        'contact-me': 'Contact Me',
+        'copy': 'Copy',
+        'copied': 'Copied!',
+        
         'intro-name': 'Seongjun Kim(Kurt)',
         'intro-title': 'IT System Engineer',
         'intro-tagline': 'Linux lover | System Architecture Design | Cloud Infrastructure Expert',
@@ -75,6 +83,10 @@ const translations = {
         'photography': 'Photography'
     },
     de: {
+        'contact-me': 'Kontaktiere mich',
+        'copy': 'Kopieren',
+        'copied': 'Kopiert!',
+        
         'intro-name': 'Seongjun Kim(Kurt)',
         'intro-title': 'IT-Systemingenieur',
         'intro-tagline': 'Linux-Liebhaber | Systemarchitektur-Design | Cloud-Infrastruktur-Experte',

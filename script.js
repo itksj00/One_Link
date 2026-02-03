@@ -10,7 +10,8 @@ function copyEmail(event) {
     navigator.clipboard.writeText(emailText).then(() => {
         const btn = event.target;
         const originalText = btn.textContent;
-        btn.textContent = '복사됨!';
+        const copiedText = translations[currentLang]['copied'] || 'Copied!';
+        btn.textContent = copiedText;
         btn.style.background = '#6b8e23';
         
         setTimeout(() => {
@@ -37,6 +38,16 @@ function translatePage() {
             }
         }
     });
+    
+    // 이메일 버튼이 열려있으면 복사 버튼 텍스트 업데이트
+    const emailBtn = document.getElementById('emailContactBtn');
+    const emailDisplay = emailBtn?.querySelector('.email-display');
+    if (emailDisplay) {
+        const copyBtn = emailDisplay.querySelector('.copy-btn');
+        if (copyBtn) {
+            copyBtn.textContent = translations[lang]['copy'] || 'Copy';
+        }
+    }
 }
 
 function loadLinksFromConfig() {
@@ -167,11 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 이메일 표시
             const emailText = linkConfig.section1.email.replace('mailto:', '');
+            const copyBtnText = translations[currentLang]['copy'] || 'Copy';
             const emailDisplay = document.createElement('div');
             emailDisplay.className = 'email-display';
             emailDisplay.innerHTML = `
                 <span class="email-text">${emailText}</span>
-                <button class="copy-btn" onclick="copyEmail(event)">복사</button>
+                <button class="copy-btn" onclick="copyEmail(event)">${copyBtnText}</button>
             `;
             emailBtn.appendChild(emailDisplay);
             emailExpanded = true;
