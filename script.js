@@ -153,12 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 이메일 컨택 버튼 토글 기능
     const emailBtn = document.getElementById('emailContactBtn');
+    const contactText = emailBtn.querySelector('.contact-text');
     let emailExpanded = false;
 
     emailBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         
         if (!emailExpanded) {
+            // Contact Me 텍스트 숨기기
+            if (contactText) {
+                contactText.style.display = 'none';
+            }
+            
             // 이메일 표시
             const emailText = linkConfig.section1.email.replace('mailto:', '');
             const emailDisplay = document.createElement('div');
@@ -175,6 +181,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (emailDisplay) {
                 emailDisplay.remove();
             }
+            
+            // Contact Me 텍스트 다시 표시
+            if (contactText) {
+                contactText.style.display = 'block';
+            }
             emailExpanded = false;
         }
     });
@@ -185,6 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailDisplay = emailBtn.querySelector('.email-display');
             if (emailDisplay) {
                 emailDisplay.remove();
+            }
+            
+            // Contact Me 텍스트 다시 표시
+            if (contactText) {
+                contactText.style.display = 'block';
             }
             emailExpanded = false;
         }
