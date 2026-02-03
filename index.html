@@ -17,20 +17,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="top-right-wrapper">
-        <button class="custom-btn" id="customBtn">
-            <span>📌</span>
-            <span>버튼</span>
-        </button>
+    <div class="language-selector">
+        <span class="lang-icon">🌐</span>
+        <select id="languageSelect" onchange="translatePage()">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </div>
 
-        <div class="language-selector">
-            <span class="lang-icon">🌐</span>
-            <select id="languageSelect" onchange="translatePage()">
-                <option value="ko">한국어</option>
-                <option value="en">English</option>
-                <option value="de">Deutsch</option>
-            </select>
-        </div>
+    <div class="email-contact-btn" id="emailContactBtn">
+        <span class="contact-icon">✉️</span>
     </div>
 
     <div class="container book-closed" id="bookContainer">

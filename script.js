@@ -3,6 +3,26 @@ let currentLang = 'ko';
 
 // translations 변수는 translations.js에서 관리
 
+function copyEmail(event) {
+    event.stopPropagation();
+    const emailText = linkConfig.section1.email.replace('mailto:', '');
+    
+    navigator.clipboard.writeText(emailText).then(() => {
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.textContent = '복사됨!';
+        btn.style.background = '#6b8e23';
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('복사 실패:', err);
+        alert('이메일 복사에 실패했습니다.');
+    });
+}
+
 function translatePage() {
     const lang = document.getElementById('languageSelect').value;
     currentLang = lang;
@@ -130,6 +150,45 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactEmail && linkConfig.section1.email) {
         contactEmail.textContent = linkConfig.section1.email.replace('mailto:', '');
     }
+
+    // 이메일 컨택 버튼 토글 기능
+    const emailBtn = document.getElementById('emailContactBtn');
+    let emailExpanded = false;
+
+    emailBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        if (!emailExpanded) {
+            // 이메일 표시
+            const emailText = linkConfig.section1.email.replace('mailto:', '');
+            const emailDisplay = document.createElement('div');
+            emailDisplay.className = 'email-display';
+            emailDisplay.innerHTML = `
+                <span class="email-text">${emailText}</span>
+                <button class="copy-btn" onclick="copyEmail(event)">복사</button>
+            `;
+            emailBtn.appendChild(emailDisplay);
+            emailExpanded = true;
+        } else {
+            // 이메일 숨기기
+            const emailDisplay = emailBtn.querySelector('.email-display');
+            if (emailDisplay) {
+                emailDisplay.remove();
+            }
+            emailExpanded = false;
+        }
+    });
+
+    // 외부 클릭 시 이메일 숨기기
+    document.addEventListener('click', (e) => {
+        if (emailExpanded && !emailBtn.contains(e.target)) {
+            const emailDisplay = emailBtn.querySelector('.email-display');
+            if (emailDisplay) {
+                emailDisplay.remove();
+            }
+            emailExpanded = false;
+        }
+    });
     
     // PageFlip 초기화
     const bookElement = document.getElementById('book');

@@ -63,6 +63,76 @@ body::before {
     color: #8b7355;
 }
 
+/* 이메일 컨택 버튼 */
+.email-contact-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(255, 250, 240, 0.95);
+    border-radius: 25px;
+    padding: 0.6rem 1.2rem;
+    box-shadow: 0 2px 15px rgba(74, 63, 53, 0.2);
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    border: 1px solid rgba(160, 130, 100, 0.2);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    max-width: 300px;
+}
+
+.email-contact-btn:hover {
+    background: rgba(255, 250, 240, 1);
+    box-shadow: 0 4px 20px rgba(74, 63, 53, 0.3);
+}
+
+.email-contact-btn .contact-icon {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.email-contact-btn:hover .contact-icon {
+    transform: scale(1.1);
+}
+
+.email-contact-btn .email-display {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: #5a4d42;
+    font-weight: 500;
+}
+
+.email-contact-btn .email-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-contact-btn .copy-btn {
+    background: #a68967;
+    border: none;
+    border-radius: 12px;
+    padding: 0.3rem 0.6rem;
+    color: #fffaf0;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.email-contact-btn .copy-btn:hover {
+    background: #8b7355;
+    transform: scale(1.05);
+}
+
+.email-contact-btn .copy-btn:active {
+    transform: scale(0.95);
+}
+
 .container {
     flex: 1;
     display: flex;
