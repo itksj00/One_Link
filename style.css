@@ -299,11 +299,10 @@ body::before {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0;
-    color: #ffffff;
+    color: #fff8e7;
     text-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.4),
-        0 0 20px rgba(255, 255, 255, 0.3),
-        0 4px 15px rgba(0, 0, 0, 0.5);
+        0 3px 15px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(255, 248, 231, 0.3);
     letter-spacing: 1px;
     font-family: 'Georgia', serif;
 }
@@ -604,19 +603,19 @@ body::before {
     /* 링크 그리드 - 크기 축소 */
     .links-grid {
         grid-template-columns: 1fr;
-        gap: 0.4rem;
+        gap: 0.35rem;
         margin-top: 0.5rem;
     }
     
     .link-card {
-        padding: 0.5rem 0.5rem;
-        gap: 0.2rem;
+        padding: 0.4rem 0.5rem;
+        gap: 0.15rem;
         border-radius: 6px;
     }
     
     .link-card .icon {
         font-size: 1rem;
-        margin-bottom: 0.05rem;
+        margin-bottom: 0;
     }
     
     .link-card .label {
