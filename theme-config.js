@@ -7,15 +7,14 @@
 // ==========================================
 
 const themeConfig = {
-    // 📖 책 표지 스타일
     cover: {
-        titleFontSize: '2.2rem',          // "The Story of" 크기
-        titleColor: '#fffaf0',            // "The Story of" 색상
+        titleFontSize: '2.2rem',
+        titleColor: '#fffaf0',            // The story of 색상
         
-        subtitleFontSize: '1.2rem',       // "Seongjun Kim" 크기
-        subtitleColor: '#f0e6d2',         // "Seongjun Kim" 색상 (밝은 베이지)
+        subtitleFontSize: '2.4rem',       // 이름은 조금 더 크게 (조정 가능)
+        subtitleColor: '#fffaf0',         // ← 여기! The story of와 동일 색상으로 변경
     },
-
+ 
     // 📄 1번 페이지 (인트로)
     intro: {
         nameFontSize: '2.2rem',           // 이름 크기

@@ -698,3 +698,48 @@ body::before {
         padding: 0.25rem 0.5rem;
     }
 }
+
+/* 표지 텍스트 중앙 정렬 + 줄바꿈 방지 개선 */
+.page-cover-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.cover-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;           /* 제목과 이름 사이 간격 */
+    max-width: 90%;         /* 너무 길어지지 않게 제한 */
+    white-space: nowrap;    /* 강제 줄바꿈 방지 (필요 시 주석 해제) */
+}
+
+.cover-title,
+.cover-subtitle {
+    margin: 0;
+    line-height: 1.1;
+    white-space: normal;    /* nowrap이 너무 강하면 normal로 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* 언어별로 너무 길어질 경우 대비 폰트 크기 자동 조정 (옵션) */
+@media (max-width: 480px) {
+    .cover-title {
+        font-size: clamp(1.6rem, 5vw, 2.2rem) !important;
+    }
+    .cover-subtitle {
+        font-size: clamp(1.8rem, 6vw, 2.8rem) !important;
+    }
+}
+
+/* 이름 색상 → The story of 색상과 동일하게 */
+.cover-subtitle {
+    color: var(--text-light, #fffaf0) !important;  /* theme-config의 titleColor와 동일하게 */
+}
