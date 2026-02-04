@@ -249,6 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 드래그 감지 변수
     let isDragging = false;
     let dragStartPage = 0;
+    
+    // 모바일 탭 감지 변수
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+    const TAP_THRESHOLD = 10; // 픽셀
+    const TAP_TIME_THRESHOLD = 300; // 밀리초
 
     // 이벤트 리스너
     pageFlip.on('flip', (e) => {
@@ -293,6 +300,45 @@ document.addEventListener('DOMContentLoaded', () => {
     bookElement.addEventListener('mouseup', (e) => {
         isDragging = false;
     });
+    
+    // 모바일 터치 이벤트 - 탭으로 페이지 넘기기
+    bookElement.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+    }, { passive: true });
+    
+    bookElement.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const touchEndTime = Date.now();
+        
+        const deltaX = Math.abs(touchEndX - touchStartX);
+        const deltaY = Math.abs(touchEndY - touchStartY);
+        const deltaTime = touchEndTime - touchStartTime;
+        
+        // 탭 감지: 짧은 시간, 작은 이동
+        const isTap = deltaX < TAP_THRESHOLD && deltaY < TAP_THRESHOLD && deltaTime < TAP_TIME_THRESHOLD;
+        
+        if (isTap) {
+            // 링크 카드를 탭한 경우는 제외
+            const target = document.elementFromPoint(touchEndX, touchEndY);
+            const isLinkCard = target?.closest('.link-card');
+            const isButton = target?.closest('button, .email-contact-btn, .language-selector');
+            
+            if (!isLinkCard && !isButton) {
+                // 화면 중앙 기준으로 왼쪽/오른쪽 구분
+                const screenWidth = window.innerWidth;
+                if (touchEndX < screenWidth / 2) {
+                    // 왼쪽 탭: 이전 페이지
+                    pageFlip.flipPrev();
+                } else {
+                    // 오른쪽 탭: 다음 페이지
+                    pageFlip.flipNext();
+                }
+            }
+        }
+    }, { passive: true });
 
     // 초기 상태 업데이트
     setTimeout(() => {

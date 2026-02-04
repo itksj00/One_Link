@@ -9,7 +9,7 @@
 
 const translations = {
     ko: {
-        'cover-title': '이야기',
+        'cover-title': 'The story of',
         'cover-subtitle': '김성준',
         
         'contact-me': '연락하기',
