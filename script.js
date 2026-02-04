@@ -189,6 +189,21 @@
             contactEmail.textContent = linkConfig.section1.email.replace('mailto:', '');
         }
 
+	const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (pageFlip) pageFlip.flipPrev();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (pageFlip) pageFlip.flipNext();
+            });
+        }
+
         const langSelect = document.getElementById('languageSelect');
         if (langSelect) {
             currentLang = langSelect.value;

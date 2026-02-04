@@ -8,7 +8,7 @@
 
 const themeConfig = {
     cover: {
-        titleFontSize: '1.9rem',          // ← 여기! 2.2rem → 1.9rem으로 줄임 (독일어 기준 한 줄 확보)
+        titleFontSize: '1.75rem',          // ← 여기! 2.2rem → 1.9rem으로 줄임 (독일어 기준 한 줄 확보)
         titleColor: '#fffaf0',
         
         subtitleFontSize: '2.4rem',       // 이름은 그대로 크게 유지 (또는 2.2rem으로 맞춰도 OK)
