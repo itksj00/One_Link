@@ -299,10 +299,11 @@ body::before {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0;
-    color: #ffeaa7;
+    color: #ffffff;
     text-shadow: 
         0 2px 8px rgba(0, 0, 0, 0.4),
-        0 0 20px rgba(255, 234, 167, 0.3);
+        0 0 20px rgba(255, 255, 255, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.5);
     letter-spacing: 1px;
     font-family: 'Georgia', serif;
 }
@@ -544,11 +545,11 @@ body::before {
     }
 
     .container.book-closed #book {
-        transform: translateX(0) scale(0.95) translateZ(0);
+        transform: translateX(0) scale(1) translateZ(0);
     }
 
     .container.book-opened #book {
-        transform: translateX(25px) scale(1) translateZ(0);
+        transform: translateX(0) scale(1) translateZ(0);
     }
 
     .page-content {

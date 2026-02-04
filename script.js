@@ -161,6 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactEmail && linkConfig.section1.email) {
         contactEmail.textContent = linkConfig.section1.email.replace('mailto:', '');
     }
+    
+    // 초기 언어 설정 및 번역 적용
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) {
+        currentLang = languageSelect.value;
+        translatePage(); // 초기 로드 시 번역 적용
+    }
 
     // 이메일 컨택 버튼 토글 기능
     const emailBtn = document.getElementById('emailContactBtn');
