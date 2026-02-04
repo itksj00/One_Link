@@ -8,11 +8,11 @@
 
 const themeConfig = {
     cover: {
-        titleFontSize: '2.2rem',
-        titleColor: '#fffaf0',            // The story of 색상
+        titleFontSize: '1.9rem',          // ← 여기! 2.2rem → 1.9rem으로 줄임 (독일어 기준 한 줄 확보)
+        titleColor: '#fffaf0',
         
-        subtitleFontSize: '2.4rem',       // 이름은 조금 더 크게 (조정 가능)
-        subtitleColor: '#fffaf0',         // ← 여기! The story of와 동일 색상으로 변경
+        subtitleFontSize: '2.4rem',       // 이름은 그대로 크게 유지 (또는 2.2rem으로 맞춰도 OK)
+        subtitleColor: '#fffaf0',         // story of와 동일 색상
     },
  
     // 📄 1번 페이지 (인트로)
