@@ -1,3 +1,20 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #4a3f35 0%, #6b5d52 50%, #5a4d42 100%);
+    --page-bg: linear-gradient(135deg, #fffef9 0%, #faf8f0 50%, #f5f3e8 100%);
+    --accent: #a68967;
+    --text-dark: #5a4d42;
+    --text-light: #fffaf0;
+}
+
+body {
+    background: var(--bg-gradient);
+    /* 기존 radial-gradient는 제거하거나 1개만 남겨도 됨 */
+}
+
+#book {
+    will-change: transform;
+    backface-visibility: hidden;
+}
 * {
     margin: 0;
     padding: 0;
